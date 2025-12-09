@@ -28,12 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            pnlGraph = new Panel();
+            btnReset = new Button();
+            btnLoadCSV = new Button();
+            btnArrange = new Button();
+            SuspendLayout();
+            // 
+            // pnlGraph
+            // 
+            pnlGraph.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlGraph.BorderStyle = BorderStyle.FixedSingle;
+            pnlGraph.Location = new Point(215, 60);
+            pnlGraph.Name = "pnlGraph";
+            pnlGraph.Size = new Size(395, 331);
+            pnlGraph.TabIndex = 0;
+            pnlGraph.Paint += pnlGraph_Paint;
+            pnlGraph.MouseClick += pnlGraph_MouseClick;
+            pnlGraph.Resize += pnlGraph_Resize;
+            // 
+            // btnReset
+            // 
+            btnReset.Anchor = AnchorStyles.Left;
+            btnReset.BackColor = SystemColors.ButtonFace;
+            btnReset.Location = new Point(108, 214);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(86, 33);
+            btnReset.TabIndex = 1;
+            btnReset.Text = "Reset";
+            btnReset.UseVisualStyleBackColor = false;
+            btnReset.Click += button1_Click;
+            // 
+            // btnLoadCSV
+            // 
+            btnLoadCSV.Anchor = AnchorStyles.Right;
+            btnLoadCSV.BackColor = SystemColors.ButtonFace;
+            btnLoadCSV.Location = new Point(632, 250);
+            btnLoadCSV.Name = "btnLoadCSV";
+            btnLoadCSV.Size = new Size(88, 33);
+            btnLoadCSV.TabIndex = 2;
+            btnLoadCSV.Text = "Dosya Yükle";
+            btnLoadCSV.UseVisualStyleBackColor = false;
+            btnLoadCSV.Click += btnLoadCSV_Click;
+            // 
+            // btnArrange
+            // 
+            btnArrange.Anchor = AnchorStyles.Right;
+            btnArrange.BackColor = SystemColors.ButtonFace;
+            btnArrange.Location = new Point(632, 201);
+            btnArrange.Name = "btnArrange";
+            btnArrange.Size = new Size(88, 33);
+            btnArrange.TabIndex = 3;
+            btnArrange.Text = "Düzenle";
+            btnArrange.UseVisualStyleBackColor = false;
+            btnArrange.Click += btnArrange_Click;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(828, 450);
+            Controls.Add(btnArrange);
+            Controls.Add(btnLoadCSV);
+            Controls.Add(btnReset);
+            Controls.Add(pnlGraph);
+            Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
+            MouseClick += Form1_MouseClick;
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Panel pnlGraph;
+        private Button btnReset;
+        private Button btnLoadCSV;
+        private Button btnArrange;
     }
 }
