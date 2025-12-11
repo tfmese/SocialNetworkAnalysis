@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace ProjectYazLab
 {
@@ -14,6 +15,11 @@ namespace ProjectYazLab
         public double Activity { get; set; }
         public double Interaction { get; set; }
         public double ConnectionCount { get; set; } // bağlantı sayısı
+        public bool Visited { get; set; } = false;
+
+        // Düğümün o anki rengi (Varsayılan: Mavi yapıyoruz)
+        // Algoritma çalışırken bunu Kırmızı veya Yeşil yaparak boyayacağız.
+        public Color CurrentColor { get; set; } = Color.Blue;
 
         // Constructor 
         public Node(int id, string name, float x, float y)

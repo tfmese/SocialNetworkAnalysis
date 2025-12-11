@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Threading.Tasks;
 namespace ProjectYazLab
 {
     public partial class Form1 : Form
@@ -42,7 +42,7 @@ namespace ProjectYazLab
         private void pnlGraph_Paint(object sender, PaintEventArgs e)
         {
             Pen edgePen = new Pen(Color.Gray, 2);
-            Brush nodeBrush = Brushes.DeepSkyBlue;
+
             Brush selectedBrush = Brushes.OrangeRed; // Seçili olan farklý renk olsun
             Pen nodeBorder = new Pen(Color.Black, 2);
             Font font = new Font("Arial", 10);
@@ -70,17 +70,16 @@ namespace ProjectYazLab
                 float drawX = node.X - radius;
                 float drawY = node.Y - radius;
                 float diameter = radius * 2;
-
-                // Eðer bu düðüm "Seçili" ise Rengini Kýrmýzý yap, deðilse Mavi
+                Brush currentBrush;
                 if (node == selectedNode)
                 {
-                    g.FillEllipse(selectedBrush, drawX, drawY, diameter, diameter);
+                    currentBrush = selectedBrush;
                 }
                 else
                 {
-                    g.FillEllipse(nodeBrush, drawX, drawY, diameter, diameter);
+                    currentBrush = new SolidBrush(node.CurrentColor);
                 }
-
+                g.FillEllipse(currentBrush, drawX, drawY, diameter, diameter);
                 g.DrawEllipse(nodeBorder, drawX, drawY, diameter, diameter);
 
                 // ID'yi ortalamak için basit bir ayar
