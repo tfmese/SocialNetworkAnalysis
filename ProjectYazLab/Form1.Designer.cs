@@ -32,6 +32,8 @@
             btnReset = new Button();
             btnLoadCSV = new Button();
             btnArrange = new Button();
+            btnRunBFS = new Button();
+            btnRunDFS = new Button();
             SuspendLayout();
             // 
             // pnlGraph
@@ -50,7 +52,7 @@
             // 
             btnReset.Anchor = AnchorStyles.Left;
             btnReset.BackColor = SystemColors.ButtonFace;
-            btnReset.Location = new Point(108, 214);
+            btnReset.Location = new Point(111, 188);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(86, 33);
             btnReset.TabIndex = 1;
@@ -62,7 +64,7 @@
             // 
             btnLoadCSV.Anchor = AnchorStyles.Right;
             btnLoadCSV.BackColor = SystemColors.ButtonFace;
-            btnLoadCSV.Location = new Point(632, 250);
+            btnLoadCSV.Location = new Point(632, 227);
             btnLoadCSV.Name = "btnLoadCSV";
             btnLoadCSV.Size = new Size(88, 33);
             btnLoadCSV.TabIndex = 2;
@@ -74,7 +76,7 @@
             // 
             btnArrange.Anchor = AnchorStyles.Right;
             btnArrange.BackColor = SystemColors.ButtonFace;
-            btnArrange.Location = new Point(632, 201);
+            btnArrange.Location = new Point(632, 188);
             btnArrange.Name = "btnArrange";
             btnArrange.Size = new Size(88, 33);
             btnArrange.TabIndex = 3;
@@ -82,11 +84,37 @@
             btnArrange.UseVisualStyleBackColor = false;
             btnArrange.Click += btnArrange_Click;
             // 
+            // btnRunBFS
+            // 
+            btnRunBFS.Anchor = AnchorStyles.Right;
+            btnRunBFS.BackColor = SystemColors.ButtonFace;
+            btnRunBFS.Location = new Point(632, 149);
+            btnRunBFS.Name = "btnRunBFS";
+            btnRunBFS.Size = new Size(88, 33);
+            btnRunBFS.TabIndex = 4;
+            btnRunBFS.Text = "BFS Başlat";
+            btnRunBFS.UseVisualStyleBackColor = false;
+            btnRunBFS.Click += btnRunBFS_Click;
+            // 
+            // btnRunDFS
+            // 
+            btnRunDFS.Anchor = AnchorStyles.Right;
+            btnRunDFS.BackColor = SystemColors.ButtonFace;
+            btnRunDFS.Location = new Point(632, 110);
+            btnRunDFS.Name = "btnRunDFS";
+            btnRunDFS.Size = new Size(88, 33);
+            btnRunDFS.TabIndex = 5;
+            btnRunDFS.Text = "DFS Başlat";
+            btnRunDFS.UseVisualStyleBackColor = false;
+            btnRunDFS.Click += btnRunDFS_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(828, 450);
+            Controls.Add(btnRunDFS);
+            Controls.Add(btnRunBFS);
             Controls.Add(btnArrange);
             Controls.Add(btnLoadCSV);
             Controls.Add(btnReset);
@@ -104,5 +132,7 @@
         private Button btnReset;
         private Button btnLoadCSV;
         private Button btnArrange;
+        private Button btnRunBFS;
+        private Button btnRunDFS;
     }
 }

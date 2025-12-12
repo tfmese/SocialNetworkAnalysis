@@ -261,5 +261,38 @@ namespace ProjectYazLab
 
             pnlGraph.Invalidate();
         }
+
+        private async void btnRunBFS_Click(object sender, EventArgs e)
+        {
+            if (selectedNode == null)
+            {
+                MessageBox.Show("Lütfen BFS'nin baþlayacaðý düðümü seçin, ardýndan BFS'i baþlatýn.");
+                return;
+            }
+
+
+            Algorithms algo = new Algorithms();
+
+            btnRunBFS.Enabled = false;
+
+            await algo.RunBFS(socialGraph, selectedNode, pnlGraph);
+
+            btnRunBFS.Enabled = true;
+        }
+
+        private async void btnRunDFS_Click(object sender, EventArgs e)
+        {
+            if (selectedNode == null)
+            {
+                MessageBox.Show("Lütfen DFS'nin baþlayacaðý düðümü seçin, ardýndan DFS'i baþlatýn.");
+                return;
+            }
+
+            Algorithms algo = new Algorithms();
+            btnRunDFS.Enabled = false;
+           await algo.RunDFS(socialGraph, selectedNode, pnlGraph);
+            btnRunDFS.Enabled = true;
+
+        }
     }
 }
