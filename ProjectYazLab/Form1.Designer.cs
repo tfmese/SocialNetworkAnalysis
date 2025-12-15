@@ -34,6 +34,7 @@
             btnArrange = new Button();
             btnRunBFS = new Button();
             btnRunDFS = new Button();
+            btn_Dijkstra = new Button();
             SuspendLayout();
             // 
             // pnlGraph
@@ -64,7 +65,7 @@
             // 
             btnLoadCSV.Anchor = AnchorStyles.Right;
             btnLoadCSV.BackColor = SystemColors.ButtonFace;
-            btnLoadCSV.Location = new Point(632, 227);
+            btnLoadCSV.Location = new Point(629, 278);
             btnLoadCSV.Name = "btnLoadCSV";
             btnLoadCSV.Size = new Size(88, 33);
             btnLoadCSV.TabIndex = 2;
@@ -76,7 +77,7 @@
             // 
             btnArrange.Anchor = AnchorStyles.Right;
             btnArrange.BackColor = SystemColors.ButtonFace;
-            btnArrange.Location = new Point(632, 188);
+            btnArrange.Location = new Point(629, 239);
             btnArrange.Name = "btnArrange";
             btnArrange.Size = new Size(88, 33);
             btnArrange.TabIndex = 3;
@@ -88,7 +89,7 @@
             // 
             btnRunBFS.Anchor = AnchorStyles.Right;
             btnRunBFS.BackColor = SystemColors.ButtonFace;
-            btnRunBFS.Location = new Point(632, 149);
+            btnRunBFS.Location = new Point(629, 200);
             btnRunBFS.Name = "btnRunBFS";
             btnRunBFS.Size = new Size(88, 33);
             btnRunBFS.TabIndex = 4;
@@ -100,7 +101,7 @@
             // 
             btnRunDFS.Anchor = AnchorStyles.Right;
             btnRunDFS.BackColor = SystemColors.ButtonFace;
-            btnRunDFS.Location = new Point(632, 110);
+            btnRunDFS.Location = new Point(629, 161);
             btnRunDFS.Name = "btnRunDFS";
             btnRunDFS.Size = new Size(88, 33);
             btnRunDFS.TabIndex = 5;
@@ -108,11 +109,24 @@
             btnRunDFS.UseVisualStyleBackColor = false;
             btnRunDFS.Click += btnRunDFS_Click;
             // 
+            // btn_Dijkstra
+            // 
+            btn_Dijkstra.Anchor = AnchorStyles.Right;
+            btn_Dijkstra.BackColor = SystemColors.ButtonFace;
+            btn_Dijkstra.Location = new Point(629, 122);
+            btn_Dijkstra.Name = "btn_Dijkstra";
+            btn_Dijkstra.Size = new Size(88, 33);
+            btn_Dijkstra.TabIndex = 6;
+            btn_Dijkstra.Text = "En Kısa Yol";
+            btn_Dijkstra.UseVisualStyleBackColor = false;
+            btn_Dijkstra.Click += btn_Dijkstra_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(828, 450);
+            Controls.Add(btn_Dijkstra);
             Controls.Add(btnRunDFS);
             Controls.Add(btnRunBFS);
             Controls.Add(btnArrange);
@@ -134,5 +148,6 @@
         private Button btnArrange;
         private Button btnRunBFS;
         private Button btnRunDFS;
+        private Button btn_Dijkstra;
     }
 }
