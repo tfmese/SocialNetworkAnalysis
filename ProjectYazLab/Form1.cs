@@ -162,12 +162,12 @@ namespace ProjectYazLab
                 {
                     if (e.Button == MouseButtons.Left)
                     {
-                        
+
                         if (selectedNode != null || startNode != null || endNode != null)
                         {
-                            startNode = null;  
-                            endNode = null;    
-                            selectedNode = null; 
+                            startNode = null;
+                            endNode = null;
+                            selectedNode = null;
 
                             foreach (var node in socialGraph.Nodes)
                             {
@@ -239,40 +239,50 @@ namespace ProjectYazLab
                     return node; //bu düðüme týkanldý
                 }
             }
-            return null; 
+            return null;
         }
 
 
         private void btnLoadCSV_Click(object sender, EventArgs e)
         {
-            FileManager fileManager = new FileManager();
+            // dosya seçme penceresi açq
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Dosyalarý|*.csv|Tüm Dosyalar|*.*";
+            openFileDialog.Title = "Yüklenecek Graph Dosyasýný Seçin";
 
-            string path = "users.csv";
 
-            // Oku ve gradiðe koy
-            Graph loadedGraph = fileManager.LoadGraphFromCSV(path, pnlGraph.Width, pnlGraph.Height);
-
-            if (loadedGraph != null)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                socialGraph = loadedGraph;
+                string selectedPath = openFileDialog.FileName; 
 
-                
-                if (socialGraph.Nodes.Count > 0)
+                FileManager fileManager = new FileManager();
+
+                // gelen yolu kullanarak grafý yüklüyoruz
+                Graph loadedGraph = fileManager.LoadGraphFromCSV(selectedPath, pnlGraph.Width, pnlGraph.Height);
+
+                if (loadedGraph != null)
                 {
-                    // Listeyi ID ye göre sýrala, sonuncuyu al
-                    int maxId = 0;
-                    foreach (var node in socialGraph.Nodes)
+                    // yüklenen graph=ana graph
+                    socialGraph = loadedGraph;
+
+                    // ID sayacýný güncelle 
+                    if (socialGraph.Nodes.Count > 0)
                     {
-                        if (node.Id > maxId) maxId = node.Id;
+                        int maxId = 0;
+                        foreach (var node in socialGraph.Nodes)
+                        {
+                            if (node.Id > maxId) maxId = node.Id;
+                        }
+                        nodeIdCounter = maxId + 1;
                     }
-                    nodeIdCounter = maxId + 1;
-                }
-                else
-                {
-                    nodeIdCounter = 1;
-                }
+                    else
+                    {
+                        nodeIdCounter = 1;
+                    }
 
-                pnlGraph.Invalidate();
+                    pnlGraph.Invalidate();
+                    MessageBox.Show("Dosya baþarýyla yüklendi: " + System.IO.Path.GetFileName(selectedPath));
+                }
             }
         }
 
@@ -453,9 +463,34 @@ namespace ProjectYazLab
             socialGraph.Nodes.Remove(selectedNode);
 
             selectedNode = null;
-            ShowNodeInfo(); 
-            pnlGraph.Invalidate(); 
+            ShowNodeInfo();
+            pnlGraph.Invalidate();
 
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV Dosyasý|*.csv|Metin Dosyasý (Matris)|*.txt";
+            saveFileDialog.Title = "Grafý Kaydet";
+            saveFileDialog.FileName = "users_export.csv"; // varsayýlan isim
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileManager fm = new FileManager();
+
+                if (saveFileDialog.FileName.EndsWith(".csv"))
+                {
+                    bool basari = fm.SaveGraphToCSV(socialGraph, saveFileDialog.FileName);
+                    if (basari) MessageBox.Show("CSV dosyasý baþarýyla kaydedildi!");
+                }
+                else
+                {
+                    // Ýster madde 31: Komþuluk matrisi formatýnda kaydet
+                    fm.SaveAdjacencyMatrix(socialGraph, saveFileDialog.FileName);
+                    MessageBox.Show("Matris baþarýyla kaydedildi!");
+                }
+            }
         }
     }
 }

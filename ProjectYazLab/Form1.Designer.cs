@@ -36,6 +36,7 @@
             btnRunDFS = new Button();
             btn_Dijkstra = new Button();
             pnlMenu = new Panel();
+            btn_Save = new Button();
             label_Duration = new Label();
             pnlGroup = new Panel();
             txt_Activity = new TextBox();
@@ -143,6 +144,7 @@
             // 
             pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlMenu.BackColor = Color.FromArgb(64, 64, 64);
+            pnlMenu.Controls.Add(btn_Save);
             pnlMenu.Controls.Add(label_Duration);
             pnlMenu.Controls.Add(pnlGroup);
             pnlMenu.Controls.Add(labelGroup);
@@ -157,13 +159,25 @@
             pnlMenu.Size = new Size(436, 489);
             pnlMenu.TabIndex = 11;
             // 
+            // btn_Save
+            // 
+            btn_Save.BackColor = SystemColors.ButtonFace;
+            btn_Save.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Save.Location = new Point(60, 397);
+            btn_Save.Name = "btn_Save";
+            btn_Save.Size = new Size(88, 33);
+            btn_Save.TabIndex = 15;
+            btn_Save.Text = "Dışa Aktar";
+            btn_Save.UseVisualStyleBackColor = false;
+            btn_Save.Click += btn_Save_Click;
+            // 
             // label_Duration
             // 
             label_Duration.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label_Duration.AutoSize = true;
             label_Duration.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label_Duration.ForeColor = SystemColors.Control;
-            label_Duration.Location = new Point(60, 396);
+            label_Duration.Location = new Point(60, 442);
             label_Duration.Name = "label_Duration";
             label_Duration.Size = new Size(96, 25);
             label_Duration.TabIndex = 14;
@@ -354,5 +368,6 @@
         private TextBox txt_Name;
         private TextBox txt_ID;
         private Label label_Duration;
+        private Button btn_Save;
     }
 }
