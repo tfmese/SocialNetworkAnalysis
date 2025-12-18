@@ -10,11 +10,16 @@ namespace ProjectYazLab
         public Node Target { get; set; } 
         public double Weight { get; set; } // formülden gelecek
 
+        public Color Color { get; set; } = Color.Black;
+        public int Thickness { get; set; } = 2;
+
         public Edge(Node source, Node target)
         {
             Source = source;
             Target = target;
-            Weight = CalculateWeight(); 
+            Weight = CalculateWeight();
+            Color = Color.Black;
+            Thickness = 2;
         }
 
         public double CalculateWeight()

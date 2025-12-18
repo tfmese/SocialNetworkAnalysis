@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks; 
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ProjectYazLab
 {
@@ -11,32 +12,57 @@ namespace ProjectYazLab
     {
         // BFS algoritması ile başlangıç düğümünden itibaren en yakın komşuları ziyaret ederek tarama yapar. FIFO prensibine göre çalışır. Amaç yakınları önce halletmek olduğundan önce tüm komşular sıraya atanır,
         //ardından 1. bağlanan komşudan başlayarak 2 ve 3 diye devam eder. DFS algoritmasının aksine halka halka devam eder yani 1. dereceden bağlılar dolaşılmadan 2. dereceye geçilmez.
-        public async Task RunBFS(Graph graph, Node startNode, Panel drawingPanel)
+        public async Task RunBFS(Graph graph, Node startNode, Panel drawingPanel, Label timeLabel)
         {
-
+            
             ResetGraph(graph);
-            // kuyrruk oluştur
-            Queue<Node> queue = new Queue<Node>();
+            Queue<Node> queueMeasure = new Queue<Node>();
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 
+           
             startNode.Visited = true;
-            queue.Enqueue(startNode);
+            queueMeasure.Enqueue(startNode);
 
-
-
-            while (queue.Count > 0)
+            while (queueMeasure.Count > 0)
             {
-                Node current = queue.Dequeue();
+                Node current = queueMeasure.Dequeue();
+                List<Node> neighbors = GetNeighbors(graph, current);
 
-                // işlendiğini görebilmemiz için rengi değiştir
+                foreach (Node neighbor in neighbors)
+                {
+                    if (!neighbor.Visited)
+                    {
+                        neighbor.Visited = true;
+                        queueMeasure.Enqueue(neighbor);
+                    }
+                }
+            }
+
+           
+            sw.Stop();
+            timeLabel.Text = ($"BFS Süresi: {sw.Elapsed.TotalMilliseconds} ms ({sw.ElapsedTicks} Ticks)");
+
+
+            //duration ölçümü bittikten sonra görselleştirme için tekrar sıfırlıyoruz görsel için.
+            ResetGraph(graph);
+
+            Queue<Node> queueVisual = new Queue<Node>();
+
+          
+            startNode.Visited = true;
+            startNode.CurrentColor = Color.Orange; 
+            queueVisual.Enqueue(startNode);
+            drawingPanel.Invalidate();
+
+            while (queueVisual.Count > 0)
+            {
+                Node current = queueVisual.Dequeue();
                 current.CurrentColor = Color.LightGreen;
-
-                // boynadığı görülsün diye paneli yenile
                 drawingPanel.Invalidate();
 
-
-                await Task.Delay(1500);
-
+                await Task.Delay(500);
 
                 List<Node> neighbors = GetNeighbors(graph, current);
 
@@ -45,9 +71,12 @@ namespace ProjectYazLab
                     if (!neighbor.Visited)
                     {
                         neighbor.Visited = true;
-                        neighbor.CurrentColor = Color.Yellow; // Sırada bekleyenleri Sarı yapalım
-                        queue.Enqueue(neighbor);
+
+                        neighbor.CurrentColor = Color.Orange;
+                        queueVisual.Enqueue(neighbor);
+
                         drawingPanel.Invalidate();
+                        await Task.Delay(200); 
                     }
                 }
             }
@@ -89,15 +118,18 @@ namespace ProjectYazLab
         //LIFO prensibine göre çalışır yani son eklenen ilk çıkar mantığıyla çalışır. Yani dfs taraması yapmak istediğimiz düğümün 3 komşusu olsun, bu komşulardan 3. olarak bağlanana ilk gider. Bu 3. komşunun da komşuları varsa onlar için de aynı olay devam eder
         //ta ki olmayana kadar. Bu yüzden DFS algoritmasında stack(yığın) kullanırız.
 
-        public async Task RunDFS(Graph graph, Node startNode, Panel drawingPanel)
+        public async Task RunDFS(Graph graph, Node startNode, Panel drawingPanel, Label timeLabel)
         {
             ResetGraph(graph);
+           List<Node> visitOrder = new List<Node>();
 
             // stack oluştur
             Stack<Node> stack = new Stack<Node>();
 
 
             stack.Push(startNode);
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             while (stack.Count > 0)
             {
@@ -107,31 +139,46 @@ namespace ProjectYazLab
                 // eğer daha önce ziyaret etmediysek
                 if (!current.Visited)
                 {
+                    
                     current.Visited = true;
-                    current.CurrentColor = Color.Orange;
-                    drawingPanel.Invalidate();
-                    await Task.Delay(1500);
-                }
+                    visitOrder.Add(current);
+                    // bu bloğu içeri ekleyince bu düğüme ilk defa geliyorsam komşularımı sıraya ekle, daha önce geldiysem zaten komşularla işim bitmiştir tekrar bakma anlamına geliyor.
+                    // Dışarıdayken yaklaşık %40-50 civarı daha yavaş çalışıyor. Çünkü her seferinde komşuları alıp stack e ekliyor ziyaret edilmiş olsa bile.
+                    List<Node> neighbors = GetNeighbors(graph, current);
 
-                List<Node> neighbors = GetNeighbors(graph, current);
-
-                foreach (Node neighbor in neighbors)
-                {
-                    if (!neighbor.Visited)
+                    foreach (Node neighbor in neighbors)
                     {
-                        stack.Push(neighbor);
+                        if (!neighbor.Visited)
+                        {
+                            stack.Push(neighbor);
+                        }
                     }
                 }
+
+                
             }
+
+            stopwatch.Stop();
+            timeLabel.Text = ($"DFS Süresi: {stopwatch.Elapsed.TotalMilliseconds} ms ({stopwatch.ElapsedTicks} Ticks)");
+            foreach (var node in visitOrder)
+            {
+                node.CurrentColor = Color.Orange; 
+                drawingPanel.Invalidate();        
+                await Task.Delay(500);
+            }
+
             MessageBox.Show("DFS Taraması Tamamlandı!");
         }
         
         //Dijkstra algoritamasıyla düğümler arası en kısa yol bulunur. Başlangıç düğümünden hedef düğüme giden yolda tüm düğümleri dolaşır,
         //maliyetlerini hesaplar ve bunlardan en düşük maliyetli yolu seçer.
 
-        public async Task RunDijkstra(Graph graph, Node startNode, Node endNode, Panel drawingPanel)
+        public async Task RunDijkstra(Graph graph, Node startNode, Node endNode, Panel drawingPanel, Label timeLabel)
         {
             ResetGraph(graph); 
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             var distances = new Dictionary<Node, double>();
             var previousNodes = new Dictionary<Node, Node>();
@@ -186,8 +233,10 @@ namespace ProjectYazLab
                     }
                 }
             }
+            stopwatch.Stop();
+            timeLabel.Text = ($"Dijkstra Süresi: {stopwatch.Elapsed.TotalMilliseconds} ms ({stopwatch.ElapsedTicks} Ticks)");
 
-            
+
             // diğer taramaları yaptıktan sonra dijsktra başlatınca nullexception hatası alınyor çünkü previousNodes içinde endNode yoktu. Bunun için kontrol kodu .
             if (!previousNodes.ContainsKey(endNode))
             {

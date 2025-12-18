@@ -35,15 +35,33 @@
             btnRunBFS = new Button();
             btnRunDFS = new Button();
             btn_Dijkstra = new Button();
+            pnlMenu = new Panel();
+            label_Duration = new Label();
+            pnlGroup = new Panel();
+            txt_Activity = new TextBox();
+            txt_Interaction = new TextBox();
+            txt_Name = new TextBox();
+            txt_ID = new TextBox();
+            label_activity = new Label();
+            label_interaction = new Label();
+            label_name = new Label();
+            label_ID = new Label();
+            btn_Update = new Button();
+            btn_Delete = new Button();
+            labelGroup = new Label();
+            label5 = new Label();
+            pnlMenu.SuspendLayout();
+            pnlGroup.SuspendLayout();
             SuspendLayout();
             // 
             // pnlGraph
             // 
             pnlGraph.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlGraph.BackColor = SystemColors.ControlDark;
             pnlGraph.BorderStyle = BorderStyle.FixedSingle;
-            pnlGraph.Location = new Point(215, 60);
+            pnlGraph.Location = new Point(29, 78);
             pnlGraph.Name = "pnlGraph";
-            pnlGraph.Size = new Size(395, 331);
+            pnlGraph.Size = new Size(379, 343);
             pnlGraph.TabIndex = 0;
             pnlGraph.Paint += pnlGraph_Paint;
             pnlGraph.MouseClick += pnlGraph_MouseClick;
@@ -51,21 +69,21 @@
             // 
             // btnReset
             // 
-            btnReset.Anchor = AnchorStyles.Left;
             btnReset.BackColor = SystemColors.ButtonFace;
-            btnReset.Location = new Point(111, 188);
+            btnReset.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnReset.Location = new Point(170, 295);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(86, 33);
             btnReset.TabIndex = 1;
             btnReset.Text = "Reset";
             btnReset.UseVisualStyleBackColor = false;
-            btnReset.Click += button1_Click;
+            btnReset.Click += btn_Reset_Click;
             // 
             // btnLoadCSV
             // 
-            btnLoadCSV.Anchor = AnchorStyles.Right;
             btnLoadCSV.BackColor = SystemColors.ButtonFace;
-            btnLoadCSV.Location = new Point(629, 278);
+            btnLoadCSV.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnLoadCSV.Location = new Point(277, 295);
             btnLoadCSV.Name = "btnLoadCSV";
             btnLoadCSV.Size = new Size(88, 33);
             btnLoadCSV.TabIndex = 2;
@@ -75,9 +93,9 @@
             // 
             // btnArrange
             // 
-            btnArrange.Anchor = AnchorStyles.Right;
             btnArrange.BackColor = SystemColors.ButtonFace;
-            btnArrange.Location = new Point(629, 239);
+            btnArrange.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnArrange.Location = new Point(60, 295);
             btnArrange.Name = "btnArrange";
             btnArrange.Size = new Size(88, 33);
             btnArrange.TabIndex = 3;
@@ -87,9 +105,9 @@
             // 
             // btnRunBFS
             // 
-            btnRunBFS.Anchor = AnchorStyles.Right;
             btnRunBFS.BackColor = SystemColors.ButtonFace;
-            btnRunBFS.Location = new Point(629, 200);
+            btnRunBFS.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnRunBFS.Location = new Point(60, 344);
             btnRunBFS.Name = "btnRunBFS";
             btnRunBFS.Size = new Size(88, 33);
             btnRunBFS.TabIndex = 4;
@@ -99,9 +117,9 @@
             // 
             // btnRunDFS
             // 
-            btnRunDFS.Anchor = AnchorStyles.Right;
             btnRunDFS.BackColor = SystemColors.ButtonFace;
-            btnRunDFS.Location = new Point(629, 161);
+            btnRunDFS.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnRunDFS.Location = new Point(170, 344);
             btnRunDFS.Name = "btnRunDFS";
             btnRunDFS.Size = new Size(88, 33);
             btnRunDFS.TabIndex = 5;
@@ -111,9 +129,9 @@
             // 
             // btn_Dijkstra
             // 
-            btn_Dijkstra.Anchor = AnchorStyles.Right;
             btn_Dijkstra.BackColor = SystemColors.ButtonFace;
-            btn_Dijkstra.Location = new Point(629, 122);
+            btn_Dijkstra.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Dijkstra.Location = new Point(277, 344);
             btn_Dijkstra.Name = "btn_Dijkstra";
             btn_Dijkstra.Size = new Size(88, 33);
             btn_Dijkstra.TabIndex = 6;
@@ -121,23 +139,195 @@
             btn_Dijkstra.UseVisualStyleBackColor = false;
             btn_Dijkstra.Click += btn_Dijkstra_Click;
             // 
+            // pnlMenu
+            // 
+            pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            pnlMenu.BackColor = Color.FromArgb(64, 64, 64);
+            pnlMenu.Controls.Add(label_Duration);
+            pnlMenu.Controls.Add(pnlGroup);
+            pnlMenu.Controls.Add(labelGroup);
+            pnlMenu.Controls.Add(btn_Dijkstra);
+            pnlMenu.Controls.Add(btnRunDFS);
+            pnlMenu.Controls.Add(btnRunBFS);
+            pnlMenu.Controls.Add(btnLoadCSV);
+            pnlMenu.Controls.Add(btnArrange);
+            pnlMenu.Controls.Add(btnReset);
+            pnlMenu.Location = new Point(444, 0);
+            pnlMenu.Name = "pnlMenu";
+            pnlMenu.Size = new Size(436, 489);
+            pnlMenu.TabIndex = 11;
+            // 
+            // label_Duration
+            // 
+            label_Duration.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label_Duration.AutoSize = true;
+            label_Duration.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label_Duration.ForeColor = SystemColors.Control;
+            label_Duration.Location = new Point(60, 396);
+            label_Duration.Name = "label_Duration";
+            label_Duration.Size = new Size(96, 25);
+            label_Duration.TabIndex = 14;
+            label_Duration.Text = "Süre: 0ms";
+            // 
+            // pnlGroup
+            // 
+            pnlGroup.Controls.Add(txt_Activity);
+            pnlGroup.Controls.Add(txt_Interaction);
+            pnlGroup.Controls.Add(txt_Name);
+            pnlGroup.Controls.Add(txt_ID);
+            pnlGroup.Controls.Add(label_activity);
+            pnlGroup.Controls.Add(label_interaction);
+            pnlGroup.Controls.Add(label_name);
+            pnlGroup.Controls.Add(label_ID);
+            pnlGroup.Controls.Add(btn_Update);
+            pnlGroup.Controls.Add(btn_Delete);
+            pnlGroup.Location = new Point(60, 78);
+            pnlGroup.Name = "pnlGroup";
+            pnlGroup.Size = new Size(305, 198);
+            pnlGroup.TabIndex = 13;
+            // 
+            // txt_Activity
+            // 
+            txt_Activity.Location = new Point(110, 110);
+            txt_Activity.Name = "txt_Activity";
+            txt_Activity.Size = new Size(100, 23);
+            txt_Activity.TabIndex = 18;
+            // 
+            // txt_Interaction
+            // 
+            txt_Interaction.Location = new Point(110, 80);
+            txt_Interaction.Name = "txt_Interaction";
+            txt_Interaction.Size = new Size(100, 23);
+            txt_Interaction.TabIndex = 17;
+            // 
+            // txt_Name
+            // 
+            txt_Name.Location = new Point(110, 48);
+            txt_Name.Name = "txt_Name";
+            txt_Name.Size = new Size(100, 23);
+            txt_Name.TabIndex = 16;
+            // 
+            // txt_ID
+            // 
+            txt_ID.Location = new Point(110, 17);
+            txt_ID.Name = "txt_ID";
+            txt_ID.Size = new Size(100, 23);
+            txt_ID.TabIndex = 15;
+            // 
+            // label_activity
+            // 
+            label_activity.AutoSize = true;
+            label_activity.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label_activity.ForeColor = SystemColors.Control;
+            label_activity.Location = new Point(32, 110);
+            label_activity.Name = "label_activity";
+            label_activity.Size = new Size(65, 20);
+            label_activity.TabIndex = 14;
+            label_activity.Text = "Aktivite:";
+            // 
+            // label_interaction
+            // 
+            label_interaction.AutoSize = true;
+            label_interaction.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label_interaction.ForeColor = SystemColors.Control;
+            label_interaction.Location = new Point(32, 80);
+            label_interaction.Name = "label_interaction";
+            label_interaction.Size = new Size(73, 20);
+            label_interaction.TabIndex = 13;
+            label_interaction.Text = "Etkileşim:";
+            // 
+            // label_name
+            // 
+            label_name.AutoSize = true;
+            label_name.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label_name.ForeColor = SystemColors.Control;
+            label_name.Location = new Point(32, 48);
+            label_name.Name = "label_name";
+            label_name.Size = new Size(40, 20);
+            label_name.TabIndex = 12;
+            label_name.Text = "İsim:";
+            // 
+            // label_ID
+            // 
+            label_ID.AutoSize = true;
+            label_ID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label_ID.ForeColor = SystemColors.Control;
+            label_ID.Location = new Point(32, 17);
+            label_ID.Name = "label_ID";
+            label_ID.Size = new Size(28, 20);
+            label_ID.TabIndex = 11;
+            label_ID.Text = "ID:";
+            // 
+            // btn_Update
+            // 
+            btn_Update.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btn_Update.BackColor = Color.ForestGreen;
+            btn_Update.FlatAppearance.BorderSize = 0;
+            btn_Update.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Update.ForeColor = SystemColors.Control;
+            btn_Update.Location = new Point(0, 167);
+            btn_Update.Name = "btn_Update";
+            btn_Update.Size = new Size(85, 31);
+            btn_Update.TabIndex = 10;
+            btn_Update.Text = "Güncelle";
+            btn_Update.UseVisualStyleBackColor = false;
+            btn_Update.Click += btn_Update_Click;
+            // 
+            // btn_Delete
+            // 
+            btn_Delete.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btn_Delete.BackColor = Color.Crimson;
+            btn_Delete.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Delete.ForeColor = SystemColors.Control;
+            btn_Delete.Location = new Point(220, 167);
+            btn_Delete.Name = "btn_Delete";
+            btn_Delete.Size = new Size(85, 31);
+            btn_Delete.TabIndex = 9;
+            btn_Delete.Text = "Sil";
+            btn_Delete.UseVisualStyleBackColor = false;
+            btn_Delete.Click += btn_Delete_Click;
+            // 
+            // labelGroup
+            // 
+            labelGroup.AutoSize = true;
+            labelGroup.Font = new Font("Segoe UI Semibold", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            labelGroup.ForeColor = SystemColors.Control;
+            labelGroup.Location = new Point(60, 21);
+            labelGroup.Name = "labelGroup";
+            labelGroup.Size = new Size(127, 23);
+            labelGroup.TabIndex = 12;
+            labelGroup.Text = "Düğüm Bilgileri";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label5.ForeColor = SystemColors.Control;
+            label5.Location = new Point(156, 19);
+            label5.Name = "label5";
+            label5.Size = new Size(116, 25);
+            label5.TabIndex = 12;
+            label5.Text = "Çizim Paneli";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(828, 450);
-            Controls.Add(btn_Dijkstra);
-            Controls.Add(btnRunDFS);
-            Controls.Add(btnRunBFS);
-            Controls.Add(btnArrange);
-            Controls.Add(btnLoadCSV);
-            Controls.Add(btnReset);
+            BackColor = Color.Black;
+            ClientSize = new Size(880, 489);
+            Controls.Add(label5);
             Controls.Add(pnlGraph);
+            Controls.Add(pnlMenu);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
-            MouseClick += Form1_MouseClick;
+            pnlMenu.ResumeLayout(false);
+            pnlMenu.PerformLayout();
+            pnlGroup.ResumeLayout(false);
+            pnlGroup.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -149,5 +339,20 @@
         private Button btnRunBFS;
         private Button btnRunDFS;
         private Button btn_Dijkstra;
+        private Panel pnlMenu;
+        private Label label5;
+        private Label labelGroup;
+        private Panel pnlGroup;
+        private Button btn_Update;
+        private Button btn_Delete;
+        private Label label_activity;
+        private Label label_interaction;
+        private Label label_name;
+        private Label label_ID;
+        private TextBox txt_Activity;
+        private TextBox txt_Interaction;
+        private TextBox txt_Name;
+        private TextBox txt_ID;
+        private Label label_Duration;
     }
 }

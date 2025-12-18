@@ -1,8 +1,9 @@
 using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Diagnostics.Eventing.Reader;
+using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
 namespace ProjectYazLab
 {
     public partial class Form1 : Form
@@ -18,13 +19,12 @@ namespace ProjectYazLab
         Node endNode = null;
 
 
-        // Baðlantý kurmak için "Seçili olan düðümü" hafýzada tutmamýz lazým
         Node selectedNode = null;
 
         public Form1()
         {
             InitializeComponent();
-            // Çizimlerde titremeyi engellemek için DoubleBuffered açalým
+            // çizimlerde titremeyi engellemek için DoubleBuffered 
             this.DoubleBuffered = true;
             oldWidth = pnlGraph.Width;
             oldHeight = pnlGraph.Height;
@@ -32,23 +32,24 @@ namespace ProjectYazLab
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            oldWidth = pnlGraph.Width;
+            oldHeight = pnlGraph.Height;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_Reset_Click(object sender, EventArgs e)
         {
-            // Temizle butonu (Eðer butona btnReset ismini vermediysen button1 kalabilir)
             socialGraph = new Graph();
             nodeIdCounter = 1;
             selectedNode = null;
             pnlGraph.Invalidate();
+            ShowNodeInfo();
         }
 
         private void pnlGraph_Paint(object sender, PaintEventArgs e)
         {
             Pen edgePen = new Pen(Color.Gray, 2);
 
-            Brush selectedBrush = Brushes.OrangeRed; // Seçili olan farklý renk olsun
+            Brush selectedBrush = Brushes.OrangeRed;
             Pen nodeBorder = new Pen(Color.Black, 2);
             Font font = new Font("Arial", 10);
             int radius = 15;
@@ -56,20 +57,16 @@ namespace ProjectYazLab
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            // 1. Kenarlarý (Edges) Çiz
             foreach (var edge in socialGraph.Edges)
             {
                 g.DrawLine(edgePen, edge.Source.X, edge.Source.Y, edge.Target.X, edge.Target.Y);
 
-                // Aðýrlýðý yazdýr
                 float midX = (edge.Source.X + edge.Target.X) / 2;
                 float midY = (edge.Source.Y + edge.Target.Y) / 2;
-                // Arkaplaný beyaz yapalým ki çizgi üstünde okunabilsin
                 g.FillRectangle(Brushes.White, midX, midY, 25, 15);
                 g.DrawString(edge.Weight.ToString("0.0"), font, Brushes.Red, midX, midY);
             }
 
-            // 2. Düðümleri (Nodes) Çiz
             foreach (var node in socialGraph.Nodes)
             {
                 float drawX = node.X - radius;
@@ -86,8 +83,6 @@ namespace ProjectYazLab
                 }
                 g.FillEllipse(currentBrush, drawX, drawY, diameter, diameter);
                 g.DrawEllipse(nodeBorder, drawX, drawY, diameter, diameter);
-
-                // ID'yi ortalamak için basit bir ayar
                 g.DrawString(node.Id.ToString(), font, Brushes.Black, drawX + 8, drawY + 8);
             }
         }
@@ -98,16 +93,12 @@ namespace ProjectYazLab
 
             if (clickedNode != null)
             {
-                
-
-               
                 if (e.Button == MouseButtons.Left)
                 {
                     ClearPreviousPath();
 
                     startNode = clickedNode;
 
-                   
                     if (selectedNode == null)
                     {
                         selectedNode = clickedNode;
@@ -117,9 +108,20 @@ namespace ProjectYazLab
                     {
                         if (selectedNode != clickedNode)
                         {
-                            socialGraph.AddEdge(selectedNode, clickedNode);
+                            var existingEdge = socialGraph.Edges.FirstOrDefault(edge =>
+                                (edge.Source == selectedNode && edge.Target == clickedNode) ||
+                                (edge.Source == clickedNode && edge.Target == selectedNode));
 
-                            selectedNode.CurrentColor = Color.Blue; 
+                            if (existingEdge == null)
+                            {
+                                Edge newEdge = new Edge(selectedNode, clickedNode);
+                                socialGraph.Edges.Add(newEdge);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Bu baðlantý zaten mevcut!");
+                            }
+                            selectedNode.CurrentColor = Color.Blue;
                             selectedNode = null;
                         }
                         else
@@ -129,15 +131,11 @@ namespace ProjectYazLab
                         }
                     }
                 }
-
                 else if (e.Button == MouseButtons.Right)
                 {
                     ClearPreviousPath();
 
-                    if (endNode != null)
-                    {
-                        endNode.CurrentColor = Color.Blue;
-                    }
+                    if (endNode != null) endNode.CurrentColor = Color.Blue;
                     endNode = clickedNode;
                     endNode.CurrentColor = Color.DarkSeaGreen;
 
@@ -146,74 +144,122 @@ namespace ProjectYazLab
             }
             else
             {
-                if (e.Button == MouseButtons.Left)
+                Edge clickedEdge = FindEdgeAtPoint(e.X, e.Y);
+
+                if (clickedEdge != null)
                 {
+                    DialogResult result = MessageBox.Show(
+                        $"Bu baðlantýyý silmek istiyor musunuz?\nAðýrlýk: {clickedEdge.Weight:F2}",
+                        "Baðlantý Sil", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    if (selectedNode != null)
+                    if (result == DialogResult.Yes)
                     {
-                        selectedNode.CurrentColor = Color.Blue;
-                        selectedNode = null;
+                        socialGraph.Edges.Remove(clickedEdge);
+                        pnlGraph.Invalidate();
                     }
-                    else
+                }
+                else
+                {
+                    if (e.Button == MouseButtons.Left)
                     {
-                        Node newNode = new Node(nodeIdCounter, "User" + nodeIdCounter, e.X, e.Y);
-                        newNode.Activity = Math.Round(rnd.NextDouble(), 2);
-                        newNode.Interaction = rnd.Next(1, 50);
-                        newNode.ConnectionCount = rnd.Next(0, 10);
+                        
+                        if (selectedNode != null || startNode != null || endNode != null)
+                        {
+                            startNode = null;  
+                            endNode = null;    
+                            selectedNode = null; 
 
-                        socialGraph.AddNode(newNode);
-                        nodeIdCounter++;
+                            foreach (var node in socialGraph.Nodes)
+                            {
+                                node.CurrentColor = Color.Blue;
+                                node.Visited = false;
+                            }
+                            foreach (var edge in socialGraph.Edges)
+                            {
+                                edge.Color = Color.Black;
+                                edge.Thickness = 2;
+                            }
+                        }
+                        else
+                        {
+                            Node newNode = new Node(nodeIdCounter, "User" + nodeIdCounter, e.X, e.Y);
+                            newNode.Activity = Math.Round(rnd.NextDouble(), 2);
+                            newNode.Interaction = rnd.Next(1, 50);
+                            newNode.ConnectionCount = rnd.Next(0, 10);
+                            newNode.CurrentColor = Color.Blue;
+
+                            socialGraph.AddNode(newNode);
+                            nodeIdCounter++;
+                        }
                     }
                 }
             }
 
             pnlGraph.Invalidate();
+            ShowNodeInfo();
         }
-
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        private Edge FindEdgeAtPoint(int mouseX, int mouseY)
         {
+            float tolerance = 10.0f;
 
+            foreach (var edge in socialGraph.Edges)
+            {
+                float x1 = edge.Source.X;
+                float y1 = edge.Source.Y;
+                float x2 = edge.Target.X;
+                float y2 = edge.Target.Y;
+
+                // Pisagor mantýðý: A-B arasýndaki mesafe ile (A-Mouse + Mouse-B) mesafesini kýyaslar.
+                double distSourceToMouse = Math.Sqrt(Math.Pow(x1 - mouseX, 2) + Math.Pow(y1 - mouseY, 2));
+                double distTargetToMouse = Math.Sqrt(Math.Pow(x2 - mouseX, 2) + Math.Pow(y2 - mouseY, 2));
+                double edgeLength = Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+
+                // Eðer mouse tam çizgi üzerindeyse (veya çok yakýnsa) bu fark 0'a yakýn olur.
+                if (Math.Abs((distSourceToMouse + distTargetToMouse) - edgeLength) < tolerance)
+                {
+                    return edge;
+                }
+            }
+            return null;
         }
+
+
         private Node FindNodeAtPoint(float x, float y)
         {
-            int radius = 15; // Çizimdeki yarýçapla ayný olmalý
+            int radius = 15; // çizimdeki yarýçapla ayný olmalý
 
             foreach (var node in socialGraph.Nodes)
             {
-                // Pisagor teoremi: Ýki nokta arasýndaki mesafe
-                // Dairenin içinde miyiz?
+                // pisagor teoremi ile nokta arassý mesafe
+                // dairenin içinde miyiz
                 double distance = Math.Sqrt(Math.Pow(node.X - x, 2) + Math.Pow(node.Y - y, 2));
 
                 if (distance <= radius)
                 {
-                    return node; // Bu düðüme týkladýk!
+                    return node; //bu düðüme týkanldý
                 }
             }
-            return null; // Boþluða týkladýk
+            return null; 
         }
 
 
         private void btnLoadCSV_Click(object sender, EventArgs e)
         {
-            // Dosya yöneticimizi çaðýrýyoruz
             FileManager fileManager = new FileManager();
 
-            // Dosya yolunu belirtiyoruz (bin/Debug klasöründe olmalý)
             string path = "users.csv";
 
-            // Oku ve grafiðe yükle
+            // Oku ve gradiðe koy
             Graph loadedGraph = fileManager.LoadGraphFromCSV(path, pnlGraph.Width, pnlGraph.Height);
 
             if (loadedGraph != null)
             {
-                // Mevcut grafiði yenisiyle deðiþtir
                 socialGraph = loadedGraph;
 
-                // ID sayacýný güncelle (en son eklenen ID'den devam etsin diye)
-                // Linq kullanarak en yüksek ID'yi buluyoruz, yoksa 1 yapýyoruz
+                
                 if (socialGraph.Nodes.Count > 0)
                 {
-                    // Listeyi ID'ye göre sýrala, sonuncuyu al
+                    // Listeyi ID ye göre sýrala, sonuncuyu al
                     int maxId = 0;
                     foreach (var node in socialGraph.Nodes)
                     {
@@ -226,9 +272,7 @@ namespace ProjectYazLab
                     nodeIdCounter = 1;
                 }
 
-                // Ekraný yenile
                 pnlGraph.Invalidate();
-                MessageBox.Show("Veriler baþarýyla yüklendi!");
             }
         }
 
@@ -245,7 +289,7 @@ namespace ProjectYazLab
             float ratioX = pnlGraph.Width / oldWidth;
             float ratioY = pnlGraph.Height / oldHeight;
 
-            
+
             foreach (var node in socialGraph.Nodes)
             {
                 node.X *= ratioX;
@@ -256,7 +300,7 @@ namespace ProjectYazLab
             oldWidth = pnlGraph.Width;
             oldHeight = pnlGraph.Height;
 
-            
+
             pnlGraph.Invalidate();
         }
 
@@ -296,7 +340,7 @@ namespace ProjectYazLab
 
             btnRunBFS.Enabled = false;
 
-            await algo.RunBFS(socialGraph, selectedNode, pnlGraph);
+            await algo.RunBFS(socialGraph, selectedNode, pnlGraph, label_Duration);
 
             btnRunBFS.Enabled = true;
         }
@@ -311,7 +355,7 @@ namespace ProjectYazLab
 
             Algorithms algo = new Algorithms();
             btnRunDFS.Enabled = false;
-            await algo.RunDFS(socialGraph, selectedNode, pnlGraph);
+            await algo.RunDFS(socialGraph, selectedNode, pnlGraph, label_Duration);
             btnRunDFS.Enabled = true;
 
         }
@@ -326,25 +370,92 @@ namespace ProjectYazLab
 
             Algorithms algo = new Algorithms();
             btn_Dijkstra.Enabled = false;
-            await algo.RunDijkstra(socialGraph, startNode, endNode, pnlGraph);
+            await algo.RunDijkstra(socialGraph, startNode, endNode, pnlGraph, label_Duration);
             btn_Dijkstra.Enabled = true;
 
 
-            
+
 
         }
         private void ClearPreviousPath()
         {
             foreach (var node in socialGraph.Nodes)
             {
-                // Eðer bu düðüm Baþlangýç veya Hedef DEÐÝLSE, rengini sýfýrla
+                // eðer bu düðüm baþlangýç veya hedef deðilse, rengini sýfýrla
                 if (node != startNode && node != endNode && node != selectedNode)
                 {
-                    // Eski morluklarý, yeþillikleri sil, normale dön
                     node.CurrentColor = Color.Blue;
                 }
             }
         }
 
+        private void ShowNodeInfo()
+        {
+            if (selectedNode != null)
+            {
+                txt_ID.Text = selectedNode.Id.ToString();
+                txt_Name.Text = selectedNode.Name;
+                txt_Interaction.Text = selectedNode.Interaction.ToString();
+                txt_Activity.Text = selectedNode.Activity.ToString();
+
+                btn_Update.Enabled = true;
+                btn_Delete.Enabled = true;
+            }
+            else
+            {
+                txt_ID.Clear();
+                txt_Name.Clear();
+                txt_Interaction.Clear();
+                txt_Activity.Clear();
+
+                btn_Update.Enabled = false;
+                btn_Delete.Enabled = false;
+            }
+        }
+
+        private void btn_Update_Click(object sender, EventArgs e)
+        {
+            if (selectedNode == null) return;
+
+            try
+            {
+                selectedNode.Name = txt_Name.Text;
+                selectedNode.Interaction = double.Parse(txt_Interaction.Text);
+                selectedNode.Activity = double.Parse(txt_Activity.Text);
+
+
+                foreach (var edge in socialGraph.Edges)
+                {
+                    if (edge.Source == selectedNode || edge.Target == selectedNode)
+                    {
+                        edge.Weight = edge.CalculateWeight();
+                    }
+                }
+
+
+
+                pnlGraph.Invalidate();
+                MessageBox.Show("Bilgiler güncellendi!");
+            }
+            catch
+            {
+                MessageBox.Show("Lütfen sayýsal deðerleri doðru giriniz!");
+            }
+        }
+
+        private void btn_Delete_Click(object sender, EventArgs e)
+        {
+            if (selectedNode == null) return;
+
+            socialGraph.Edges.RemoveAll(edge => edge.Source == selectedNode || edge.Target == selectedNode);
+
+            // 2. Düðümü sil
+            socialGraph.Nodes.Remove(selectedNode);
+
+            selectedNode = null;
+            ShowNodeInfo(); 
+            pnlGraph.Invalidate(); 
+
+        }
     }
 }
