@@ -51,6 +51,7 @@
             btn_Delete = new Button();
             labelGroup = new Label();
             label5 = new Label();
+            btn_AStar = new Button();
             pnlMenu.SuspendLayout();
             pnlGroup.SuspendLayout();
             SuspendLayout();
@@ -144,6 +145,7 @@
             // 
             pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlMenu.BackColor = Color.FromArgb(64, 64, 64);
+            pnlMenu.Controls.Add(btn_AStar);
             pnlMenu.Controls.Add(btn_Save);
             pnlMenu.Controls.Add(label_Duration);
             pnlMenu.Controls.Add(pnlGroup);
@@ -324,6 +326,15 @@
             label5.TabIndex = 12;
             label5.Text = "Çizim Paneli";
             // 
+            // btn_AStar
+            // 
+            btn_AStar.Location = new Point(170, 397);
+            btn_AStar.Name = "btn_AStar";
+            btn_AStar.Size = new Size(88, 33);
+            btn_AStar.TabIndex = 16;
+            btn_AStar.Text = "A*";
+            btn_AStar.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -369,5 +380,6 @@
         private TextBox txt_ID;
         private Label label_Duration;
         private Button btn_Save;
+        private Button btn_AStar;
     }
 }
