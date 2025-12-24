@@ -15,11 +15,11 @@ namespace ProjectYazLab
         float oldWidth;
         float oldHeight;
 
-        Node? startNode = null;
-        Node? endNode = null;
+        Node startNode = null;
+        Node endNode = null;
 
 
-        Node? selectedNode = null;
+        Node selectedNode = null;
 
         public Form1()
         {
@@ -89,7 +89,7 @@ namespace ProjectYazLab
 
         private void pnlGraph_MouseClick(object sender, MouseEventArgs e)
         {
-            Node? clickedNode = FindNodeAtPoint(e.X, e.Y);
+            Node clickedNode = FindNodeAtPoint(e.X, e.Y);
 
             if (clickedNode != null)
             {
@@ -144,7 +144,7 @@ namespace ProjectYazLab
             }
             else
             {
-                Edge? clickedEdge = FindEdgeAtPoint(e.X, e.Y);
+                Edge clickedEdge = FindEdgeAtPoint(e.X, e.Y);
 
                 if (clickedEdge != null)
                 {
@@ -198,7 +198,7 @@ namespace ProjectYazLab
             pnlGraph.Invalidate();
             ShowNodeInfo();
         }
-        private Edge? FindEdgeAtPoint(int mouseX, int mouseY)
+        private Edge FindEdgeAtPoint(int mouseX, int mouseY)
         {
             float tolerance = 10.0f;
 
@@ -224,7 +224,7 @@ namespace ProjectYazLab
         }
 
 
-        private Node? FindNodeAtPoint(float x, float y)
+        private Node FindNodeAtPoint(float x, float y)
         {
             int radius = 15; // çizimdeki yarýçapla ayný olmalý
 
