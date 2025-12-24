@@ -1,4 +1,4 @@
-namespace ProjectYazLab
+﻿namespace ProjectYazLab
 {
     internal static class Program
     {

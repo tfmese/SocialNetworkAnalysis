@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace ProjectYazLab
 {
-    public class FileManager
+    public class FileManager : IFileHandler
     {
 
         public Graph LoadGraphFromCSV(string filePath, int maxWidth, int maxHeight)

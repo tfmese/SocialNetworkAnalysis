@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace ProjectYazLab
         public Form1()
         {
             InitializeComponent();
-            // çizimlerde titremeyi engellemek için DoubleBuffered 
+            // Ã‡izimlerde titremeyi engellemek iÃ§in DoubleBuffered 
             this.DoubleBuffered = true;
             oldWidth = pnlGraph.Width;
             oldHeight = pnlGraph.Height;
@@ -119,7 +119,7 @@ namespace ProjectYazLab
                             }
                             else
                             {
-                                MessageBox.Show("Bu baðlantý zaten mevcut!");
+                                MessageBox.Show("Bu baÄŸlantÄ± zaten mevcut!");
                             }
                             selectedNode.CurrentColor = Color.Blue;
                             selectedNode = null;
@@ -149,8 +149,8 @@ namespace ProjectYazLab
                 if (clickedEdge != null)
                 {
                     DialogResult result = MessageBox.Show(
-                        $"Bu baðlantýyý silmek istiyor musunuz?\nAðýrlýk: {clickedEdge.Weight:F2}",
-                        "Baðlantý Sil", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        $"Bu baÄŸlantÄ±yÄ± silmek istiyor musunuz?\nAÄŸÄ±rlÄ±k: {clickedEdge.Weight:F2}",
+                        "BaÄŸlantÄ± Sil", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (result == DialogResult.Yes)
                     {
@@ -209,12 +209,12 @@ namespace ProjectYazLab
                 float x2 = edge.Target.X;
                 float y2 = edge.Target.Y;
 
-                // Pisagor mantýðý: A-B arasýndaki mesafe ile (A-Mouse + Mouse-B) mesafesini kýyaslar.
+                // Pisagor mantÄ±ÄŸÄ±: A-B arasÄ±ndaki mesafe ile (A-Mouse + Mouse-B) mesafesini kÄ±yaslar.
                 double distSourceToMouse = Math.Sqrt(Math.Pow(x1 - mouseX, 2) + Math.Pow(y1 - mouseY, 2));
                 double distTargetToMouse = Math.Sqrt(Math.Pow(x2 - mouseX, 2) + Math.Pow(y2 - mouseY, 2));
                 double edgeLength = Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
 
-                // Eðer mouse tam çizgi üzerindeyse (veya çok yakýnsa) bu fark 0'a yakýn olur.
+                // EÄŸer mouse tam Ã§izgi Ã¼zerindeyse (veya Ã§ok yakÄ±nsa) bu fark 0'a yakÄ±n olur.
                 if (Math.Abs((distSourceToMouse + distTargetToMouse) - edgeLength) < tolerance)
                 {
                     return edge;
@@ -226,17 +226,17 @@ namespace ProjectYazLab
 
         private Node FindNodeAtPoint(float x, float y)
         {
-            int radius = 15; // çizimdeki yarýçapla ayný olmalý
+            int radius = 15; // Ã‡izimdeki yarÄ±Ã§apla aynÄ± olmalÄ±
 
             foreach (var node in socialGraph.Nodes)
             {
-                // pisagor teoremi ile nokta arassý mesafe
-                // dairenin içinde miyiz
+                // pisagor teoremi ile nokta arasÄ± mesafe
+                // dairenin iÃ§inde miyiz
                 double distance = Math.Sqrt(Math.Pow(node.X - x, 2) + Math.Pow(node.Y - y, 2));
 
                 if (distance <= radius)
                 {
-                    return node; //bu düðüme týkanldý
+                    return node; //bu dÃ¼ÄŸÃ¼me tÄ±klanÄ±ldÄ±
                 }
             }
             return null;
@@ -245,27 +245,27 @@ namespace ProjectYazLab
 
         private void btnLoadCSV_Click(object sender, EventArgs e)
         {
-            // dosya seçme penceresi açq
+            // dosya seÃ§me penceresi aÃ§Ä±q
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV Dosyalarý|*.csv|Tüm Dosyalar|*.*";
-            openFileDialog.Title = "Yüklenecek Graph Dosyasýný Seçin";
+            openFileDialog.Filter = "CSV DosyalarÄ±|*.csv|TÃ¼m Dosyalar|*.*";
+            openFileDialog.Title = "YÃ¼klenecek Graph DosyasÄ±nÄ± SeÃ§in";
 
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string selectedPath = openFileDialog.FileName; 
 
-                FileManager fileManager = new FileManager();
+                IFileHandler fileHandler = new FileManager();
 
-                // gelen yolu kullanarak grafý yüklüyoruz
-                Graph loadedGraph = fileManager.LoadGraphFromCSV(selectedPath, pnlGraph.Width, pnlGraph.Height);
+                // gelen yolu kullanarak grafÄ± yÃ¼klÃ¼yoruz
+                Graph loadedGraph = fileHandler.LoadGraphFromCSV(selectedPath, pnlGraph.Width, pnlGraph.Height);
 
                 if (loadedGraph != null)
                 {
-                    // yüklenen graph=ana graph
+                    // yÃ¼klenen graph=ana graph
                     socialGraph = loadedGraph;
 
-                    // ID sayacýný güncelle 
+                    // ID sayacÄ±nÄ± gÃ¼ncelle 
                     if (socialGraph.Nodes.Count > 0)
                     {
                         int maxId = 0;
@@ -281,7 +281,7 @@ namespace ProjectYazLab
                     }
 
                     pnlGraph.Invalidate();
-                    MessageBox.Show("Dosya baþarýyla yüklendi: " + System.IO.Path.GetFileName(selectedPath));
+                    MessageBox.Show("Dosya baÅŸarÄ±yla yÃ¼klendi: " + System.IO.Path.GetFileName(selectedPath));
                 }
             }
         }
@@ -295,7 +295,7 @@ namespace ProjectYazLab
                 return;
             }
 
-            //ynei boyut/eski boyut ile oran alarak ne oranda deðiþtiðini buluyoruz
+            //yeni boyut/eski boyut ile oran alarak ne oranda deÄŸiÅŸtiÄŸini buluyoruz
             float ratioX = pnlGraph.Width / oldWidth;
             float ratioY = pnlGraph.Height / oldHeight;
 
@@ -306,7 +306,7 @@ namespace ProjectYazLab
                 node.Y *= ratioY;
             }
 
-            // yeni boyutlarý eski olarak kaydediyoruz ki sonraki deðiþimde baþtan baþlasýn
+            // yeni boyutlarÄ± eski olarak kaydediyoruz ki sonraki deÄŸiÅŸimde baÅŸtan baÅŸlasÄ±n
             oldWidth = pnlGraph.Width;
             oldHeight = pnlGraph.Height;
 
@@ -318,17 +318,17 @@ namespace ProjectYazLab
         {
             if (socialGraph.Nodes.Count == 0) return;
 
-            // Panelin tam ortasýný buluyoruz ve çember yarýçapýný ayarlýyoruz
+            // Panelin tam ortasÄ±nÄ± buluyoruz ve Ã§ember yarÄ±Ã§apÄ±nÄ± ayarlÄ±yoruz
             int centerX = pnlGraph.Width / 2;
             int centerY = pnlGraph.Height / 2;
-            int radius = Math.Min(centerX, centerY) - 50; // Yarýçap, Kenarlardan 50px boþluk býrakmýþtýk nodelarýn daðýlýmýný düzenlerken 
+            int radius = Math.Min(centerX, centerY) - 50; // YarÄ±Ã§ap, Kenarlardan 50px boÅŸluk bÄ±rakmÄ±ÅŸtÄ±k nodelarÄ±n daÄŸÄ±lÄ±mÄ±nÄ± dÃ¼zenlerken 
 
-            double angleStep = 360.0 / socialGraph.Nodes.Count; // düðüm sayýsýna bölerek her düðüme düþen açý yani iki düðüm arasýndaki mesafeyi buluyoruz
+            double angleStep = 360.0 / socialGraph.Nodes.Count; // dÃ¼ÄŸÃ¼m sayÄ±sÄ±na bÃ¶lerek her dÃ¼ÄŸÃ¼me dÃ¼ÅŸen aÃ§Ä± yani iki dÃ¼ÄŸÃ¼m arasÄ±ndaki mesafeyi buluyoruz
 
             for (int i = 0; i < socialGraph.Nodes.Count; i++)
             {
-                // elimizde açý ve yarýçap var,ekrana çizmek için yatay ve dikey koordinatlar lazým yani x ve y.  x ve y'yi hesaplamak için cos(x) bir noktanýn merkeze olan yatay uzaklýðýný, sin(x) ise dikey uzaklýðýný verir bu þekilde düðümleri çember etrafýna yerleþtiriyoruz
-                double angle = (i * angleStep) * (Math.PI / 180); // Dereceyi Radyana çevir
+                // elimizde aÃ§Ä± ve yarÄ±Ã§ap var,ekrana Ã§izmek iÃ§in yatay ve dikey koordinatlar lazÄ±m yani x ve y.  x ve y'yi hesaplamak iÃ§in cos(x) bir noktanÄ±n merkeze olan yatay uzaklÄ±ÄŸÄ±nÄ±, sin(x) ise dikey uzaklÄ±ÄŸÄ±nÄ± verir bu ÅŸekilde dÃ¼ÄŸÃ¼mleri Ã§ember etrafÄ±na yerleÅŸtiriyoruz
+                double angle = (i * angleStep) * (Math.PI / 180); // Dereceyi Radyana Ã§evir
 
                 socialGraph.Nodes[i].X = centerX + (float)(radius * Math.Cos(angle));
                 socialGraph.Nodes[i].Y = centerY + (float)(radius * Math.Sin(angle));
@@ -341,7 +341,7 @@ namespace ProjectYazLab
         {
             if (selectedNode == null)
             {
-                MessageBox.Show("Lütfen BFS'nin baþlayacaðý düðümü seçin, ardýndan BFS'i baþlatýn.");
+                MessageBox.Show("LÃ¼tfen BFS'nin baÅŸlayacaÄŸÄ± dÃ¼ÄŸÃ¼mÃ¼ seÃ§in, ardÄ±ndan BFS'i baÅŸlatÄ±n.");
                 return;
             }
 
@@ -359,7 +359,7 @@ namespace ProjectYazLab
         {
             if (selectedNode == null)
             {
-                MessageBox.Show("Lütfen DFS'nin baþlayacaðý düðümü seçin, ardýndan DFS'i baþlatýn.");
+                MessageBox.Show("LÃ¼tfen DFS'nin baÅŸlayacaÄŸÄ± dÃ¼ÄŸÃ¼mÃ¼ seÃ§in, ardÄ±ndan DFS'i baÅŸlatÄ±n.");
                 return;
             }
 
@@ -374,7 +374,7 @@ namespace ProjectYazLab
         {
             if (startNode == null || endNode == null)
             {
-                MessageBox.Show("Lütfen önce sol týk ile kaynak, sað týk ile hedef düðümü seçin.");
+                MessageBox.Show("LÃ¼tfen Ã¶nce sol tÄ±k ile kaynak, saÄŸ tÄ±k ile hedef dÃ¼ÄŸÃ¼mÃ¼ seÃ§in.");
                 return;
             }
 
@@ -391,7 +391,7 @@ namespace ProjectYazLab
         {
             foreach (var node in socialGraph.Nodes)
             {
-                // eðer bu düðüm baþlangýç veya hedef deðilse, rengini sýfýrla
+                // eÄŸer bu dÃ¼ÄŸÃ¼m baÅŸlangÄ±Ã§ veya hedef deÄŸilse, rengini sÄ±fÄ±rla
                 if (node != startNode && node != endNode && node != selectedNode)
                 {
                     node.CurrentColor = Color.Blue;
@@ -445,11 +445,11 @@ namespace ProjectYazLab
 
 
                 pnlGraph.Invalidate();
-                MessageBox.Show("Bilgiler güncellendi!");
+                MessageBox.Show("Bilgiler gÃ¼ncellendi!");
             }
             catch
             {
-                MessageBox.Show("Lütfen sayýsal deðerleri doðru giriniz!");
+                MessageBox.Show("LÃ¼tfen sayÄ±sal deÄŸerleri doÄŸru giriniz!");
             }
         }
 
@@ -459,7 +459,7 @@ namespace ProjectYazLab
 
             socialGraph.Edges.RemoveAll(edge => edge.Source == selectedNode || edge.Target == selectedNode);
 
-            // 2. Düðümü sil
+            // 2. DÃ¼ÄŸÃ¼mÃ¼ sil
             socialGraph.Nodes.Remove(selectedNode);
 
             selectedNode = null;
@@ -467,30 +467,134 @@ namespace ProjectYazLab
             pnlGraph.Invalidate();
 
         }
+        private async void btn_AStar_Click(object sender, EventArgs e)
+        {
+            // BaÅŸlangÄ±Ã§ ve BitiÅŸ seÃ§ili mi kontrol et
+            if (startNode == null || endNode == null)
+            {
+                MessageBox.Show("LÃ¼tfen sol tÄ±k ile kaynak, saÄŸ tÄ±k ile hedef dÃ¼ÄŸÃ¼mÃ¼ seÃ§in.");
+                return;
+            }
+
+            Algorithms algo = new Algorithms();
+
+            // Butonu pasif yap (Ã§ift tÄ±klamayÄ± Ã¶nlemek iÃ§in)
+            btn_AStar.Enabled = false;
+
+            // socialGraph: Senin ana graf deÄŸiÅŸkenin
+            // startNode, endNode: SeÃ§ili dÃ¼ÄŸÃ¼mler
+            await algo.RunAStar(socialGraph, startNode, endNode, pnlGraph, label_Duration);
+
+            // Ä°ÅŸlem bitince butonu aÃ§
+            btn_AStar.Enabled = true;
+        }
+
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "CSV Dosyasý|*.csv|Metin Dosyasý (Matris)|*.txt";
-            saveFileDialog.Title = "Grafý Kaydet";
-            saveFileDialog.FileName = "users_export.csv"; // varsayýlan isim
+            saveFileDialog.Filter = "CSV DosyasÄ±|*.csv|Metin DosyasÄ± (Matris)|*.txt";
+            saveFileDialog.Title = "GrafÄ± Kaydet";
+            saveFileDialog.FileName = "users_export.csv"; // varsayÄ±lan isim
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                FileManager fm = new FileManager();
+                IFileHandler fileHandler = new FileManager();
 
                 if (saveFileDialog.FileName.EndsWith(".csv"))
                 {
-                    bool basari = fm.SaveGraphToCSV(socialGraph, saveFileDialog.FileName);
-                    if (basari) MessageBox.Show("CSV dosyasý baþarýyla kaydedildi!");
+                    bool basari = fileHandler.SaveGraphToCSV(socialGraph, saveFileDialog.FileName);
+                    if (basari) MessageBox.Show("CSV dosyasÄ± baÅŸarÄ±yla kaydedildi!");
                 }
                 else
                 {
-                    // Ýster madde 31: Komþuluk matrisi formatýnda kaydet
-                    fm.SaveAdjacencyMatrix(socialGraph, saveFileDialog.FileName);
-                    MessageBox.Show("Matris baþarýyla kaydedildi!");
+                    // Ä°ster madde 31: KomÅŸuluk matrisi formatÄ±nda kaydet
+                    fileHandler.SaveAdjacencyMatrix(socialGraph, saveFileDialog.FileName);
+                    MessageBox.Show("Matris baÅŸarÄ±yla kaydedildi!");
                 }
             }
+        }
+
+        private void btn_Centrality_Click(object sender, EventArgs e)
+        {
+            if (socialGraph == null || socialGraph.Nodes.Count == 0)
+            {
+                MessageBox.Show("Graf boÅŸ! Ã–nce veri yÃ¼kleyin.");
+                return;
+            }
+
+            // 1. Yeni Bir Pencere (Pop-up Form) OluÅŸturuyoruz
+            Form popupForm = new Form();
+            popupForm.Text = "En Etkili 5 KullanÄ±cÄ± (Degree Centrality)";
+            popupForm.Size = new Size(500, 300);
+            popupForm.StartPosition = FormStartPosition.CenterParent; // Ana ekranÄ±n ortasÄ±nda aÃ§
+
+            // 2. Ä°Ã§ine Bir Tablo (DataGridView) OluÅŸturuyoruz
+            DataGridView dgv = new DataGridView();
+            dgv.Dock = DockStyle.Fill; // Pencerenin tamamÄ±nÄ± kaplasÄ±n
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // SÃ¼tunlarÄ± yay
+            dgv.ReadOnly = true;       // KullanÄ±cÄ± deÄŸiÅŸtiremesin
+            dgv.AllowUserToAddRows = false; // BoÅŸ satÄ±r eklemesin
+            dgv.RowHeadersVisible = false;  // Soldaki gri baÅŸlÄ±ÄŸÄ± gizle
+
+            // 3. Tabloyu Pencereye Ekle
+            popupForm.Controls.Add(dgv);
+
+            // 4. AlgoritmayÄ± Ã§alÄ±ÅŸtÄ±r ve Tabloyu Doldur
+            Algorithms algo = new Algorithms();
+            algo.CalculateDegreeCentrality(socialGraph, dgv);
+
+            // 5. Pencereyi GÃ¶ster (ShowDialog: Kapatmadan arkaya geÃ§ilemez)
+            popupForm.ShowDialog();
+        }
+        private void btn_Components_Click(object sender, EventArgs e)
+        {
+            if (socialGraph == null || socialGraph.Nodes.Count == 0)
+            {
+                MessageBox.Show("Graf boÅŸ! Ã–nce veri yÃ¼kleyin.");
+                return;
+            }
+
+            Algorithms algo = new Algorithms();
+
+            // AlgoritmayÄ± Ã§alÄ±ÅŸtÄ±r ve listeyi al
+            List<List<Node>> components = algo.GetConnectedComponents(socialGraph);
+
+            // --- SONUCU GÃ–STERME (POP-UP) ---
+            Form resultForm = new Form();
+            resultForm.Text = $"Analiz Sonucu: {components.Count} Adet AyrÄ±k Topluluk Bulundu";
+            resultForm.Size = new Size(400, 400);
+            resultForm.StartPosition = FormStartPosition.CenterParent;
+
+            // SonuÃ§larÄ± yazacaÄŸÄ±mÄ±z bÃ¼yÃ¼k metin kutusu
+            RichTextBox rtb = new RichTextBox();
+            rtb.Dock = DockStyle.Fill;
+            rtb.Font = new Font("Consolas", 10); // DÃ¼zgÃ¼n hizalama iÃ§in
+            rtb.ReadOnly = true;
+
+            resultForm.Controls.Add(rtb);
+
+            // YazÄ±larÄ± oluÅŸtur
+            rtb.AppendText($"TOPLAM AYRIK TOPLULUK SAYISI: {components.Count}\n");
+            rtb.AppendText("--------------------------------------------------\n\n");
+
+            for (int i = 0; i < components.Count; i++)
+            {
+                rtb.AppendText($"TOPLULUK #{i + 1} (KiÅŸi SayÄ±sÄ±: {components[i].Count})\n");
+                rtb.AppendText("- Ãœyeler: ");
+
+                // O topluluktaki kiÅŸilerin isimlerini yazdÄ±r
+                List<string> names = new List<string>();
+                foreach (var node in components[i])
+                {
+                    names.Add($"{node.Name} (ID:{node.Id})");
+                }
+
+                rtb.AppendText(string.Join(", ", names));
+                rtb.AppendText("\n\n");
+            }
+
+            resultForm.ShowDialog();
         }
     }
 }
