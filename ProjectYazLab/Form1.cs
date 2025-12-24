@@ -1,13 +1,9 @@
-#nullable disable // Null uyarýlarýný kapatmak için
-
 using System;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Linq; // FirstOrDefault için gerekli
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-
 namespace ProjectYazLab
 {
     public partial class Form1 : Form
@@ -19,10 +15,11 @@ namespace ProjectYazLab
         float oldWidth;
         float oldHeight;
 
-        Node startNode = null;
-        Node endNode = null;
+        Node? startNode = null;
+        Node? endNode = null;
 
-        Node selectedNode = null;
+
+        Node? selectedNode = null;
 
         public Form1()
         {
@@ -44,8 +41,6 @@ namespace ProjectYazLab
             socialGraph = new Graph();
             nodeIdCounter = 1;
             selectedNode = null;
-            startNode = null; // Resetlenince bunlarý da sýfýrla
-            endNode = null;
             pnlGraph.Invalidate();
             ShowNodeInfo();
         }
@@ -94,7 +89,7 @@ namespace ProjectYazLab
 
         private void pnlGraph_MouseClick(object sender, MouseEventArgs e)
         {
-            Node clickedNode = FindNodeAtPoint(e.X, e.Y);
+            Node? clickedNode = FindNodeAtPoint(e.X, e.Y);
 
             if (clickedNode != null)
             {
@@ -149,7 +144,7 @@ namespace ProjectYazLab
             }
             else
             {
-                Edge clickedEdge = FindEdgeAtPoint(e.X, e.Y);
+                Edge? clickedEdge = FindEdgeAtPoint(e.X, e.Y);
 
                 if (clickedEdge != null)
                 {
@@ -181,9 +176,8 @@ namespace ProjectYazLab
                             }
                             foreach (var edge in socialGraph.Edges)
                             {
-                                // edge.Color ve Thickness özelliði varsa sýfýrla
-                                // edge.Color = Color.Black; 
-                                // edge.Thickness = 2;
+                                edge.Color = Color.Black;
+                                edge.Thickness = 2;
                             }
                         }
                         else
@@ -204,8 +198,7 @@ namespace ProjectYazLab
             pnlGraph.Invalidate();
             ShowNodeInfo();
         }
-
-        private Edge FindEdgeAtPoint(int mouseX, int mouseY)
+        private Edge? FindEdgeAtPoint(int mouseX, int mouseY)
         {
             float tolerance = 10.0f;
 
@@ -216,11 +209,12 @@ namespace ProjectYazLab
                 float x2 = edge.Target.X;
                 float y2 = edge.Target.Y;
 
-                // Pisagor mantýðý
+                // Pisagor mantýðý: A-B arasýndaki mesafe ile (A-Mouse + Mouse-B) mesafesini kýyaslar.
                 double distSourceToMouse = Math.Sqrt(Math.Pow(x1 - mouseX, 2) + Math.Pow(y1 - mouseY, 2));
                 double distTargetToMouse = Math.Sqrt(Math.Pow(x2 - mouseX, 2) + Math.Pow(y2 - mouseY, 2));
                 double edgeLength = Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
 
+                // Eðer mouse tam çizgi üzerindeyse (veya çok yakýnsa) bu fark 0'a yakýn olur.
                 if (Math.Abs((distSourceToMouse + distTargetToMouse) - edgeLength) < tolerance)
                 {
                     return edge;
@@ -230,12 +224,14 @@ namespace ProjectYazLab
         }
 
 
-        private Node FindNodeAtPoint(float x, float y)
+        private Node? FindNodeAtPoint(float x, float y)
         {
             int radius = 15; // çizimdeki yarýçapla ayný olmalý
 
             foreach (var node in socialGraph.Nodes)
             {
+                // pisagor teoremi ile nokta arassý mesafe
+                // dairenin içinde miyiz
                 double distance = Math.Sqrt(Math.Pow(node.X - x, 2) + Math.Pow(node.Y - y, 2));
 
                 if (distance <= radius)
@@ -249,6 +245,7 @@ namespace ProjectYazLab
 
         private void btnLoadCSV_Click(object sender, EventArgs e)
         {
+            // dosya seçme penceresi açq
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV Dosyalarý|*.csv|Tüm Dosyalar|*.*";
             openFileDialog.Title = "Yüklenecek Graph Dosyasýný Seçin";
@@ -256,7 +253,7 @@ namespace ProjectYazLab
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string selectedPath = openFileDialog.FileName;
+                string selectedPath = openFileDialog.FileName; 
 
                 FileManager fileManager = new FileManager();
 
@@ -324,12 +321,13 @@ namespace ProjectYazLab
             // Panelin tam ortasýný buluyoruz ve çember yarýçapýný ayarlýyoruz
             int centerX = pnlGraph.Width / 2;
             int centerY = pnlGraph.Height / 2;
-            int radius = Math.Min(centerX, centerY) - 50;
+            int radius = Math.Min(centerX, centerY) - 50; // Yarýçap, Kenarlardan 50px boþluk býrakmýþtýk nodelarýn daðýlýmýný düzenlerken 
 
-            double angleStep = 360.0 / socialGraph.Nodes.Count;
+            double angleStep = 360.0 / socialGraph.Nodes.Count; // düðüm sayýsýna bölerek her düðüme düþen açý yani iki düðüm arasýndaki mesafeyi buluyoruz
 
             for (int i = 0; i < socialGraph.Nodes.Count; i++)
             {
+                // elimizde açý ve yarýçap var,ekrana çizmek için yatay ve dikey koordinatlar lazým yani x ve y.  x ve y'yi hesaplamak için cos(x) bir noktanýn merkeze olan yatay uzaklýðýný, sin(x) ise dikey uzaklýðýný verir bu þekilde düðümleri çember etrafýna yerleþtiriyoruz
                 double angle = (i * angleStep) * (Math.PI / 180); // Dereceyi Radyana çevir
 
                 socialGraph.Nodes[i].X = centerX + (float)(radius * Math.Cos(angle));
@@ -384,32 +382,11 @@ namespace ProjectYazLab
             btn_Dijkstra.Enabled = false;
             await algo.RunDijkstra(socialGraph, startNode, endNode, pnlGraph, label_Duration);
             btn_Dijkstra.Enabled = true;
+
+
+
+
         }
-
-        // --- YENÝ EKLENEN A* (A STAR) BUTONU ---
-        private async void btn_AStar_Click(object sender, EventArgs e)
-        {
-            // Baþlangýç ve Bitiþ seçili mi kontrol et
-            if (startNode == null || endNode == null)
-            {
-                MessageBox.Show("Lütfen sol týk ile kaynak, sað týk ile hedef düðümü seçin.");
-                return;
-            }
-
-            Algorithms algo = new Algorithms();
-
-            // Butonu pasif yap (Çift týklamayý önlemek için)
-            btn_AStar.Enabled = false;
-
-            // socialGraph: Senin ana graf deðiþkenin
-            // startNode, endNode: Seçili düðümler
-            await algo.RunAStar(socialGraph, startNode, endNode, pnlGraph, label_Duration);
-
-            // Ýþlem bitince butonu aç
-            btn_AStar.Enabled = true;
-        }
-        // ----------------------------------------
-
         private void ClearPreviousPath()
         {
             foreach (var node in socialGraph.Nodes)
@@ -464,6 +441,8 @@ namespace ProjectYazLab
                         edge.Weight = edge.CalculateWeight();
                     }
                 }
+
+
 
                 pnlGraph.Invalidate();
                 MessageBox.Show("Bilgiler güncellendi!");
