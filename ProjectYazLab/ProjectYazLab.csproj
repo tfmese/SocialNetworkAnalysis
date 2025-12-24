@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <FileEncoding>UTF-8</FileEncoding>
   </PropertyGroup>
 
   <ItemGroup>

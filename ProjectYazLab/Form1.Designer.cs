@@ -36,6 +36,8 @@
             btnRunDFS = new Button();
             btn_Dijkstra = new Button();
             pnlMenu = new Panel();
+            btn_Centrality = new Button();
+            btn_AStar = new Button();
             btn_Save = new Button();
             label_Duration = new Label();
             pnlGroup = new Panel();
@@ -51,6 +53,7 @@
             btn_Delete = new Button();
             labelGroup = new Label();
             label5 = new Label();
+            btn_Components = new Button();
             pnlMenu.SuspendLayout();
             pnlGroup.SuspendLayout();
             SuspendLayout();
@@ -62,7 +65,7 @@
             pnlGraph.BorderStyle = BorderStyle.FixedSingle;
             pnlGraph.Location = new Point(29, 78);
             pnlGraph.Name = "pnlGraph";
-            pnlGraph.Size = new Size(379, 343);
+            pnlGraph.Size = new Size(379, 442);
             pnlGraph.TabIndex = 0;
             pnlGraph.Paint += pnlGraph_Paint;
             pnlGraph.MouseClick += pnlGraph_MouseClick;
@@ -72,7 +75,7 @@
             // 
             btnReset.BackColor = SystemColors.ButtonFace;
             btnReset.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnReset.Location = new Point(170, 295);
+            btnReset.Location = new Point(277, 295);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(86, 33);
             btnReset.TabIndex = 1;
@@ -84,7 +87,7 @@
             // 
             btnLoadCSV.BackColor = SystemColors.ButtonFace;
             btnLoadCSV.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnLoadCSV.Location = new Point(277, 295);
+            btnLoadCSV.Location = new Point(60, 295);
             btnLoadCSV.Name = "btnLoadCSV";
             btnLoadCSV.Size = new Size(88, 33);
             btnLoadCSV.TabIndex = 2;
@@ -96,7 +99,7 @@
             // 
             btnArrange.BackColor = SystemColors.ButtonFace;
             btnArrange.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnArrange.Location = new Point(60, 295);
+            btnArrange.Location = new Point(170, 295);
             btnArrange.Name = "btnArrange";
             btnArrange.Size = new Size(88, 33);
             btnArrange.TabIndex = 3;
@@ -144,6 +147,9 @@
             // 
             pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlMenu.BackColor = Color.FromArgb(64, 64, 64);
+            pnlMenu.Controls.Add(btn_Components);
+            pnlMenu.Controls.Add(btn_Centrality);
+            pnlMenu.Controls.Add(btn_AStar);
             pnlMenu.Controls.Add(btn_Save);
             pnlMenu.Controls.Add(label_Duration);
             pnlMenu.Controls.Add(pnlGroup);
@@ -156,14 +162,38 @@
             pnlMenu.Controls.Add(btnReset);
             pnlMenu.Location = new Point(444, 0);
             pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(436, 489);
+            pnlMenu.Size = new Size(436, 588);
             pnlMenu.TabIndex = 11;
+            // 
+            // btn_Centrality
+            // 
+            btn_Centrality.BackColor = SystemColors.ButtonFace;
+            btn_Centrality.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Centrality.Location = new Point(170, 397);
+            btn_Centrality.Name = "btn_Centrality";
+            btn_Centrality.Size = new Size(88, 33);
+            btn_Centrality.TabIndex = 17;
+            btn_Centrality.Text = "En Popüler 5";
+            btn_Centrality.UseVisualStyleBackColor = false;
+            btn_Centrality.Click += btn_Centrality_Click;
+            // 
+            // btn_AStar
+            // 
+            btn_AStar.BackColor = SystemColors.ButtonFace;
+            btn_AStar.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_AStar.Location = new Point(60, 397);
+            btn_AStar.Name = "btn_AStar";
+            btn_AStar.Size = new Size(88, 33);
+            btn_AStar.TabIndex = 16;
+            btn_AStar.Text = "A* Başlat";
+            btn_AStar.UseVisualStyleBackColor = false;
+            btn_AStar.Click += btn_AStar_Click;
             // 
             // btn_Save
             // 
             btn_Save.BackColor = SystemColors.ButtonFace;
             btn_Save.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btn_Save.Location = new Point(60, 397);
+            btn_Save.Location = new Point(277, 397);
             btn_Save.Name = "btn_Save";
             btn_Save.Size = new Size(88, 33);
             btn_Save.TabIndex = 15;
@@ -177,7 +207,7 @@
             label_Duration.AutoSize = true;
             label_Duration.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label_Duration.ForeColor = SystemColors.Control;
-            label_Duration.Location = new Point(60, 442);
+            label_Duration.Location = new Point(60, 541);
             label_Duration.Name = "label_Duration";
             label_Duration.Size = new Size(96, 25);
             label_Duration.TabIndex = 14;
@@ -324,12 +354,24 @@
             label5.TabIndex = 12;
             label5.Text = "Çizim Paneli";
             // 
+            // btn_Components
+            // 
+            btn_Components.BackColor = SystemColors.ButtonFace;
+            btn_Components.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Components.Location = new Point(60, 450);
+            btn_Components.Name = "btn_Components";
+            btn_Components.Size = new Size(88, 39);
+            btn_Components.TabIndex = 18;
+            btn_Components.Text = "Ayrık Topl. Bul";
+            btn_Components.UseVisualStyleBackColor = false;
+            btn_Components.Click += btn_Components_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(880, 489);
+            ClientSize = new Size(880, 588);
             Controls.Add(label5);
             Controls.Add(pnlGraph);
             Controls.Add(pnlMenu);
@@ -369,5 +411,8 @@
         private TextBox txt_ID;
         private Label label_Duration;
         private Button btn_Save;
+        private Button btn_AStar;
+        private Button btn_Centrality;
+        private Button btn_Components;
     }
 }
