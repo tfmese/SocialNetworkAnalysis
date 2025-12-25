@@ -54,6 +54,7 @@
             labelGroup = new Label();
             label5 = new Label();
             btn_Components = new Button();
+            btn_Coloring = new Button();
             pnlMenu.SuspendLayout();
             pnlGroup.SuspendLayout();
             SuspendLayout();
@@ -147,6 +148,7 @@
             // 
             pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlMenu.BackColor = Color.FromArgb(64, 64, 64);
+            pnlMenu.Controls.Add(btn_Coloring);
             pnlMenu.Controls.Add(btn_Components);
             pnlMenu.Controls.Add(btn_Centrality);
             pnlMenu.Controls.Add(btn_AStar);
@@ -366,6 +368,18 @@
             btn_Components.UseVisualStyleBackColor = false;
             btn_Components.Click += btn_Components_Click;
             // 
+            // btn_Coloring
+            // 
+            btn_Coloring.BackColor = SystemColors.ButtonFace;
+            btn_Coloring.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_Coloring.Location = new Point(170, 450);
+            btn_Coloring.Name = "btn_Coloring";
+            btn_Coloring.Size = new Size(88, 39);
+            btn_Coloring.TabIndex = 19;
+            btn_Coloring.Text = "Graf Renklendir";
+            btn_Coloring.UseVisualStyleBackColor = false;
+            btn_Coloring.Click += btn_Coloring_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -414,5 +428,6 @@
         private Button btn_AStar;
         private Button btn_Centrality;
         private Button btn_Components;
+        private Button btn_Coloring;
     }
 }

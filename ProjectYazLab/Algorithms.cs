@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace ProjectYazLab
@@ -15,6 +16,7 @@ namespace ProjectYazLab
         private IGraphAlgorithm aStarAlgo;
         private IGraphAnalyzer centralityAnalyzer;
         private IGraphAnalyzer componentsAnalyzer;
+        private IGraphAnalyzer coloringAnalyzer;
 
         public Algorithms()
         {
@@ -25,6 +27,7 @@ namespace ProjectYazLab
             aStarAlgo = new AStarAlgorithm();
             centralityAnalyzer = new DegreeCentralityAnalyzer();
             componentsAnalyzer = new ConnectedComponentsAnalyzer();
+            coloringAnalyzer = new WelshPowellColoringAnalyzer();
         }
 
         // BFS algoritmasını çalıştır
@@ -63,6 +66,24 @@ namespace ProjectYazLab
             List<List<Node>> result = new List<List<Node>>();
             componentsAnalyzer.Analyze(graph, result);
             return result;
+        }
+
+        // Welsh-Powell renklendirme algoritmasını çalıştır
+        public List<ColoringResult> RunWelshPowellColoring(Graph graph, Label timeLabel)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            List<ColoringResult> results = new List<ColoringResult>();
+            coloringAnalyzer.Analyze(graph, results);
+
+            stopwatch.Stop();
+            if (timeLabel != null)
+            {
+                timeLabel.Text = $"Welsh-Powell Süresi: {stopwatch.Elapsed.TotalMilliseconds:F3} ms ({stopwatch.ElapsedTicks} Ticks)";
+            }
+
+            return results;
         }
     }
 }

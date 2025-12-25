@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -594,6 +596,112 @@ namespace ProjectYazLab
                 rtb.AppendText("\n\n");
             }
 
+            resultForm.ShowDialog();
+        }
+
+        private void btn_Coloring_Click(object sender, EventArgs e)
+        {
+            if (socialGraph == null || socialGraph.Nodes.Count == 0)
+            {
+                MessageBox.Show("Graf boş! Önce veri yükleyin.");
+                return;
+            }
+
+            Algorithms algo = new Algorithms();
+
+            // Welsh-Powell renklendirme algoritmasını çalıştır
+            List<ColoringResult> coloringResults = algo.RunWelshPowellColoring(socialGraph, label_Duration);
+
+            // Grafi yeniden çiz
+            pnlGraph.Invalidate();
+
+            // --- SONUCU GÖSTERME (POP-UP) ---
+            Form resultForm = new Form();
+            resultForm.Text = $"Welsh-Powell Renklendirme Sonuçları - {coloringResults.Count} Topluluk";
+            resultForm.Size = new Size(700, 500);
+            resultForm.StartPosition = FormStartPosition.CenterParent;
+
+            // DataGridView ile tablo oluştur
+            DataGridView dgv = new DataGridView();
+            dgv.Dock = DockStyle.Fill;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
+            dgv.RowHeadersVisible = false;
+
+            // Sütunları oluştur
+            dgv.Columns.Add("ToplulukNo", "Topluluk No");
+            dgv.Columns.Add("DugumID", "Düğüm ID");
+            dgv.Columns.Add("DugumAdi", "Düğüm Adı");
+            dgv.Columns.Add("RenkIndex", "Renk İndeksi");
+            dgv.Columns.Add("RenkAdi", "Renk Adı");
+            dgv.Columns.Add("KullanilanRenkSayisi", "Toplam Renk Sayısı");
+
+            // Renk adları için palet
+            string[] colorNames = new string[]
+            {
+                "Kırmızı", "Yeşil", "Mavi", "Sarı", "Turuncu", "Mor", "Cyan", "Magenta",
+                "Lime", "Pembe", "Kahverengi", "Altın", "Gümüş", "Teal", "İndigo", "Coral",
+                "Turkuaz", "Menekşe", "Haki", "Somon"
+            };
+
+            // Özet bilgi için string oluştur
+            string summary = $"TOPLAM TOPLULUK SAYISI: {coloringResults.Count}\n\n";
+            
+            // Her topluluk için verileri ekle
+            for (int i = 0; i < coloringResults.Count; i++)
+            {
+                var result = coloringResults[i];
+                bool isFirstRow = true;
+                
+                // Bu toplulukta kullanılan renkleri topla
+                HashSet<int> usedColorIndices = new HashSet<int>();
+                foreach (var node in result.Component)
+                {
+                    if (result.NodeColors.ContainsKey(node))
+                    {
+                        usedColorIndices.Add(result.NodeColors[node]);
+                    }
+                }
+                
+                summary += $"TOPLULUK #{i + 1}: {result.Component.Count} düğüm, {result.ColorCount} renk kullanıldı\n";
+                summary += $"Kullanılan Renkler: ";
+                List<string> usedColorNames = new List<string>();
+                foreach (int idx in usedColorIndices.OrderBy(x => x))
+                {
+                    string colorName = idx < colorNames.Length ? colorNames[idx] : $"Renk {idx + 1}";
+                    usedColorNames.Add($"{colorName} (İndeks: {idx})");
+                }
+                summary += string.Join(", ", usedColorNames) + "\n\n";
+
+                foreach (var node in result.Component)
+                {
+                    int colorIndex = result.NodeColors[node];
+                    string colorName = colorIndex < colorNames.Length ? colorNames[colorIndex] : $"Renk {colorIndex + 1}";
+
+                    dgv.Rows.Add(
+                        isFirstRow ? (i + 1).ToString() : "",
+                        node.Id.ToString(),
+                        node.Name,
+                        colorIndex.ToString(),
+                        colorName,
+                        isFirstRow ? result.ColorCount.ToString() : ""
+                    );
+
+                    isFirstRow = false;
+                }
+
+                // Topluluklar arası boş satır ekle
+                if (i < coloringResults.Count - 1)
+                {
+                    dgv.Rows.Add("", "", "", "", "", "");
+                }
+            }
+
+            // Özet bilgiyi göster
+            MessageBox.Show(summary, "Renklendirme Özeti", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            resultForm.Controls.Add(dgv);
             resultForm.ShowDialog();
         }
     }
