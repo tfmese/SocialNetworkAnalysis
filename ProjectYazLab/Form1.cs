@@ -40,11 +40,34 @@ namespace ProjectYazLab
 
         private void btn_Reset_Click(object sender, EventArgs e)
         {
+            if (socialGraph.Nodes.Count > 0)
+            {
+                DialogResult result = MessageBox.Show(
+                    "Tüm grafi silmek istediğinize emin misiniz?",
+                    "Grafi Sıfırla",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+            }
+
             socialGraph = new Graph();
             nodeIdCounter = 1;
             selectedNode = null;
+            startNode = null;
+            endNode = null;
+            label_Duration.Text = "Süre: 0ms";
+            UpdateGraphStats();
             pnlGraph.Invalidate();
             ShowNodeInfo();
+        }
+
+        private void UpdateGraphStats()
+        {
+            int nodeCount = socialGraph.Nodes.Count;
+            int edgeCount = socialGraph.Edges.Count;
+            label_Stats.Text = $"Düğüm: {nodeCount} | Kenar: {edgeCount}";
         }
 
         private void pnlGraph_Paint(object sender, PaintEventArgs e)
@@ -197,6 +220,7 @@ namespace ProjectYazLab
                 }
             }
 
+            UpdateGraphStats();
             pnlGraph.Invalidate();
             ShowNodeInfo();
         }
@@ -282,6 +306,7 @@ namespace ProjectYazLab
                         nodeIdCounter = 1;
                     }
 
+                    UpdateGraphStats();
                     pnlGraph.Invalidate();
                     MessageBox.Show("Dosya başarıyla yüklendi: " + System.IO.Path.GetFileName(selectedPath));
                 }
@@ -347,7 +372,7 @@ namespace ProjectYazLab
                 return;
             }
 
-
+            label_Duration.Text = "Hesaplanıyor...";
             Algorithms algo = new Algorithms();
 
             btnRunBFS.Enabled = false;
@@ -365,6 +390,7 @@ namespace ProjectYazLab
                 return;
             }
 
+            label_Duration.Text = "Hesaplanıyor...";
             Algorithms algo = new Algorithms();
             btnRunDFS.Enabled = false;
             await algo.RunDFS(socialGraph, selectedNode, pnlGraph, label_Duration);
@@ -380,6 +406,7 @@ namespace ProjectYazLab
                 return;
             }
 
+            label_Duration.Text = "Hesaplanıyor...";
             Algorithms algo = new Algorithms();
             btn_Dijkstra.Enabled = false;
             await algo.RunDijkstra(socialGraph, startNode, endNode, pnlGraph, label_Duration);
@@ -465,6 +492,7 @@ namespace ProjectYazLab
             socialGraph.Nodes.Remove(selectedNode);
 
             selectedNode = null;
+            UpdateGraphStats();
             ShowNodeInfo();
             pnlGraph.Invalidate();
 
@@ -478,6 +506,7 @@ namespace ProjectYazLab
                 return;
             }
 
+            label_Duration.Text = "Hesaplanıyor...";
             Algorithms algo = new Algorithms();
 
             // Butonu pasif yap (çift tıklamayı önlemek için)
@@ -607,6 +636,7 @@ namespace ProjectYazLab
                 return;
             }
 
+            label_Duration.Text = "Hesaplanıyor...";
             Algorithms algo = new Algorithms();
 
             // Welsh-Powell renklendirme algoritmasını çalıştır
@@ -703,6 +733,19 @@ namespace ProjectYazLab
 
             resultForm.Controls.Add(dgv);
             resultForm.ShowDialog();
+        }
+
+        private void btn_ResetColors_Click(object sender, EventArgs e)
+        {
+            foreach (var node in socialGraph.Nodes)
+            {
+                // Eğer düğüm seçili değilse, rengini varsayılan maviye döndür
+                if (node != selectedNode && node != startNode && node != endNode)
+                {
+                    node.CurrentColor = Color.Blue;
+                }
+            }
+            pnlGraph.Invalidate();
         }
     }
 }

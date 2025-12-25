@@ -53,8 +53,10 @@
             btn_Delete = new Button();
             labelGroup = new Label();
             label5 = new Label();
+            label_Stats = new Label();
             btn_Components = new Button();
             btn_Coloring = new Button();
+            btn_ResetColors = new Button();
             pnlMenu.SuspendLayout();
             pnlGroup.SuspendLayout();
             SuspendLayout();
@@ -148,12 +150,14 @@
             // 
             pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlMenu.BackColor = Color.FromArgb(64, 64, 64);
+            pnlMenu.Controls.Add(btn_ResetColors);
             pnlMenu.Controls.Add(btn_Coloring);
             pnlMenu.Controls.Add(btn_Components);
             pnlMenu.Controls.Add(btn_Centrality);
             pnlMenu.Controls.Add(btn_AStar);
             pnlMenu.Controls.Add(btn_Save);
             pnlMenu.Controls.Add(label_Duration);
+            pnlMenu.Controls.Add(label_Stats);
             pnlMenu.Controls.Add(pnlGroup);
             pnlMenu.Controls.Add(labelGroup);
             pnlMenu.Controls.Add(btn_Dijkstra);
@@ -380,6 +384,30 @@
             btn_Coloring.UseVisualStyleBackColor = false;
             btn_Coloring.Click += btn_Coloring_Click;
             // 
+            // label_Stats
+            // 
+            label_Stats.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label_Stats.AutoSize = true;
+            label_Stats.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label_Stats.ForeColor = SystemColors.Control;
+            label_Stats.Location = new Point(60, 510);
+            label_Stats.Name = "label_Stats";
+            label_Stats.Size = new Size(150, 19);
+            label_Stats.TabIndex = 20;
+            label_Stats.Text = "Düğüm: 0 | Kenar: 0";
+            // 
+            // btn_ResetColors
+            // 
+            btn_ResetColors.BackColor = SystemColors.ButtonFace;
+            btn_ResetColors.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btn_ResetColors.Location = new Point(277, 450);
+            btn_ResetColors.Name = "btn_ResetColors";
+            btn_ResetColors.Size = new Size(88, 39);
+            btn_ResetColors.TabIndex = 21;
+            btn_ResetColors.Text = "Renkleri Sıfırla";
+            btn_ResetColors.UseVisualStyleBackColor = false;
+            btn_ResetColors.Click += btn_ResetColors_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -429,5 +457,7 @@
         private Button btn_Centrality;
         private Button btn_Components;
         private Button btn_Coloring;
+        private Label label_Stats;
+        private Button btn_ResetColors;
     }
 }
