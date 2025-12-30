@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Interfaces
 {
-  
     public interface IGraphAlgorithm
     {
         // Tüm algoritmalar bu metodu implement etmek zorunda

@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows.Forms;
+using ProjectYazLab.Interfaces;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Services
 {
     public class FileManager : IFileHandler
     {
@@ -169,3 +171,4 @@ namespace ProjectYazLab
         }
     }
 }
+

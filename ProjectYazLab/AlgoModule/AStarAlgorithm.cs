@@ -5,8 +5,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.AlgoModule
 {
     /// <summary>
     /// A* pathfinding algorithm implementation

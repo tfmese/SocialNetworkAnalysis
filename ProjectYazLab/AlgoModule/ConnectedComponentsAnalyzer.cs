@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.AlgoModule
 {
     // Bağlı bileşenleri bulan sınıf
     // AbstractGraphAnalyzer'dan türetiyorum

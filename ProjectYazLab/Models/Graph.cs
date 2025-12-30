@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.Swift;
 using System.Text;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Models
 {
     public class Graph
     {
@@ -24,3 +23,4 @@ namespace ProjectYazLab
         }
     }
 }
+

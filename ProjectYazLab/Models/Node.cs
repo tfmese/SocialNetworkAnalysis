@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Models
 {
     public class Node
     {
@@ -31,3 +31,4 @@ namespace ProjectYazLab
         }
     }
 }
+

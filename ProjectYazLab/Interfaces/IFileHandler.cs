@@ -1,4 +1,6 @@
-﻿namespace ProjectYazLab
+using ProjectYazLab.Models;
+
+namespace ProjectYazLab.Interfaces
 {
     // Dosya işlemleri için interface
     public interface IFileHandler

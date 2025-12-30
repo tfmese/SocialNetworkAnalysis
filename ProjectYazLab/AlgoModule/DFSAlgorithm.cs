@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.AlgoModule
 {
   
     public class DFSAlgorithm : AbstractPathfindingAlgorithm

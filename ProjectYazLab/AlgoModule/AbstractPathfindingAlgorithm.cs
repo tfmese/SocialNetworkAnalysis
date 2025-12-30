@@ -4,8 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjectYazLab.Interfaces;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.AlgoModule
 {
     // Abstract class yaptım çünkü ortak metodları buraya koydum
     // Böylece her algoritmada aynı kodu tekrar yazmaya gerek kalmadı

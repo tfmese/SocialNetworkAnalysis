@@ -1,9 +1,12 @@
-﻿using System;
+using ProjectYazLab.AlgoModule;
+using ProjectYazLab.Interfaces;
+using ProjectYazLab.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Services
 {
     // Bu sınıf algoritmaları çağırmak için kullanılıyor
     // Interface ve abstract class kullanarak yaptım
@@ -87,3 +90,4 @@ namespace ProjectYazLab
         }
     }
 }
+

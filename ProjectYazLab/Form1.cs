@@ -6,6 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using ProjectYazLab.Models;
+using ProjectYazLab.Services;
+using ProjectYazLab.Interfaces;
+
 namespace ProjectYazLab
 {
     public partial class Form1 : Form
@@ -281,7 +285,7 @@ namespace ProjectYazLab
             {
                 string selectedPath = openFileDialog.FileName; 
 
-                IFileHandler fileHandler = new FileManager();
+                IFileHandler fileHandler = new ProjectYazLab.Services.FileManager();
 
                 // gelen yolu kullanarak grafı yüklüyoruz
                 Graph loadedGraph = fileHandler.LoadGraphFromCSV(selectedPath, pnlGraph.Width, pnlGraph.Height);
@@ -373,7 +377,7 @@ namespace ProjectYazLab
             }
 
             label_Duration.Text = "Hesaplanıyor...";
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
             btnRunBFS.Enabled = false;
 
@@ -391,7 +395,7 @@ namespace ProjectYazLab
             }
 
             label_Duration.Text = "Hesaplanıyor...";
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
             btnRunDFS.Enabled = false;
             await algo.RunDFS(socialGraph, selectedNode, pnlGraph, label_Duration);
             btnRunDFS.Enabled = true;
@@ -407,7 +411,7 @@ namespace ProjectYazLab
             }
 
             label_Duration.Text = "Hesaplanıyor...";
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
             btn_Dijkstra.Enabled = false;
             await algo.RunDijkstra(socialGraph, startNode, endNode, pnlGraph, label_Duration);
             btn_Dijkstra.Enabled = true;
@@ -507,7 +511,7 @@ namespace ProjectYazLab
             }
 
             label_Duration.Text = "Hesaplanıyor...";
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
             // Butonu pasif yap (çift tıklamayı önlemek için)
             btn_AStar.Enabled = false;
@@ -530,7 +534,7 @@ namespace ProjectYazLab
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                IFileHandler fileHandler = new FileManager();
+                IFileHandler fileHandler = new ProjectYazLab.Services.FileManager();
 
                 if (saveFileDialog.FileName.EndsWith(".csv"))
                 {
@@ -572,7 +576,7 @@ namespace ProjectYazLab
             popupForm.Controls.Add(dgv);
 
             // 4. Algoritmayı çalıştır ve Tabloyu Doldur
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
             algo.CalculateDegreeCentrality(socialGraph, dgv);
 
             // 5. Pencereyi Göster (ShowDialog: Kapatmadan arkaya geçilemez)
@@ -586,7 +590,7 @@ namespace ProjectYazLab
                 return;
             }
 
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
             // Algoritmayı çalıştır ve listeyi al
             List<List<Node>> components = algo.GetConnectedComponents(socialGraph);
@@ -637,7 +641,7 @@ namespace ProjectYazLab
             }
 
             label_Duration.Text = "Hesaplanıyor...";
-            Algorithms algo = new Algorithms();
+            ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
             // Welsh-Powell renklendirme algoritmasını çalıştır
             List<ColoringResult> coloringResults = algo.RunWelshPowellColoring(socialGraph, label_Duration);

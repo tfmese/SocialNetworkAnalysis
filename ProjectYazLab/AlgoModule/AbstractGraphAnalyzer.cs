@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using ProjectYazLab.Interfaces;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.AlgoModule
 {
     // Analiz algoritmaları için abstract class
     // Ortak metodları buraya koydum

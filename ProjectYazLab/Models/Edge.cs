@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Models
 {
     public class Edge
     {
@@ -34,3 +34,4 @@ namespace ProjectYazLab
         }
     }
 }
+

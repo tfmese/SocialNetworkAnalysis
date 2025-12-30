@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.Interfaces
 {
     // Analiz algoritmaları için interface
     public interface IGraphAnalyzer

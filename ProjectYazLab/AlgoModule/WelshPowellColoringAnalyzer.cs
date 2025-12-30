@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using ProjectYazLab.Models;
 
-namespace ProjectYazLab
+namespace ProjectYazLab.AlgoModule
 {
     // Welsh-Powell graf renklendirme algoritması
     // Her ayrık topluluk için ayrı ayrı renklendirme yapar
@@ -127,14 +128,6 @@ namespace ProjectYazLab
         {
             return GetNeighbors(graph, node).Count;
         }
-    }
-
-    // Renklendirme sonuçlarını tutan sınıf
-    public class ColoringResult
-    {
-        public List<Node> Component { get; set; }
-        public Dictionary<Node, int> NodeColors { get; set; }
-        public int ColorCount { get; set; }
     }
 }
 
