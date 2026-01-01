@@ -54,7 +54,7 @@ BFS, graf üzerinde genişlik öncelikli arama yapan bir algoritmadır. FIFO (Fi
 4. Ziyaret edilmemiş komşular kuyruğa eklenir
 5. Adım 2 ye dönülür, kuyruk boşalana kadar devam edilir
 
-#### 3.1.2 Akış Diyagramı
+#### Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -650,7 +650,7 @@ graph TB
     I3 -->|implements| F1
 ```
 
-### 4.3 Sistem Mimarisi
+### Sistem Mimarisi
 
 ```mermaid
 graph TB
@@ -1113,7 +1113,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### BFS Algoritması Sonuç Görseli
 
-![BFS Küçük Graf](https://raw.githubusercontent.com/tfmese/SocialNetworkAnalysis/master/images/smallbfs_run.png)
+![BFS Küçük Graf](/images/smallbfs_run.png)
 
 **Açıklama**: BFS algoritması başlangıç düğümünden  başlayarak tüm komşuları sırayla ziyaret etti. Ziyaret edilen düğümler açık yeşil renkle gösterildi.
 
@@ -1131,7 +1131,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### A* Algoritması Sonuç Görseli
 
-![A* Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smallastar_run.png?raw=true)
+![A* Küçük Graf](/images/smallastar_run.png)
 
 **Açıklama**: A* ve Dijkstra algoritmaları aynı optimal yolu buldu. Heuristic fonksiyonu 0 olarak ayarlandığı için her iki algoritma da optimal sonuç verdi. A* algoritması closed set kullanarak daha verimli çalıştı ve 13 düğüm ziyaret ederken, Dijkstra 14 düğüm ziyaret etti. Her iki algoritma da aynı maliyeti hesapladı (66.23) ve 7 düğümlü optimal yolu buldu.
 
@@ -1145,18 +1145,18 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### Degree Centrality Sonuç Görseli
 
-![Degree Centrality Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smalldegcent_run.png?raw=true)
+![Degree Centrality Küçük Graf](/images/smalldegcent_run.png)
 
 **Açıklama**: En yüksek dereceli 5 düğüm tabloda gösterildi.
 
 #### Connected Components Sonuç Görseli
 
-![Connected Components Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smallconncomp_run.png?raw=true)
+![Connected Components Küçük Graf](/images/smallconncomp_run.png)
 
 
 #### Welsh-Powell Coloring Sonuç Görseli
 
-![Welsh-Powell Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smallwelshpowell_run.png?raw=true)
+![Welsh-Powell Küçük Graf](/images/smallwelshpowell_run.png)
 
 
 
@@ -1178,25 +1178,25 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### BFS Algoritması Sonuç Görseli
 
-![BFS Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumbfs_run.png?raw=true)
+![BFS Orta Graf](/images/mediumbfs_run.png)
 
 **Açıklama**: Orta ölçekli grafta BFS algoritması tüm düğümleri tarafı.
 
 #### DFS Algoritması Sonuç Görseli
 
-![DFS Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumdfs_run.png?raw=true)
+![DFS Orta Graf](/images/mediumdfs_run.png)
 
 **Açıklama**: DFS algoritması derinlik öncelikli arama yaparak tüm düğümleri ziyaret etti.
 
 #### Dijkstra Algoritması Sonuç Görseli
 
-![Dijkstra Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumdijkstra_run.png?raw=true)
+![Dijkstra Orta Graf](/images/mediumdijkstra_run.png)
 
 **Açıklama**: Dijkstra algoritması en kısa yolu buldu. Mor renkli yol gösterilmiştir.
 
 #### A* Algoritması Sonuç Görseli
 
-![A* Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumastar_run.png?raw=true)
+![A* Orta Graf](/images/mediumastar_run.png)
 
 **Açıklama**: A* ve Dijkstra algoritmaları aynı optimal yolu buldu. Heuristic fonksiyonu 0 olarak ayarlandığı için her iki algoritma da optimal sonuç verdi. A* algoritması closed set kullanarak daha verimli çalıştı ve 60 düğüm ziyaret ederken, Dijkstra 61 düğüm ziyaret etti. Her iki algoritma da aynı maliyeti hesapladı ( 85.18) ve 10 düğümlü  yolu buldu.
 
@@ -1210,19 +1210,19 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### Degree Centrality Sonuç Görseli
 
-![Degree Centrality Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumdegcent_run.png?raw=true)
+![Degree Centrality Orta Graf](/images/mediumdegcent_run.png)
 
 
 
 #### Connected Components Sonuç Görseli
 
-![Connected Components Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumconncomp_run.png?raw=true)
+![Connected Components Orta Graf](/images/mediumconncomp_run.png)
 
 
 
 #### Welsh-Powell Coloring Sonuç Görseli
 
-![Welsh-Powell Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumwelshpowell_run.png?raw=true)
+![Welsh-Powell Orta Graf](/images/mediumwelshpowell_run.png)
 
 
 ---
