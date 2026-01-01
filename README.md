@@ -420,7 +420,7 @@ flowchart TD
     N -->|Hayır| K
 ```
 
-#### 3.7.3 Karmaşıklık Analizi
+#### Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(V² +E)
   - Connected Components bulma: O(V+ E)
@@ -1050,34 +1050,34 @@ flowchart TD
 
 ---
 
-```
-## 5. Uygulamaya Ait Açıklamalar
 
-### 5.1 Uygulama Özellikleri
+##  Uygulamaya Ait Açıklamalar
 
-#### 5.1.1 Graf Oluşturma ve Düzenleme
+### Uygulama Özellikleri
+
+#### Graf Oluşturma ve Düzenleme
 - **Düğüm Ekleme:** Çizim panelinde boş bir alana sol tıklayarak yeni düğüm eklenebilir
 - **Kenar Ekleme:** İlk düğüme sol tıklayın, sonra ikinci düğüme sol tıklayın
 - **Düğüm Seçme ve Düzenleme:** Düğüme sol tıklayarak seçin, sağ panelden bilgileri (İsim, Activity, Interaction) düzenleyin ardından güncelle butonuyla güncellein
 - **Düğüm/Kenar Silme:** Düğüme tıklayarak sağ panelde sil butonuyla silebilirisniz, kenara sağ tıklayarak da kenarı silebilirsiniz.
 - **Graf Düzenleme:** "Düzenle" butonuna tıklayarak düğümler otomatik olarak dairesel düzende yerleştirilir
 
-#### 5.1.2 Dosya İşlemleri
+####  Dosya İşlemleri
 - **CSV Yükleme:** "CSV Yükle" butonuna tıklayarak kaydedilmiş csv dosyaları yüklenebilir
 - **CSV Kaydetme:** "Kaydet" butonuna tıklayarak mevcut graf csv formatında kaydedilebilir
 - **Komşuluk Matrisi:** Graf komşuluk matrisi formatında  kaydedilebilir
 
-#### 5.1.3 Algoritma Görselleştirme
+#### Algoritma Görselleştirme
 - **BFS/DFS:** Graf üzerinde animasyonlu tarama, ziyaret edilen düğümler renk değiştirir
 - **Dijkstra/A*:** En kısa yol bulma ve görselleştirme, yol mor renkle gösterilir
 - **Performans Ölçümü:** Her algoritma için çalışma süresi (ms ve ticks) gösterilir
 
-#### 5.1.4 Analiz Özellikleri
+####  Analiz Özellikleri
 - **Degree Centrality:** "Merkezilik" butonuna tıklayarak en etkili 5 kullanıcı listesi görüntülenir
 - **Connected Components:** "Ayrık Topluluk Bul" butonuna tıklayarak ayrık topluluklar gösterilir
 - **Welsh-Powell Renklendirme:** Graf renklendirme algoritması çalıştırılır ve renk sayısı gösterilir
 
-# 3.2 Algoritma Test Sonuçları
+# Algoritma Test Sonuçları
 
 Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 düğüm) graflar üzerinde gerçekleştirilen algoritma testlerinin sonuçları sunulmaktadır. Her algoritma için çalışma süreleri, ziyaret edilen düğüm sayıları ve sonuç görselleri tablolar halinde gösterilmiştir. Test tutarlılığı için tüm testlerde aynı csv dosyaları kullanılmıştır.
 
@@ -1091,7 +1091,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 ---
 
-## 3.2.1 Küçük Ölçekli Graf Testleri (10-20 Düğüm)
+## Küçük Ölçekli Graf Testleri (10-20 Düğüm)
 
 ### Test Grafı Özellikleri
 
@@ -1113,19 +1113,19 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### BFS Algoritması Sonuç Görseli
 
-![BFS Küçük Graf](https://raw.githubusercontent.com/tfmese/SocialNetworkAnalysis/main/images/smallbfs_run.png)
+![BFS Küçük Graf](https://raw.githubusercontent.com/tfmese/SocialNetworkAnalysis/master/images/smallbfs_run.png)
 
 **Açıklama**: BFS algoritması başlangıç düğümünden  başlayarak tüm komşuları sırayla ziyaret etti. Ziyaret edilen düğümler açık yeşil renkle gösterildi.
 
 #### DFS Algoritması Sonuç Görseli
 
-![DFS Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smalldfs_run.png?raw=true)
+![DFS Küçük Graf](./images/smalldfs_run.png)
 
 **Açıklama**: DFS algoritması derinlik öncelikli arama yaptı. Turuncu renkli düğümler ziyaret sırasını gösterir.
 
 #### Dijkstra Algoritması Sonuç Görseli
 
-![Dijkstra Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smalldijkstra_run.png?raw=true)
+![Dijkstra Küçük Graf](/images/smalldijkstra_run.png)
 
 **Açıklama**: En kısa yol mor renkle işaretlendi. Başlangıç düğümü turuncu, hedef düğüm yeşil renkle gösterildi boyanınca mor oldu.
 
@@ -1160,7 +1160,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 
 
-## 3.2.2 Orta Ölçekli Graf Testleri (50-100 Düğüm)
+##  Orta Ölçekli Graf Testleri (50-100 Düğüm)
 
 ### Test Grafı Özellikleri
 
@@ -1232,9 +1232,9 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 
 
-## 6. Sonuç ve Tartışma
+## Sonuç ve Tartışma
 
-### 6.1 Başarılar
+### Başarılar
 
 ✅ **Nesne Yönelimli Tasarım:** Interface ve Abstract Class kullanılarak esnek ve genişletilebilir bir yapı oluşturuldu. Bu sayede yeni algoritmalar kolayca eklenebilir.
 
@@ -1250,7 +1250,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 ✅ **Çoklu Algoritma Desteği:** 7 farklı algoritma başarıyla implement edildi ve test edildi.
 
-### 6.2 Sınırlılıklar
+### Sınırlılıklar
 
 ⚠️ **Görselleştirme:** Çok fazla düğüm olduğunda ekranda karmaşa oluşabiliyor
 
@@ -1258,7 +1258,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 ⚠️ **Algoritma Parametreleri:** Algoritmalar için kullanıcı tarafından ayarlanabilir parametreler eklenebilir şuan sadece koddan ayarlanıyor (örneğin delay süresi, renk seçenekleri).
 
-### 6.3 Olası Geliştirmeler
+### Olası Geliştirmeler
 
 🔮 **Yeni Algoritmalar Eklenebilir:**
 - Bellman-Ford algoritması (negatif ağırlıklı kenarlar için)
@@ -1290,9 +1290,9 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 ---
 
-## 7. Teknik Detaylar
+##  Teknik Detaylar
 
-### 7.1 Kullanılan Teknolojiler
+###  Kullanılan Teknolojiler
 
 - **.NET 10.0:** Framework 
 - **Windows Forms:** GUI framework
@@ -1300,7 +1300,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 - **System.Drawing:** Görselleştirme için
 - **System.Collections.Generic:** Veri yapıları için
 
-### 7.2 Proje Yapısı
+###  Proje Yapısı
 
 ```
 ProjectYazLab/
@@ -1332,7 +1332,7 @@ ProjectYazLab/
     └── Algorithms.cs
 ```
 
-### 7.3 Kenar Ağırlığı Hesaplama Formülü
+###  Kenar Ağırlığı Hesaplama Formülü
 
 ```csharp
 Weight = 1 + √[(Activity_i - Activity_j)² + (Interaction_i - Interaction_j)² + (ConnectionCount_i - ConnectionCount_j)²]
@@ -1340,7 +1340,7 @@ Weight = 1 + √[(Activity_i - Activity_j)² + (Interaction_i - Interaction_j)²
 
 Bu formül, iki düğüm arasındaki benzerlik farkına göre ağırlık hesaplar. Daha benzer düğümler arasında daha düşük ağırlık oluşur.
 
-### 7.4 OOP Prensipleri Uygulaması
+###  OOP Prensipleri Uygulaması
 
 - **Encapsulation:** Her sınıf kendi sorumluluğuna sahip
 - **Inheritance:** Abstract sınıflardan türetme
