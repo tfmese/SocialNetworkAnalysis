@@ -1,6 +1,6 @@
 # Graf Algoritmaları ve Sosyal Ağ Analizi Uygulaması
 
-## 1. Proje Bilgileri
+##  Proje Bilgileri
 
 **Proje Adı:** Graf Algoritmaları ve Sosyal Ağ Analizi Uygulaması
 
@@ -15,11 +15,11 @@
 ---
 
 
-### 2.1 Problemin Tanımı
+### Problemin Tanımı
 
 Sosyal ağlar, iletişim sistemleri gibi sosyal medyadan da aşina olacağımız yapıları modellemek için graf veri yapıları kullanılır. Bu projede, graf üzerinde çeşitli algoritmaların görselleştirilmesi, çalıştırılması ve analiz edilmesi amaçlanmıştır.
 
-### 2.2 Projenin Amacı
+###  Projenin Amacı
 
 Bu proje, aşağıdaki amaçları gerçekleştirmek için geliştirilmiştir:
 
@@ -30,7 +30,7 @@ Bu proje, aşağıdaki amaçları gerçekleştirmek için geliştirilmiştir:
 - Nesne yönelimli programlama(OOP) prensiplerini (Interface, Abstract Class) uygulama
 - Graf verilerini CSV ve Komşuluk Matrisi formatında kaydetme ve yükleme
 
-### 2.3 Kullanım Alanları
+###  Kullanım Alanları
 
 - Sosyal ağ analizi
 - En kısa yol problemleri
@@ -39,11 +39,11 @@ Bu proje, aşağıdaki amaçları gerçekleştirmek için geliştirilmiştir:
 
 ---
 
-## 3. Algoritmalar
+##  Algoritmalar
 
-### 3.1 Breadth-First Search (BFS)
+###  Breadth-First Search (BFS)
 
-#### 3.1.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 BFS, graf üzerinde genişlik öncelikli arama yapan bir algoritmadır. FIFO (First In First Out) prensibine göre çalışır ve Queue (kuyruk) veri yapısı kullanır.
 
@@ -75,7 +75,7 @@ flowchart TD
     L --> I
 ```
 
-#### 3.1.3 Karmaşıklık Analizi
+####  Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(V + E)
   - V: Düğüm sayısı (Vertex)
@@ -86,7 +86,7 @@ flowchart TD
   - Queue'da en fazla V düğüm bulunabilir
   - Ziyaret edilen düğümler için O(V) bellek
 
-#### 3.1.4 Literatür İncelemesi
+#### Literatür İncelemesi
 
 BFS algoritması ilk olarak 1959 yılında Edward F. Moore tarafından labirent çözme problemi için önerilmiştir. Daha sonra C.Y. Lee tarafından 1961'de bağlantı yolları bulma problemi için uygulanmıştır. BFS, en kısa yol problemi için ağırlıksız graflarda optimal çözüm sağlar.
 
@@ -94,9 +94,9 @@ BFS algoritması ilk olarak 1959 yılında Edward F. Moore tarafından labirent 
 
 ---
 
-### 3.2 Depth-First Search (DFS)
+###  Depth-First Search (DFS)
 
-#### 3.2.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 DFS, graf üzerinde derinlik öncelikli arama yapan bir algoritmadır. LIFO (Last In First Out) prensibine göre çalışır ve Stack (yığın) veri yapısı kullanır.
 
@@ -107,7 +107,7 @@ DFS, graf üzerinde derinlik öncelikli arama yapan bir algoritmadır. LIFO (Las
 4. Bu düğümün ziyaret edilmemiş komşuları stack'e eklenir
 5. Adım 2'ye dönülür, stack boşalana kadar devam edilir
 
-#### 3.2.2 Akış Diyagramı
+####  Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -128,7 +128,7 @@ flowchart TD
     K -->|Hayır| L[Komşuyu Stack'e ekle]
     L --> J
 ```
-#### 3.2.3 Karmaşıklık Analizi
+#### Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(V + E)
   - V: Düğüm sayısı
@@ -139,7 +139,7 @@ flowchart TD
   - Stack'te en fazla V düğüm bulunabilir (en kötü durum: lineer graf)
   - Ziyaret edilen düğümler için O(V) bellek
 
-#### 3.2.4 Literatür İncelemesi
+#### Literatür İncelemesi
 
 DFS algoritması, Charles Pierre Trémaux tarafından 19. yüzyılda labirent çözme problemi için önerilmiştir. Algoritma, topolojik sıralama, strongly connected components bulma ve cycle detection gibi problemlerde yaygın olarak kullanılır.
 
@@ -147,9 +147,9 @@ DFS algoritması, Charles Pierre Trémaux tarafından 19. yüzyılda labirent ç
 
 ---
 
-### 3.3 Dijkstra Algoritması
+###  Dijkstra Algoritması
 
-#### 3.3.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 Dijkstra algoritması, ağırlıklı graflarda bir başlangıç düğümünden diğer tüm düğümlere olan en kısa yolları bulur. Greedy (açgözlü) algoritma yaklaşımı kullanır.
 
@@ -161,7 +161,7 @@ Dijkstra algoritması, ağırlıklı graflarda bir başlangıç düğümünden d
 5. Seçilen düğüm ziyaret edildi olarak işaretlenir
 6. Adım 2'ye dönülür, tüm düğümler ziyaret edilene kadar devam edilir
 
-#### 3.3.2 Akış Diyagramı
+####  Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -184,7 +184,7 @@ flowchart TD
     M --> H
 ```
 
-#### 3.3.3 Karmaşıklık Analizi
+####  Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(V²)
   - Basit implementasyon: O(V²) - her düğüm için tüm düğümleri kontrol eder
@@ -196,7 +196,7 @@ flowchart TD
   - Ziyaret edilen düğümler: O(V)
   - Önceki düğümler: O(V)
 
-#### 3.3.4 Literatür İncelemesi
+####  Literatür İncelemesi
 
 Dijkstra algoritması, 1956 yılında Edsger W. Dijkstra tarafından Amsterdam'daki bir bilgisayar için en kısa yol problemi çözümü olarak geliştirilmiştir. Algoritma, negatif ağırlıklı kenarlar içermeyen graflarda optimal çözüm sağlar.
 
@@ -204,9 +204,9 @@ Dijkstra algoritması, 1956 yılında Edsger W. Dijkstra tarafından Amsterdam'd
 
 ---
 
-### 3.4 A* (A-Star) Algoritması
+### A* (A-Star) Algoritması
 
-#### 3.4.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 A* algoritması, Dijkstra algoritmasının geliştirilmiş bir versiyonudur. Heuristic fonksiyon kullanarak daha hızlı sonuç verir. Formül: **f(n) = g(n) + h(n)**
 - **g(n):** Başlangıçtan n düğümüne kadar olan gerçek maliyet
@@ -221,7 +221,7 @@ A* algoritması, Dijkstra algoritmasının geliştirilmiş bir versiyonudur. Heu
 5. Daha iyi bir yol bulunursa güncellenir
 6. Hedefe ulaşıldığında durulur
 
-#### 3.4.2 Akış Diyagramı
+####  Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -250,7 +250,7 @@ flowchart TD
     P -->|Evet| R
 ```
 
-#### 3.4.3 Karmaşıklık Analizi
+####  Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(b^d)
   - b: Branching factor (ortalama komşu sayısı)
@@ -261,7 +261,7 @@ flowchart TD
   - Open set'te saklanan düğüm sayısı
   - Heuristic fonksiyon kalitesine bağlı olarak değişir
 
-#### 3.4.4 Literatür İncelemesi
+####  Literatür İncelemesi
 
 A* algoritması, 1968 yılında Peter Hart, Nils Nilsson ve Bertram Raphael tarafından geliştirilmiştir. Algoritma, admissible (kabul edilebilir) heuristic fonksiyon kullanıldığında optimal çözüm sağlar. Oyun geliştirme, robotik ve navigasyon sistemlerinde yaygın olarak kullanılır.
 
@@ -269,9 +269,9 @@ A* algoritması, 1968 yılında Peter Hart, Nils Nilsson ve Bertram Raphael tara
 
 ---
 
-### 3.5 Degree Centrality (Merkezilik)
+###  Degree Centrality (Merkezilik)
 
-#### 3.5.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 Merkezilik, bir düğümün graf içindeki önemini, o düğüme bağlı olan kenar sayısına göre ölçer. Sosyal ağlarda daha fazla bağlantıya sahip kullanıcılar daha merkezi kabul edilir.
 
@@ -286,7 +286,7 @@ Degree Centrality = (Düğümün derecesi) / (Toplam düğüm sayısı - 1)
 3. En yüksek dereceye sahip ilk 5 düğüm seçilir
 4. Merkezilik skoru hesaplanır ve gösterilir
 
-#### 3.5.2 Akış Diyagramı
+####  Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -302,7 +302,7 @@ flowchart TD
     I --> Z[Bitir]
 ```
 
-#### 3.5.3 Karmaşıklık Analizi
+####  Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(V + E)
   - Her kenar bir kez kontrol edilir: O(E)
@@ -312,7 +312,7 @@ flowchart TD
 - **Uzay Karmaşıklığı:** O(V)
   - Düğüm derecelerini saklamak için
 
-#### 3.5.4 Literatür İncelemesi
+#### Literatür İncelemesi
 
 Merkezilik, sosyal ağ analizinde en temel ölçütlerden biridir. Linton Freeman tarafından 1979'da formalize edilmiştir. Sosyal medya platformlarında influencer tespiti, ağ güvenliği analizi ve bilgi yayılımı çalışmalarında kullanılır.
 
@@ -320,9 +320,9 @@ Merkezilik, sosyal ağ analizinde en temel ölçütlerden biridir. Linton Freema
 
 ---
 
-### 3.6 Connected Components (Bağlı Bileşenler)
+###  Connected Components (Bağlı Bileşenler)
 
-#### 3.6.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 Connected Components algoritması, graf içindeki birbirine bağlı düğüm gruplarını bulur. İki düğüm arasında yol varsa, bağlı yani aynı grupta kabul edilirler.
 
@@ -333,7 +333,7 @@ Connected Components algoritması, graf içindeki birbirine bağlı düğüm gru
 4. Bulunan düğümler bir bileşen olarak kaydedilir
 5. Adım 2'ye dönülür, tüm düğümler ziyaret edilene kadar devam edilir
 
-#### 3.6.2 Akış Diyagramı
+####  Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -359,7 +359,7 @@ flowchart TD
     P --> L
 ```
 
-#### 3.6.3 Karmaşıklık Analizi
+####  Karmaşıklık Analizi
 
 - **Zaman Karmaşıklığı:** O(V + E)
   - Her düğüm bir kez ziyaret edilir: O(V)
@@ -371,7 +371,7 @@ flowchart TD
   - Ziyaret edilen düğümler: O(V)
   - Bileşen listesi: O(V)
 
-#### 3.6.4 Literatür İncelemesi
+#### Literatür İncelemesi
 
 Connected Components problemi, graf teorisinin temel problemlerinden biridir. Tarjan'ın algoritması (1972) ve Union-Find veri yapısı kullanılarak çözülebilir. Ağ analizi, sosyal ağ topluluk tespiti ve bilgisayar ağları güvenliği alanlarında kullanılır.
 
@@ -379,9 +379,9 @@ Connected Components problemi, graf teorisinin temel problemlerinden biridir. Ta
 
 ---
 
-### 3.7 Welsh-Powell Graf Renklendirme Algoritması
+### Welsh-Powell Graf Renklendirme Algoritması
 
-#### 3.7.1 Çalışma Mantığı
+####  Çalışma Mantığı
 
 Welsh-Powell algoritması, bir grafın düğümlerini, komşu düğümleri farkklı renkte olacak şekilde renklerndirir. 
 
@@ -394,7 +394,7 @@ Welsh-Powell algoritması, bir grafın düğümlerini, komşu düğümleri farkk
 6. Renk atanamayan düğümler için yeni renk oluşturulur
 7. Tüm düğümler renklendirilene kadar devam edilir
 
-#### 3.7.2 Akış Diyagramı
+#### Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -432,7 +432,7 @@ flowchart TD
   - Renk atamalarını saklamak için
   - Topluluk listesi: O(V)
 
-#### 3.7.4 Literatür İncelemesi
+#### Literatür İncelemesi
 
 Welsh-Powell algoritması, 1967 yılında D.J.A. Welsh ve M.B. Powell tarafından önerilmiştir. Graf renklendirme problemi, zamanlama problemleri, kaynak tahsisi ve register allocation gibi birçok uygulamada kullanılır.
 
@@ -440,9 +440,9 @@ Welsh-Powell algoritması, 1967 yılında D.J.A. Welsh ve M.B. Powell tarafında
 
 ---
 
-## 4. Proje Yapısı ve Sınıf Diyagramları
+##  Proje Yapısı ve Sınıf Diyagramları
 
-### 4.1 Genel Sınıf Yapısı
+###  Genel Sınıf Yapısı
 
 ```mermaid
 classDiagram
@@ -604,7 +604,7 @@ classDiagram
     WelshPowellColoringAnalyzer --> ColoringResult
 ```
 
-### 4.2 Interface ve Abstract Class İlişkileri
+###  Interface ve Abstract Class İlişkileri
 
 ```mermaid
 graph TB
@@ -686,7 +686,7 @@ graph TB
     FILE --> GRAPH
 ```
 
-### 4.4 Sequence Diyagramı - Algoritma Çalıştırma
+### Sequence Diyagramı - Algoritma Çalıştırma
 
 ```mermaid
 sequenceDiagram
@@ -710,7 +710,7 @@ sequenceDiagram
     Form1-->>User: Sonuç Göster
 ```
 
-### 4.5 State Diyagramı - Graf Durumları
+### State Diyagramı - Graf Durumları
 
 ```mermaid
 stateDiagram-v2
@@ -737,7 +737,7 @@ stateDiagram-v2
     GrafOluşturuldu --> BoşGraf: Reset Butonu
 ```
 
-### 4.6 Veri Akış Diyagramı
+###  Veri Akış Diyagramı
 
 ```mermaid
 flowchart LR
@@ -778,11 +778,11 @@ flowchart LR
     GRAPH --> FILEOUT
 ```
 
-### 4.7 Modül Yapısı ve İşlevleri
+### Modül Yapısı ve İşlevleri
 
 Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi sorumluluğuna odaklanarak kodun bakımını ve genişletilebilirliğini kolaylaştırmaktadır.
 
-#### 4.7.1 Models Modülü (Veri Yapıları)
+####  Models Modülü (Veri Yapıları)
 
 **Graph.cs**
 - Graf veri yapısını temsil eder
@@ -806,7 +806,7 @@ Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi 
   - `Visited`: Ziyaret durumu (algoritmalar için)
 
 **Edge.cs**
-- Graf kenarlarını temsil eder
+- Graf kenarlarını yani bağları temsil eder
 - Özellikler:
   - `Source`: Kaynak düğüm
   - `Target`: Hedef düğüm
@@ -826,7 +826,7 @@ Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi 
 - Her ayrık topluluk için ayrı bir `ColoringResult` nesnesi oluşturulur
 - Renklendirme sonuçlarının görselleştirilmesi ve raporlanması için kullanılır
 
-#### 4.7.2 Interfaces Modülü (Arayüzler)
+####  Interfaces Modülü (Arayüzler)
 
 **IGraphAlgorithm.cs**
 - Pathfinding algoritmaları için arayüz
@@ -848,7 +848,7 @@ Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi 
   - `void SaveAdjacencyMatrix(Graph graph, string filePath)`: Komşuluk matrisi formatında kaydetme
 - Dosya işlemlerinin soyutlanmasını sağlar
 
-#### 4.7.3 AlgoModule Modülü (Algoritma Implementasyonları)
+####  AlgoModule Modülü (Algoritma İmplementasyonları)
 
 **AbstractPathfindingAlgorithm.cs**
 - Pathfinding algoritmaları için abstract base class
@@ -921,7 +921,7 @@ Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi 
 - Sonuç: `List<ColoringResult>` formatında döner
 - Her topluluk için renk sayısı ve düğüm-renk eşleşmeleri tutulur
 
-#### 4.7.4 Services Modülü (Servis Sınıfları)
+#### Services Modülü (Servis Sınıfları)
 
 **FileManager.cs**
 - Dosya işlemlerini yöneten servis sınıfı
@@ -951,7 +951,7 @@ Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi 
 - Kullanıcı arayüzünden tek bir noktadan tüm algoritmalara erişim sağlar
 - Namespace: `ProjectYazLab.Services`
 
-#### 4.7.5 Kullanıcı Arayüzü Modülü
+#### Kullanıcı Arayüzü Modülü
 
 **Form1.cs**
 - Ana form ve kullanıcı etkileşimleri
@@ -977,7 +977,7 @@ Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi 
   - Algoritma animasyonları: Adım adım renk değişimleri
 - Namespace: `ProjectYazLab`
 
-#### 4.7.6 Modül İlişkileri ve Bağımlılıklar
+#### Modül İlişkileri ve Bağımlılıklar
 
 ```
 Form1.cs
@@ -999,14 +999,14 @@ AlgoModule/*
   └── Models (Graph, Node, Edge, ColoringResult)
 ```
 
-#### 4.7.7 Tasarım Desenleri
+#### Tasarım Desenleri
 
 1. **Facade Pattern**: `Algorithms.cs` sınıfı, tüm algoritma karmaşıklığını gizleyerek basit bir arayüz sunar
 2. **Strategy Pattern**: Interface'ler üzerinden farklı algoritma stratejileri uygulanır
 3. **Template Method Pattern**: Abstract sınıflar (`AbstractPathfindingAlgorithm`, `AbstractGraphAnalyzer`) ortak algoritma iskeletini tanımlar
-4. **Polymorphism**: Interface'ler sayesinde farklı algoritma implementasyonları aynı şekilde kullanılabilir
+4. **Polymorfizm**: Interface'ler sayesinde farklı algoritma implementasyonları aynı şekilde kullanılabilir
 
-#### 4.7.8 Modüler Yapının Avantajları
+####  Modüler Yapının Avantajları
 
 - **Bakım Kolaylığı**: Her modül kendi sorumluluğuna odaklanır
 - **Genişletilebilirlik**: Yeni algoritma eklemek için sadece ilgili modüle yeni class eklemek yeterlidir
@@ -1014,7 +1014,7 @@ AlgoModule/*
 - **Kod Tekrarının Önlenmesi**: Abstract sınıflar ortak fonksiyonelliği sağlar
 - **Separation of Concerns**: Veri yapıları, iş mantığı ve kullanıcı arayüzü ayrılmıştır
 
-### 4.8 İş Akış Diyagramı
+###  İş Akış Diyagramı
 
 ```mermaid
 flowchart TD
@@ -1049,21 +1049,21 @@ flowchart TD
 ---
 
 ```
-## 5. Uygulamaya Ait Açıklamalar, Ekran Görüntüleri, Test Senaryoları ve Sonuçlar
+## 5. Uygulamaya Ait Açıklamalar
 
 ### 5.1 Uygulama Özellikleri
 
 #### 5.1.1 Graf Oluşturma ve Düzenleme
 - **Düğüm Ekleme:** Çizim panelinde boş bir alana sol tıklayarak yeni düğüm eklenebilir
 - **Kenar Ekleme:** İlk düğüme sol tıklayın, sonra ikinci düğüme sol tıklayın
-- **Düğüm Seçme ve Düzenleme:** Düğüme sol tıklayarak seçin, sağ panelden bilgileri (İsim, Activity, Interaction) düzenleyin
-- **Düğüm/Kenar Silme:** Düğüme veya kenara sağ tıklayarak silinebilir
-- **Graf Düzenleme:** "Düzenle" butonuna tıklayarak düğümler otomatik olarak dairesel düzende yerleştirilebilir
+- **Düğüm Seçme ve Düzenleme:** Düğüme sol tıklayarak seçin, sağ panelden bilgileri (İsim, Activity, Interaction) düzenleyin ardından güncelle butonuyla güncellein
+- **Düğüm/Kenar Silme:** Düğüme tıklayarak sağ panelde sil butonuyla silebilirisniz, kenara sağ tıklayarak da kenarı silebilirsiniz.
+- **Graf Düzenleme:** "Düzenle" butonuna tıklayarak düğümler otomatik olarak dairesel düzende yerleştirilir
 
 #### 5.1.2 Dosya İşlemleri
-- **CSV Yükleme:** "CSV Yükle" butonuna tıklayarak kaydedilmiş graf dosyaları yüklenebilir
-- **CSV Kaydetme:** "Kaydet" butonuna tıklayarak mevcut graf CSV formatında kaydedilebilir
-- **Komşuluk Matrisi:** Graf komşuluk matrisi formatında (.txt) kaydedilebilir
+- **CSV Yükleme:** "CSV Yükle" butonuna tıklayarak kaydedilmiş csv dosyaları yüklenebilir
+- **CSV Kaydetme:** "Kaydet" butonuna tıklayarak mevcut graf csv formatında kaydedilebilir
+- **Komşuluk Matrisi:** Graf komşuluk matrisi formatında  kaydedilebilir
 
 #### 5.1.3 Algoritma Görselleştirme
 - **BFS/DFS:** Graf üzerinde animasyonlu tarama, ziyaret edilen düğümler renk değiştirir
@@ -1072,197 +1072,163 @@ flowchart TD
 
 #### 5.1.4 Analiz Özellikleri
 - **Degree Centrality:** "Merkezilik" butonuna tıklayarak en etkili 5 kullanıcı listesi görüntülenir
-- **Connected Components:** "Ayrık Topluluk Bul" butonuna tıklayarak ayrık toplulukların tespiti yapılır
+- **Connected Components:** "Ayrık Topluluk Bul" butonuna tıklayarak ayrık topluluklar gösterilir
 - **Welsh-Powell Renklendirme:** Graf renklendirme algoritması çalıştırılır ve renk sayısı gösterilir
 
-### 5.2 Test Senaryoları
+# 3.2 Algoritma Test Sonuçları
 
-#### Test Senaryosu 1: Basit Graf ile BFS Testi
-**Amaç:** BFS algoritmasının doğru çalıştığını doğrulamak
+Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 düğüm) graflar üzerinde gerçekleştirilen algoritma testlerinin sonuçları sunulmaktadır. Her algoritma için çalışma süreleri, ziyaret edilen düğüm sayıları ve sonuç görselleri tablolar halinde gösterilmiştir. Test tutarlılığı için tüm testlerde aynı csv dosyaları kullanılmıştır.
 
-**Adımlar:**
-1. 5 düğümlü basit bir graf oluştur
-2. Düğümler arası kenarlar ekle (örnek: 1-2, 2-3, 3-4, 4-5, 1-3)
-3. Düğüm 1'i seç (başlangıç)
-4. BFS algoritmasını başlat
+## Test Ortamı
 
-**Beklenen Sonuç:**
-- Tüm düğümler seviye seviye ziyaret edilmeli
-- Ziyaret sırası: 1 → 2,3 → 4 → 5 (seviye bazlı)
-- Süre: < 100ms (küçük graf için)
-
-**Gerçek Sonuç:**
-- ✅ Tüm düğümler ziyaret edildi
-- ✅ Seviye bazlı tarama doğru çalıştı
-- ✅ Süre: placeholder
+- **İşletim Sistemi**: Windows 11 Pro
+- **Geliştirme Ortamı**: .NET 10.0
+- **Test Edilen Algoritmalar**: 
+  - Pathfinding: BFS, DFS, Dijkstra, A*
+  - Analiz: Degree Centrality, Connected Components, Welsh-Powell Coloring
 
 ---
 
-#### Test Senaryosu 2: En Kısa Yol Testi (Dijkstra)
-**Amaç:** Dijkstra algoritmasının en kısa yolu doğru bulduğunu doğrulamak
+## 3.2.1 Küçük Ölçekli Graf Testleri (10-20 Düğüm)
 
-**Adımlar:**
-1. Ağırlıklı graf oluştur (farklı Activity/Interaction değerleri ile)
-2. Düğüm 1'i başlangıç olarak seç (sol tık)
-3. Düğüm 5'i hedef olarak seç (sağ tık)
-4. Dijkstra algoritmasını çalıştır
+### Test Grafı Özellikleri
 
-**Beklenen Sonuç:**
-- En kısa yol bulunmalı ve görselleştirilmeli
-- Toplam maliyet doğru hesaplanmalı
-- Yol mor renkle gösterilmeli
+- **Düğüm Sayısı**: [15]
+- **Kenar Sayısı**: [24]
 
-**Gerçek Sonuç:**
-- ✅ En kısa yol bulundu
-- ✅ Maliyet doğru hesaplandı
-- ✅ Süre: placeholder
+### Pathfinding Algoritmaları Sonuçları
 
----
+| Algoritma | Başlangıç Düğümü | Hedef Düğümü | Çalışma Süresi (ms) | Çalışma Süresi (Ticks) | Ziyaret Edilen Düğüm Sayısı | Bulunan Yol Uzunluğu | Toplam Maliyet |
+|-----------|------------------|--------------|---------------------|------------------------|----------------------------|----------------------|----------------|
+| BFS       | [1]              | [15]         | [0.0136ms]             | [136]                | [15]                       | -                    | -              |
+| DFS       | [1]              | [15]         | [0.0095ms]             | [95]                 | [15]                       | -                    | -              |
+| Dijkstra  | [1]              | [15]         | [0.0647ms]             | [647]                | [14]                       | [7]                  | [66.23]        |
+| A*        | [1]              | [15]         | [0.0554ms]             | [554]                | [13]                       | [7]                  | [66.23]        |
 
-#### Test Senaryosu 3: Ayrık Bileşenler Testi
-**Amaç:** Connected Components algoritmasının doğru çalıştığını doğrulamak
+**Notlar:**
+- BFS ve DFS algoritmaları sadece tarama yaptığı için yol uzunluğu ve maliyet hesaplanmamıştır.
+- Dijkstra ve A* algoritmaları en kısa yolu bulur ve toplam maliyeti hesaplar.
 
-**Adımlar:**
-1. Birbirine bağlı olmayan iki grup düğüm oluştur
-   - Grup 1: Düğüm 1, 2, 3 (birbirine bağlı)
-   - Grup 2: Düğüm 4, 5 (birbirine bağlı)
-2. "Ayrık Topluluk Bul" butonuna tıkla
+#### BFS Algoritması Sonuç Görseli
 
-**Beklenen Sonuç:**
-- 2 ayrık topluluk bulunmalı
-- Her toplulukta doğru düğümler listelenmeli
+![BFS Küçük Graf](images/smallbfs_run.png)
 
-**Gerçek Sonuç:**
-- ✅ 2 ayrık topluluk bulundu
-- ✅ Topluluk 1: Düğüm 1, 2, 3
-- ✅ Topluluk 2: Düğüm 4, 5
-- ✅ Süre: placeholder
+**Açıklama**: BFS algoritması başlangıç düğümünden  başlayarak tüm komşuları sırayla ziyaret etti. Ziyaret edilen düğümler açık yeşil renkle gösterildi.
 
----
+#### DFS Algoritması Sonuç Görseli
 
-#### Test Senaryosu 4: Degree Centrality Testi
-**Amaç:** Degree Centrality analizinin doğru çalıştığını doğrulamak
+![DFS Küçük Graf](images/smalldfs_run.png)
 
-**Adımlar:**
-1. Farklı bağlantı sayılarına sahip düğümler oluştur
-   - Düğüm 1: 5 bağlantı
-   - Düğüm 2: 3 bağlantı
-   - Düğüm 3: 4 bağlantı
-2. "Merkezilik" butonuna tıkla
+**Açıklama**: DFS algoritması derinlik öncelikli arama yaptı. Turuncu renkli düğümler ziyaret sırasını gösterir.
 
-**Beklenen Sonuç:**
-- En yüksek bağlantıya sahip 5 düğüm listelenmeli
-- Skorlar doğru hesaplanmalı (degree / (n-1))
+#### Dijkstra Algoritması Sonuç Görseli
 
-**Gerçek Sonuç:**
-- ✅ İlk 5 doğru sıralandı
-- ✅ Skorlar doğru hesaplandı
-- ✅ Süre: placeholder
+![Dijkstra Küçük Graf](images/smalldijkstra_run.png)
 
----
+**Açıklama**: En kısa yol mor renkle işaretlendi. Başlangıç düğümü turuncu, hedef düğüm yeşil renkle gösterildi boyanınca mor oldu.
 
-#### Test Senaryosu 5: Welsh-Powell Renklendirme Testi
-**Amaç:** Graf renklendirme algoritmasının doğru çalıştığını doğrulamak
+#### A* Algoritması Sonuç Görseli
 
-**Adımlar:**
-1. Bir graf oluştur (komşu düğümler aynı renge sahip olmamalı)
-2. Welsh-Powell renklendirme algoritmasını çalıştır
+![A* Küçük Graf](images/smallastar_run.png)
 
-**Beklenen Sonuç:**
-- Komşu düğümler farklı renklere sahip olmalı
-- Minimum renk sayısı kullanılmalı
+**Açıklama**: A* ve Dijkstra algoritmaları aynı optimal yolu buldu. Heuristic fonksiyonu 0 olarak ayarlandığı için her iki algoritma da optimal sonuç verdi. A* algoritması closed set kullanarak daha verimli çalıştı ve 13 düğüm ziyaret ederken, Dijkstra 14 düğüm ziyaret etti. Her iki algoritma da aynı maliyeti hesapladı (66.23) ve 7 düğümlü optimal yolu buldu.
 
-**Gerçek Sonuç:**
-- ✅ Komşu düğümler farklı renklere sahip
-- ✅ Renk sayısı optimal
-- ✅ Süre: placeholder
+### Analiz Algoritmaları Sonuçları
 
----
+| Algoritma | Çalışma Süresi (ms) | Çalışma Süresi (Ticks) | Sonuç |
+|-----------|---------------------|------------------------|-------|
+| Degree Centrality | [0.029ms] |   [291]                   | En etkili 5 kullanıcı|
+| Connected Components | [0.019ms] | [191]                  |Toplam ayrık topluluk bulundu |
+| Welsh-Powell Coloring | [0.093ms] | [934] | 1 topluluk, toplam 3 renk kullanıldı |
 
-#### Test Senaryosu 6: Dosya İşlemleri Testi
-**Amaç:** Dosya kaydetme ve yükleme işlemlerinin doğru çalıştığını doğrulamak
+#### Degree Centrality Sonuç Görseli
 
-**Adımlar:**
-1. Bir graf oluştur (5 düğüm, kenarlar, özellikler)
-2. "Kaydet" butonuna tıkla, CSV formatında kaydet
-3. Uygulamayı kapat
-4. Uygulamayı aç
-5. "CSV Yükle" butonuna tıkla, kaydedilen dosyayı seç
+![Degree Centrality Küçük Graf](images/smalldegcent_run.png)
 
-**Beklenen Sonuç:**
-- Graf aynı şekilde yüklenmeli
-- Tüm bilgiler (düğümler, kenarlar, koordinatlar, özellikler) korunmalı
+**Açıklama**: En yüksek dereceli 5 düğüm tabloda gösterildi.
 
-**Gerçek Sonuç:**
-- ✅ Graf aynı şekilde yüklendi
-- ✅ Veri kaybı yok
-- ✅ Koordinatlar korundu
+#### Connected Components Sonuç Görseli
 
----
+![Connected Components Küçük Graf](images/smallconncomp_run.png)
 
-### 5.3 Test Sonuçları Özeti
 
-| Test Senaryosu | Sonuç | Süre | Notlar |
-|----------------|-------|------|--------|
-| BFS - Küçük Graf (5 düğüm) | ✅ Başarılı | placeholder | Tüm düğümler ziyaret edildi |
-| BFS - Orta Graf (20 düğüm) | ✅ Başarılı | placeholdre | Performans kabul edilebilir |
-| DFS - Küçük Graf | ✅ Başarılı | placeholder | Derinlemesine tarama doğru |
-| Dijkstra - En Kısa Yol | ✅ Başarılı | placeholder | Maliyet doğru hesaplandı |
-| A* - En Kısa Yol | ✅ Başarılı | placeholder | Dijkstra'dan daha hızlı |
-| Connected Components | ✅ Başarılı | placeholder | Tüm topluluklar bulundu |
-| Degree Centrality | ✅ Başarılı | placeholder | İlk 5 doğru sıralandı |
-| Welsh-Powell Renklendirme | ✅ Başarılı | placeholder | Optimal renk sayısı |
-| Dosya Kaydetme/Yükleme | ✅ Başarılı | - | Veri kaybı yok |
+#### Welsh-Powell Coloring Sonuç Görseli
 
----
+![Welsh-Powell Küçük Graf](images/smallwelshpowell_run.png)
 
-### 5.4 Ekran Görüntüleri
 
-**NOT:** Aşağıdaki ekran görüntüleri senin tarafından eklenmelidir. Her görüntü için açıklama ekle:
 
-1. **Ana Ekran ve Canvas Görüntüsü**
-   ```markdown
-   ![Ana Ekran](görsel yolu gelecek)
-   *Açıklama: Uygulamanın başlangıç ekranı*
-   ```
+## 3.2.2 Orta Ölçekli Graf Testleri (50-100 Düğüm)
 
-3. **BFS Algoritması Çalışırken**
-   ```markdown
-   ![BFS Algoritması](görsel yolu gelecek)
-   *Açıklama: BFS algoritması çalışırken görselleştirme*
-   ```
+### Test Grafı Özellikleri
 
-4. **Dijkstra En Kısa Yol**
-   ```markdown
-   ![Dijkstra](görsel yolu gelecek)
-   *Açıklama: Dijkstra algoritması ile bulunan en kısa yol*
-   ```
+- **Düğüm Sayısı**: [75]
+- **Kenar Sayısı**: [90]
+ 
+### Pathfinding Algoritmaları Sonuçları
 
-5. **Degree Centrality Sonuçları**
-   ```markdown
-   ![Degree Centrality](görsel yolu gelecek)
-   *Açıklama: Degree Centrality analiz sonuçları*
-   ```
+| Algoritma | Başlangıç Düğümü | Hedef Düğümü | Çalışma Süresi (ms) | Çalışma Süresi (Ticks) | Ziyaret Edilen Düğüm Sayısı | Bulunan Yol Uzunluğu | Toplam Maliyet |
+|-----------|------------------|--------------|---------------------|------------------------|----------------------------|----------------------|----------------|
+| BFS       | [1]              | [75]         | [0.0851ms]             | [851]                 | [75]                       | -                    | -              |
+| DFS       | [1]              | [75]         | [0.0753]             | [753]                   | [75]                       | -                    | -              |
+| Dijkstra  | [1]              | [75]         | [0.4182ms]             | [4182]                | [61]                       | [10]                  | [85.18]        |
+| A*        | [1]              | [75]         | [0.1394ms]             | [1394]                | [60]                       | [10]                  | [85.18]        |
 
-6. **Connected Components Sonuçları**
-   ```markdown
-   ![Connected Components](görsel yolu gelecek)
-   *Açıklama: Ayrık toplulukların tespiti*
-   ```
+#### BFS Algoritması Sonuç Görseli
 
-7. **Welsh-Powell Renklendirme**
-   ```markdown
-   ![Welsh-Powell](görsel yolu gelecek)
-   *Açıklama: Welsh-Powell algoritması ile renklendirilmiş graf*
-   ```
+![BFS Orta Graf](images/mediumbfs_run.png)
 
-8. **CSV Yükleme/Kaydetme**
-   ```markdown
-   ![Dosya İşlemleri](görsel yolu gelecek)
-   *Açıklama: Graf verilerinin CSV formatında kaydedilmesi*
-   ```
+**Açıklama**: Orta ölçekli grafta BFS algoritması tüm düğümleri tarafı.
+
+#### DFS Algoritması Sonuç Görseli
+
+![DFS Orta Graf](images/mediumdfs_run.png)
+
+**Açıklama**: DFS algoritması derinlik öncelikli arama yaparak tüm düğümleri ziyaret etti.
+
+#### Dijkstra Algoritması Sonuç Görseli
+
+![Dijkstra Orta Graf](images/mediumdijkstra_run.png)
+
+**Açıklama**: Dijkstra algoritması en kısa yolu buldu. Mor renkli yol gösterilmiştir.
+
+#### A* Algoritması Sonuç Görseli
+
+![A* Orta Graf](images/mediumastar_run.png)
+
+**Açıklama**: A* ve Dijkstra algoritmaları aynı optimal yolu buldu. Heuristic fonksiyonu 0 olarak ayarlandığı için her iki algoritma da optimal sonuç verdi. A* algoritması closed set kullanarak daha verimli çalıştı ve 60 düğüm ziyaret ederken, Dijkstra 61 düğüm ziyaret etti. Her iki algoritma da aynı maliyeti hesapladı ( 85.18) ve 10 düğümlü  yolu buldu.
+
+### Analiz Algoritmaları Sonuçları
+
+| Algoritma | Çalışma Süresi (ms) | Çalışma Süresi (Ticks) | Sonuç |
+|-----------|---------------------|------------------------|-------|
+| Degree Centrality | [0.123ms] | [1231] | En etkşli 5 kullanıcı |
+| Connected Components | [0.094ms] | [941] | Toplam ayrık topluluk bulundu |
+| Welsh-Powell Coloring | [0.275ms] | [2745] | 1 topluluk, toplam 3 renk kullanıldı |
+
+#### Degree Centrality Sonuç Görseli
+
+![Degree Centrality Orta Graf](images/mediumdegcent_run.png)
+
+
+
+#### Connected Components Sonuç Görseli
+
+![Connected Components Orta Graf](images/mediumconncomp_run.png)
+
+
+
+#### Welsh-Powell Coloring Sonuç Görseli
+
+![Welsh-Powell Orta Graf](images/mediumwelshpowell_run.png)
+
 
 ---
+
+
+
+
+
 
 ## 6. Sonuç ve Tartışma
 
@@ -1284,65 +1250,40 @@ flowchart TD
 
 ### 6.2 Sınırlılıklar
 
-⚠️ **Graf Boyutu:** Çok büyük graflarda (1000+ düğüm) performans düşebilir. Görselleştirme karmaşık hale gelebilir.
+⚠️ **Görselleştirme:** Çok fazla düğüm olduğunda ekranda karmaşa oluşabiliyor
 
-⚠️ **Görselleştirme:** Çok fazla düğüm olduğunda ekranda karmaşa oluşabilir. Zoom in/out özelliği yok.
+⚠️ **Hata Yönetimi:** Dha fazla zaman harcanırsa sistem daha hatasız ve optimize hale getirilebilri
 
-⚠️ **Algoritma Optimizasyonu:** Dijkstra algoritması basit implementasyon kullanıyor (O(V²)). Priority Queue ile optimize edilebilir (O((V+E)log V)).
-
-⚠️ **Hata Yönetimi:** Bazı edge case'lerde (örneğin boş graf, geçersiz dosya formatı) hata mesajları geliştirilebilir.
-
-⚠️ **Veri Doğrulama:** CSV yükleme sırasında veri formatı kontrolü artırılabilir. Geçersiz veri için daha detaylı hata mesajları verilebilir.
-
-⚠️ **Algoritma Parametreleri:** Algoritmalar için kullanıcı tarafından ayarlanabilir parametreler yok (örneğin delay süresi, renk seçenekleri).
+⚠️ **Algoritma Parametreleri:** Algoritmalar için kullanıcı tarafından ayarlanabilir parametreler eklenebilir şuan sadece koddan ayarlanıyor (örneğin delay süresi, renk seçenekleri).
 
 ### 6.3 Olası Geliştirmeler
 
-🔮 **Yeni Algoritmalar:**
+🔮 **Yeni Algoritmalar Eklenebilir:**
 - Bellman-Ford algoritması (negatif ağırlıklı kenarlar için)
 - Floyd-Warshall algoritması (tüm çiftler arası en kısa yol)
-- Prim/Kruskal minimum spanning tree algoritmaları
-- PageRank algoritması (sosyal ağ analizi için)
-- Betweenness Centrality
-- Closeness Centrality
+
 
 🔮 **Performans İyileştirmeleri:**
-- Priority Queue kullanarak Dijkstra optimizasyonu
-- Büyük graflar için lazy loading
 - Multi-threading ile paralel hesaplama
 - Algoritma sonuçlarını cache'leme
 
 🔮 **Görselleştirme İyileştirmeleri:**
 - Zoom in/out özelliği
-- Pan (kaydırma) özelliği
-- Düğüm etiketlerini göster/gizle
-- Farklı görselleştirme modları (force-directed layout, hierarchical layout)
-- Animasyon hızını ayarlama
+- kaydırma özelliği
+- Animasyon hızını ayarlama (delay)
 
-🔮 **Analiz Özellikleri:**
-- Clustering Coefficient hesaplama
-- Community Detection algoritmaları (Louvain, Girvan-Newman)
-- Graph metrics (diameter, radius, center)
-- Centrality karşılaştırması
-
-🔮 **Dosya Formatları:**
-- JSON formatı desteği
-- GraphML formatı desteği
-- GEXF formatı desteği (Gephi uyumluluğu)
-- Import/Export seçenekleri
+🔮 **Dosya Formatları Artırılabilir:**
+- + JSON formatı desteği
 
 🔮 **Kullanıcı Deneyimi:**
-- Undo/Redo özelliği
-- Klavye kısayolları
-- Algoritma parametrelerini ayarlama (delay, renkler)
+- Gerş alma özelliği eklenebilir
+- Klavye kısayolları ekleneiblir
 - Sonuçları export etme (PDF, Excel, PNG)
 - Algoritma karşılaştırma modu
-- Batch processing (birden fazla graf analizi)
 
-🔮 **Eğitim Özellikleri:**
+🔮 **Kullanıcı Bilgilendirme:**
 - Algoritma adımlarını detaylı açıklama
-- İnteraktif tutorial
-- Algoritma karşılaştırma grafikleri
+- Tutorial eklenebilir
 - Performans analiz raporları
 
 ---
@@ -1351,9 +1292,9 @@ flowchart TD
 
 ### 7.1 Kullanılan Teknolojiler
 
-- **.NET 10.0:** Framework versiyonu
+- **.NET 10.0:** Framework 
 - **Windows Forms:** GUI framework
-- **C#:** Programlama dili
+- **C#:** dil
 - **System.Drawing:** Görselleştirme için
 - **System.Collections.Generic:** Veri yapıları için
 
@@ -1405,63 +1346,13 @@ Bu formül, iki düğüm arasındaki benzerlik farkına göre ağırlık hesapla
 - **Abstraction:** Interface ve Abstract Class kullanımı
 - **Dependency Inversion:** Üst seviye modüller abstraction'lara bağımlı
 
----
+--
 
-## 8. Kullanım Kılavuzu
 
-### 8.1 Graf Oluşturma
 
-1. **Düğüm Ekleme:** Çizim panelinde boş bir alana sol tıklayın
-2. **Kenar Ekleme:** İlk düğüme sol tıklayın, sonra ikinci düğüme sol tıklayın
-3. **Düğüm Düzenleme:** Düğüme sol tıklayarak seçin, sağ panelden bilgileri düzenleyin
-4. **Graf Düzenleme:** "Düzenle" butonuna tıklayarak düğümleri dairesel düzende yerleştirin
+##  Kullanılan Dosya Formatları
 
-### 8.2 Algoritma Çalıştırma
-
-#### BFS/DFS:
-1. Başlangıç düğümünü seçin (sol tıklayın)
-2. İlgili butona tıklayın (BFS veya DFS)
-3. Algoritma animasyonlu şekilde çalışacaktır
-
-#### Dijkstra/A*:
-1. Başlangıç düğümünü sol tıklayarak seçin
-2. Hedef düğümü sağ tıklayarak seçin
-3. İlgili butona tıklayın
-4. En kısa yol görselleştirilecektir
-
-### 8.3 Analiz Yapma
-
-1. **Degree Centrality:** "Merkezilik" butonuna tıklayın
-2. **Connected Components:** "Ayrık Topluluk Bul" butonuna tıklayın
-3. **Welsh-Powell Renklendirme:** İlgili butona tıklayın
-4. Sonuçlar pop-up pencerede gösterilecektir
-
-### 8.4 Dosya İşlemleri
-
-1. **Yükleme:** "CSV Yükle" butonuna tıklayın ve dosyayı seçin
-2. **Kaydetme:** "Kaydet" butonuna tıklayın, format seçin (CSV veya Matris)
-
----
-
-## 9. Referanslar
-
-1. Moore, E. F. (1959). "The shortest path through a maze". Proceedings of the International Symposium on the Theory of Switching.
-
-2. Tarjan, R. (1972). "Depth-first search and linear graph algorithms". SIAM Journal on Computing.
-
-3. Dijkstra, E. W. (1959). "A note on two problems in connexion with graphs". Numerische Mathematik.
-
-4. Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). "A Formal Basis for the Heuristic Determination of Minimum Cost Paths". IEEE Transactions on Systems Science and Cybernetics.
-
-5. Freeman, L. C. (1979). "Centrality in social networks conceptual clarification". Social Networks.
-
-6. Welsh, D. J. A., & Powell, M. B. (1967). "An upper bound for the chromatic number of a graph and its application to timetabling problems". The Computer Journal.
-
----
-
-## 10. Ekler
-
-### Ek A: Örnek CSV Formatı
+### :  CSV Formatı
 
 ```csv
 Id;Name;Activity;Interaction;ConnectionCount;Neighbors;X;Y
@@ -1472,7 +1363,7 @@ Id;Name;Activity;Interaction;ConnectionCount;Neighbors;X;Y
 5;User5;0.70;28;6;3;400.1;200.2
 ```
 
-### Ek B: Komşuluk Matrisi Formatı
+### Komşuluk Matrisi Formatı
 
 ```
 Nodes;1;2;3;4;5
