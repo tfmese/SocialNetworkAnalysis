@@ -648,5 +648,405 @@ graph TB
     A2 -->|extends| AN3
     
     I3 -->|implements| F1
+### 4.3 Sistem Mimarisi
+
+```mermaid
+graph TB
+    subgraph "Kullanıcı Arayüzü Katmanı"
+        UI[Form1 - Windows Forms]
+    end
+    
+    subgraph "İş Mantığı Katmanı"
+        FACADE[Algorithms - Facade Pattern]
+    end
+    
+    subgraph "Algoritma Katmanı"
+        PATH[Pathfinding Algorithms<br/>BFS, DFS, Dijkstra, A*]
+        ANALYZE[Analysis Algorithms<br/>Centrality, Components, Coloring]
+    end
+    
+    subgraph "Veri Yapıları Katmanı"
+        GRAPH[Graph]
+        NODE[Node]
+        EDGE[Edge]
+    end
+    
+    subgraph "Dosya İşlemleri Katmanı"
+        FILE[FileManager]
+    end
+    
+    UI --> FACADE
+    FACADE --> PATH
+    FACADE --> ANALYZE
+    PATH --> GRAPH
+    ANALYZE --> GRAPH
+    GRAPH --> NODE
+    GRAPH --> EDGE
+    UI --> FILE
+    FILE --> GRAPH
+```
+
+### 4.4 Sequence Diyagramı - Algoritma Çalıştırma
+
+```mermaid
+sequenceDiagram
+    participant User as Kullanıcı
+    participant Form1 as Form1
+    participant Algorithms as Algorithms Facade
+    participant Interface as IGraphAlgorithm
+    participant Algo as Concrete Algorithm
+    participant Graph as Graph
+    participant Panel as Drawing Panel
+    
+    User->>Form1: Butona Tıkla (BFS/DFS/Dijkstra/A*)
+    Form1->>Algorithms: RunBFS/RunDFS/RunDijkstra/RunAStar()
+    Algorithms->>Interface: ExecuteAsync()
+    Interface->>Algo: ExecuteAsync() (Polymorphism)
+    Algo->>Graph: GetNeighbors()
+    Graph-->>Algo: Neighbors List
+    Algo->>Algo: Algoritma Mantığı
+    Algo->>Panel: Invalidate() (Görselleştirme)
+    Algo->>Form1: Update Time Label
+    Form1-->>User: Sonuç Göster
+```
+
+### 4.5 State Diyagramı - Graf Durumları
+
+```mermaid
+stateDiagram-v2
+    [*] --> BoşGraf: Uygulama Başlat
+    
+    BoşGraf --> DüğümEkleme: Kullanıcı Tıklar
+    DüğümEkleme --> GrafOluşturuldu: Düğüm Eklendi
+    
+    GrafOluşturuldu --> KenarEkleme: İki Düğüm Seçildi
+    KenarEkleme --> GrafOluşturuldu: Kenar Eklendi
+    
+    GrafOluşturuldu --> AlgoritmaÇalışıyor: Algoritma Başlatıldı
+    AlgoritmaÇalışıyor --> GrafOluşturuldu: Algoritma Bitti
+    
+    GrafOluşturuldu --> AnalizYapılıyor: Analiz Başlatıldı
+    AnalizYapılıyor --> GrafOluşturuldu: Analiz Bitti
+    
+    GrafOluşturuldu --> DosyaKaydediliyor: Kaydet Butonu
+    DosyaKaydediliyor --> GrafOluşturuldu: Dosya Kaydedildi
+    
+    GrafOluşturuldu --> DosyaYükleniyor: Yükle Butonu
+    DosyaYükleniyor --> GrafOluşturuldu: Dosya Yüklendi
+    
+    GrafOluşturuldu --> BoşGraf: Reset Butonu
+```
+
+### 4.6 Veri Akış Diyagramı
+
+```mermaid
+flowchart LR
+    subgraph "Girdi"
+        CSV[CSV Dosyası]
+        MOUSE[Mouse Etkileşimi]
+    end
+    
+    subgraph "İşleme"
+        LOAD[FileManager<br/>Yükleme]
+        CREATE[Graf Oluşturma]
+        ALGO[Algoritma İşleme]
+        ANALYZE[Analiz İşleme]
+    end
+    
+    subgraph "Veri Yapısı"
+        GRAPH[(Graph)]
+        NODES[(Nodes)]
+        EDGES[(Edges)]
+    end
+    
+    subgraph "Çıktı"
+        VISUAL[Görselleştirme]
+        RESULT[Sonuç Tabloları]
+        FILEOUT[Kaydedilmiş Dosya]
+    end
+    
+    CSV --> LOAD
+    MOUSE --> CREATE
+    LOAD --> GRAPH
+    CREATE --> GRAPH
+    GRAPH --> NODES
+    GRAPH --> EDGES
+    GRAPH --> ALGO
+    GRAPH --> ANALYZE
+    ALGO --> VISUAL
+    ANALYZE --> RESULT
+    GRAPH --> FILEOUT
+```
+
+### 4.7 Modül Yapısı ve İşlevleri
+
+Proje, modüler bir mimari kullanılarak organize edilmiştir. Her modül kendi sorumluluğuna odaklanarak kodun bakımını ve genişletilebilirliğini kolaylaştırmaktadır.
+
+#### 4.7.1 Models Modülü (Veri Yapıları)
+
+**Graph.cs**
+- Graf veri yapısını temsil eder
+- Düğüm ve kenar listelerini tutar (`List<Node> Nodes`, `List<Edge> Edges`)
+- Düğüm ekleme metodu: `AddNode(Node node)`
+- Kenar ekleme metodu: `AddEdge(Node source, Node target)` - self-loop kontrolü yapar
+- Namespace: `ProjectYazLab.Models`
+
+**Node.cs**
+- Graf düğümlerini temsil eder
+- Temel özellikler:
+  - `Id`: Düğüm kimliği
+  - `Name`: Düğüm adı
+  - `X`, `Y`: Koordinat bilgileri (görselleştirme için)
+- Sosyal ağ özellikleri:
+  - `Activity`: Aktiflik değeri
+  - `Interaction`: Etkileşim değeri
+  - `ConnectionCount`: Bağlantı sayısı
+- Görselleştirme özellikleri:
+  - `CurrentColor`: Düğümün mevcut rengi (varsayılan: Mavi)
+  - `Visited`: Ziyaret durumu (algoritmalar için)
+
+**Edge.cs**
+- Graf kenarlarını temsil eder
+- Özellikler:
+  - `Source`: Kaynak düğüm
+  - `Target`: Hedef düğüm
+  - `Weight`: Kenar ağırlığı (otomatik hesaplanır)
+  - `Color`: Görselleştirme rengi (varsayılan: Siyah)
+  - `Thickness`: Çizgi kalınlığı (varsayılan: 2)
+- Ağırlık hesaplama metodu: `CalculateWeight()`
+- Formül: `Weight = 1 + √[(Activity_i - Activity_j)² + (Interaction_i - Interaction_j)² + (ConnectionCount_i - ConnectionCount_j)²]`
+- Ağırlık, düğümler arasındaki benzerlik farkına göre hesaplanır
+
+**ColoringResult.cs**
+- Welsh-Powell renklendirme algoritmasının sonuçlarını tutan veri yapısı
+- Özellikler:
+  - `Component`: Renklendirilen topluluk (düğüm listesi)
+  - `NodeColors`: Her düğümün atanan renk indeksini tutan dictionary (`Dictionary<Node, int>`)
+  - `ColorCount`: Toplulukta kullanılan toplam renk sayısı
+- Her ayrık topluluk için ayrı bir `ColoringResult` nesnesi oluşturulur
+- Renklendirme sonuçlarının görselleştirilmesi ve raporlanması için kullanılır
+
+#### 4.7.2 Interfaces Modülü (Arayüzler)
+
+**IGraphAlgorithm.cs**
+- Pathfinding algoritmaları için arayüz
+- Metod: `Task ExecuteAsync(Graph graph, Node startNode, Node endNode, Panel drawingPanel, Label timeLabel)`
+- Tüm pathfinding algoritmaları (BFS, DFS, Dijkstra, A*) bu arayüzü implement eder
+- Asenkron çalışma desteği sağlar
+
+**IGraphAnalyzer.cs**
+- Graf analiz algoritmaları için arayüz
+- Metod: `void Analyze(Graph graph, object resultContainer)`
+- Analiz algoritmaları (Degree Centrality, Connected Components, Welsh-Powell Coloring) bu arayüzü implement eder
+- Sonuçlar `resultContainer` parametresi üzerinden döndürülür
+
+**IFileHandler.cs**
+- Dosya işlemleri için arayüz
+- Metodlar:
+  - `Graph LoadGraphFromCSV(string filePath, int maxWidth, int maxHeight)`: CSV'den graf yükleme
+  - `bool SaveGraphToCSV(Graph graph, string filePath)`: Grafi CSV formatında kaydetme
+  - `void SaveAdjacencyMatrix(Graph graph, string filePath)`: Komşuluk matrisi formatında kaydetme
+- Dosya işlemlerinin soyutlanmasını sağlar
+
+#### 4.7.3 AlgoModule Modülü (Algoritma Implementasyonları)
+
+**AbstractPathfindingAlgorithm.cs**
+- Pathfinding algoritmaları için abstract base class
+- Ortak fonksiyonellik sağlar:
+  - `GetNeighbors(Graph graph, Node node)`: Bir düğümün komşularını bulur (yönsüz graf için iki yönlü kontrol)
+  - `ResetGraph(Graph graph)`: Tüm düğümleri varsayılan duruma sıfırlar (Visited = false, CurrentColor = Blue)
+  - `FindEdge(Graph graph, Node source, Node target)`: İki düğüm arasındaki kenarı bulur
+  - `CalculateHeuristic(Node a, Node b)`: İki düğüm arası Öklid mesafesi hesaplar (A* algoritması için)
+- `IGraphAlgorithm` interface'ini implement eder
+- Namespace: `ProjectYazLab.AlgoModule`
+
+**BFSAlgorithm.cs**
+- Breadth-First Search (Genişlik Öncelikli Arama) algoritması
+- Queue (Kuyruk) veri yapısı kullanır (FIFO prensibi)
+- Başlangıç düğümünden itibaren tüm komşuları sırayla ziyaret eder
+- Halka halka (level by level) tarama yapar
+- Görselleştirme: Turuncu (ziyaret edilecek), Açık Yeşil (ziyaret edildi)
+
+**DFSAlgorithm.cs**
+- Depth-First Search (Derinlik Öncelikli Arama) algoritması
+- Stack (Yığın) veri yapısı kullanır (LIFO prensibi)
+- Bir düğümden başlayarak mümkün olduğunca derine iner, sonra geri döner (backtracking)
+- Görselleştirme: Turuncu renk ile ziyaret sırası gösterilir
+
+**DijkstraAlgorithm.cs**
+- En kısa yol bulma algoritması
+- Ağırlıklı graflarda başlangıç düğümünden hedef düğüme en kısa yolu bulur
+- Her düğüm için minimum mesafeyi hesaplar
+- Greedy yaklaşım kullanır
+- Görselleştirme: Bulunan yol Mor renkle gösterilir
+- Toplam maliyet bilgisi kullanıcıya gösterilir
+
+**AStarAlgorithm.cs**
+- A* (A-Star) pathfinding algoritması
+- Dijkstra'dan farklı olarak heuristic fonksiyon kullanır
+- Formül: `f(n) = g(n) + h(n)`
+  - `g(n)`: Başlangıçtan n düğümüne gerçek maliyet
+  - `h(n)`: n düğümünden hedefe tahmini mesafe (Öklid mesafesi)
+- Daha verimli yol bulma sağlar
+- Görselleştirme: Bulunan yol Mor renkle gösterilir
+
+**AbstractGraphAnalyzer.cs**
+- Graf analiz algoritmaları için abstract base class
+- Ortak fonksiyonellik:
+  - `GetNeighbors(Graph graph, Node node)`: Komşu düğümleri bulur
+  - `ResetGraph(Graph graph)`: Grafi sıfırlar
+- `IGraphAnalyzer` interface'ini implement eder
+
+**DegreeCentralityAnalyzer.cs**
+- Degree Centrality (Derece Merkezilik) analizi
+- Her düğümün bağlantı sayısını (degree) hesaplar
+- En yüksek dereceli 5 düğümü listeler
+- Merkezilik skoru: `Score = Degree / (NodeCount - 1)`
+- Sonuçlar DataGridView'de gösterilir
+
+**ConnectedComponentsAnalyzer.cs**
+- Bağlı bileşenleri (Connected Components) bulma
+- BFS algoritması kullanarak ayrık toplulukları tespit eder
+- Her topluluk için düğüm listesi döndürür
+- Sonuç: `List<List<Node>>` formatında
+
+**WelshPowellColoringAnalyzer.cs**
+- Welsh-Powell graf renklendirme algoritması
+- Her ayrık topluluk için ayrı ayrı renklendirme yapar
+- Algoritma adımları:
+  1. Düğümleri derecelerine göre azalan sırada sıralar
+  2. Her düğüm için komşularında kullanılmayan en küçük rengi atar
+  3. Minimum renk sayısı ile renklendirme yapar
+- 20 farklı renk paleti kullanır
+- Sonuç: `List<ColoringResult>` formatında döner
+- Her topluluk için renk sayısı ve düğüm-renk eşleşmeleri tutulur
+
+#### 4.7.4 Services Modülü (Servis Sınıfları)
+
+**FileManager.cs**
+- Dosya işlemlerini yöneten servis sınıfı
+- `IFileHandler` interface'ini implement eder
+- Fonksiyonellik:
+  - **CSV Yükleme**: CSV dosyasından graf verilerini okur, Node ve Edge nesneleri oluşturur
+    - Koordinat bilgisi yoksa rastgele koordinat atar
+    - Komşuluk bilgilerini parse ederek kenarları oluşturur
+  - **CSV Kaydetme**: Graf verilerini CSV formatında kaydeder
+    - Tüm düğüm bilgileri ve komşuluk ilişkileri kaydedilir
+  - **Komşuluk Matrisi Kaydetme**: Grafı komşuluk matrisi formatında kaydeder
+    - 0/1 matrisi olarak kaydedilir (bağlı: 1, bağlı değil: 0)
+- Namespace: `ProjectYazLab.Services`
+
+**Algorithms.cs**
+- Algoritma koordinatörü (Facade Pattern)
+- Tüm algoritmaları merkezi olarak yönetir
+- Interface'ler üzerinden çalışır (polimorfizm)
+- Algoritma örnekleri constructor'da oluşturulur:
+  - Pathfinding: BFS, DFS, Dijkstra, A*
+  - Analiz: Degree Centrality, Connected Components, Welsh-Powell Coloring
+- Metodlar:
+  - `RunBFS()`, `RunDFS()`, `RunDijkstra()`, `RunAStar()`: Pathfinding algoritmaları
+  - `CalculateDegreeCentrality()`: Merkezilik analizi
+  - `GetConnectedComponents()`: Bağlı bileşenleri bulma
+  - `RunWelshPowellColoring()`: Renklendirme algoritması (süre ölçümü dahil)
+- Kullanıcı arayüzünden tek bir noktadan tüm algoritmalara erişim sağlar
+- Namespace: `ProjectYazLab.Services`
+
+#### 4.7.5 Kullanıcı Arayüzü Modülü
+
+**Form1.cs**
+- Ana form ve kullanıcı etkileşimleri
+- Graf çizimi ve görselleştirme (Panel üzerinde)
+- Mouse event'leri:
+  - Sol tık: Düğüm seçme/ekleme, kenar oluşturma
+  - Sağ tık: Hedef düğüm belirleme
+  - Kenar tıklama: Kenar silme
+- Algoritma çalıştırma butonları:
+  - BFS, DFS, Dijkstra, A* pathfinding algoritmaları
+  - Degree Centrality analizi
+  - Connected Components analizi
+  - Welsh-Powell Coloring algoritması
+- Graf yönetimi:
+  - CSV dosyası yükleme/kaydetme
+  - Komşuluk matrisi kaydetme
+  - Düğüm düzenleme/silme
+  - Graf sıfırlama
+  - Düğümleri çember etrafına yerleştirme
+- Görselleştirme:
+  - Düğümler: Renkli daireler
+  - Kenarlar: Ağırlık bilgisi ile çizgiler
+  - Algoritma animasyonları: Adım adım renk değişimleri
+- Namespace: `ProjectYazLab`
+
+#### 4.7.6 Modül İlişkileri ve Bağımlılıklar
+
+```
+Form1.cs
+  ├── Models (Graph, Node, Edge, ColoringResult)
+  ├── Services (Algorithms, FileManager)
+  └── Interfaces (IFileHandler)
+
+Services/Algorithms.cs
+  ├── AlgoModule (Tüm algoritma implementasyonları)
+  ├── Interfaces (IGraphAlgorithm, IGraphAnalyzer)
+  └── Models (Graph, Node, ColoringResult)
+
+Services/FileManager.cs
+  ├── Interfaces (IFileHandler)
+  └── Models (Graph, Node, Edge)
+
+AlgoModule/*
+  ├── Interfaces (IGraphAlgorithm, IGraphAnalyzer)
+  └── Models (Graph, Node, Edge, ColoringResult)
+```
+
+#### 4.7.7 Tasarım Desenleri
+
+1. **Facade Pattern**: `Algorithms.cs` sınıfı, tüm algoritma karmaşıklığını gizleyerek basit bir arayüz sunar
+2. **Strategy Pattern**: Interface'ler üzerinden farklı algoritma stratejileri uygulanır
+3. **Template Method Pattern**: Abstract sınıflar (`AbstractPathfindingAlgorithm`, `AbstractGraphAnalyzer`) ortak algoritma iskeletini tanımlar
+4. **Polymorphism**: Interface'ler sayesinde farklı algoritma implementasyonları aynı şekilde kullanılabilir
+
+#### 4.7.8 Modüler Yapının Avantajları
+
+- **Bakım Kolaylığı**: Her modül kendi sorumluluğuna odaklanır
+- **Genişletilebilirlik**: Yeni algoritma eklemek için sadece ilgili modüle yeni class eklemek yeterlidir
+- **Test Edilebilirlik**: Her modül bağımsız olarak test edilebilir
+- **Kod Tekrarının Önlenmesi**: Abstract sınıflar ortak fonksiyonelliği sağlar
+- **Separation of Concerns**: Veri yapıları, iş mantığı ve kullanıcı arayüzü ayrılmıştır
+
+### 4.8 İş Akış Diyagramı
+
+```mermaid
+flowchart TD
+    A[Uygulama Başlat] --> B{Ne yapmak istiyorsun?}
+    B -->|Graf Oluştur| C[Boş alana tıkla - Düğüm ekle]
+    B -->|Graf Yükle| D[CSV Yükle butonuna tıkla]
+    B -->|Algoritma Çalıştır| E[Algoritma seç]
+    
+    C --> F[İki düğüme tıkla - Kenar ekle]
+    F --> G[Graf hazır]
+    
+    D --> H[CSV dosyası seç]
+    H --> I[Graf yüklendi]
+    
+    E --> J{Algoritma türü?}
+    J -->|BFS/DFS| K[Başlangıç düğümü seç]
+    J -->|Dijkstra/A*| L[Başlangıç ve hedef düğüm seç]
+    J -->|Analiz| M[Analiz butonuna tıkla]
+    
+    K --> N[Algoritma çalıştır]
+    L --> N
+    M --> N
+    
+    N --> O[Sonuçları göster]
+    O --> P[Performans ölçümü]
+    P --> Q[Görselleştirme]
+    
+    G --> E
+    I --> E
+```
+
+---
+
 ```
 
