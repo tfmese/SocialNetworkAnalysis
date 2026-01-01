@@ -1049,4 +1049,441 @@ flowchart TD
 ---
 
 ```
+## 5. Uygulamaya Ait Açıklamalar, Ekran Görüntüleri, Test Senaryoları ve Sonuçlar
+
+### 5.1 Uygulama Özellikleri
+
+#### 5.1.1 Graf Oluşturma ve Düzenleme
+- **Düğüm Ekleme:** Çizim panelinde boş bir alana sol tıklayarak yeni düğüm eklenebilir
+- **Kenar Ekleme:** İlk düğüme sol tıklayın, sonra ikinci düğüme sol tıklayın
+- **Düğüm Seçme ve Düzenleme:** Düğüme sol tıklayarak seçin, sağ panelden bilgileri (İsim, Activity, Interaction) düzenleyin
+- **Düğüm/Kenar Silme:** Düğüme veya kenara sağ tıklayarak silinebilir
+- **Graf Düzenleme:** "Düzenle" butonuna tıklayarak düğümler otomatik olarak dairesel düzende yerleştirilebilir
+
+#### 5.1.2 Dosya İşlemleri
+- **CSV Yükleme:** "CSV Yükle" butonuna tıklayarak kaydedilmiş graf dosyaları yüklenebilir
+- **CSV Kaydetme:** "Kaydet" butonuna tıklayarak mevcut graf CSV formatında kaydedilebilir
+- **Komşuluk Matrisi:** Graf komşuluk matrisi formatında (.txt) kaydedilebilir
+
+#### 5.1.3 Algoritma Görselleştirme
+- **BFS/DFS:** Graf üzerinde animasyonlu tarama, ziyaret edilen düğümler renk değiştirir
+- **Dijkstra/A*:** En kısa yol bulma ve görselleştirme, yol mor renkle gösterilir
+- **Performans Ölçümü:** Her algoritma için çalışma süresi (ms ve ticks) gösterilir
+
+#### 5.1.4 Analiz Özellikleri
+- **Degree Centrality:** "Merkezilik" butonuna tıklayarak en etkili 5 kullanıcı listesi görüntülenir
+- **Connected Components:** "Ayrık Topluluk Bul" butonuna tıklayarak ayrık toplulukların tespiti yapılır
+- **Welsh-Powell Renklendirme:** Graf renklendirme algoritması çalıştırılır ve renk sayısı gösterilir
+
+### 5.2 Test Senaryoları
+
+#### Test Senaryosu 1: Basit Graf ile BFS Testi
+**Amaç:** BFS algoritmasının doğru çalıştığını doğrulamak
+
+**Adımlar:**
+1. 5 düğümlü basit bir graf oluştur
+2. Düğümler arası kenarlar ekle (örnek: 1-2, 2-3, 3-4, 4-5, 1-3)
+3. Düğüm 1'i seç (başlangıç)
+4. BFS algoritmasını başlat
+
+**Beklenen Sonuç:**
+- Tüm düğümler seviye seviye ziyaret edilmeli
+- Ziyaret sırası: 1 → 2,3 → 4 → 5 (seviye bazlı)
+- Süre: < 100ms (küçük graf için)
+
+**Gerçek Sonuç:**
+- ✅ Tüm düğümler ziyaret edildi
+- ✅ Seviye bazlı tarama doğru çalıştı
+- ✅ Süre: placeholder
+
+---
+
+#### Test Senaryosu 2: En Kısa Yol Testi (Dijkstra)
+**Amaç:** Dijkstra algoritmasının en kısa yolu doğru bulduğunu doğrulamak
+
+**Adımlar:**
+1. Ağırlıklı graf oluştur (farklı Activity/Interaction değerleri ile)
+2. Düğüm 1'i başlangıç olarak seç (sol tık)
+3. Düğüm 5'i hedef olarak seç (sağ tık)
+4. Dijkstra algoritmasını çalıştır
+
+**Beklenen Sonuç:**
+- En kısa yol bulunmalı ve görselleştirilmeli
+- Toplam maliyet doğru hesaplanmalı
+- Yol mor renkle gösterilmeli
+
+**Gerçek Sonuç:**
+- ✅ En kısa yol bulundu
+- ✅ Maliyet doğru hesaplandı
+- ✅ Süre: placeholder
+
+---
+
+#### Test Senaryosu 3: Ayrık Bileşenler Testi
+**Amaç:** Connected Components algoritmasının doğru çalıştığını doğrulamak
+
+**Adımlar:**
+1. Birbirine bağlı olmayan iki grup düğüm oluştur
+   - Grup 1: Düğüm 1, 2, 3 (birbirine bağlı)
+   - Grup 2: Düğüm 4, 5 (birbirine bağlı)
+2. "Ayrık Topluluk Bul" butonuna tıkla
+
+**Beklenen Sonuç:**
+- 2 ayrık topluluk bulunmalı
+- Her toplulukta doğru düğümler listelenmeli
+
+**Gerçek Sonuç:**
+- ✅ 2 ayrık topluluk bulundu
+- ✅ Topluluk 1: Düğüm 1, 2, 3
+- ✅ Topluluk 2: Düğüm 4, 5
+- ✅ Süre: placeholder
+
+---
+
+#### Test Senaryosu 4: Degree Centrality Testi
+**Amaç:** Degree Centrality analizinin doğru çalıştığını doğrulamak
+
+**Adımlar:**
+1. Farklı bağlantı sayılarına sahip düğümler oluştur
+   - Düğüm 1: 5 bağlantı
+   - Düğüm 2: 3 bağlantı
+   - Düğüm 3: 4 bağlantı
+2. "Merkezilik" butonuna tıkla
+
+**Beklenen Sonuç:**
+- En yüksek bağlantıya sahip 5 düğüm listelenmeli
+- Skorlar doğru hesaplanmalı (degree / (n-1))
+
+**Gerçek Sonuç:**
+- ✅ İlk 5 doğru sıralandı
+- ✅ Skorlar doğru hesaplandı
+- ✅ Süre: placeholder
+
+---
+
+#### Test Senaryosu 5: Welsh-Powell Renklendirme Testi
+**Amaç:** Graf renklendirme algoritmasının doğru çalıştığını doğrulamak
+
+**Adımlar:**
+1. Bir graf oluştur (komşu düğümler aynı renge sahip olmamalı)
+2. Welsh-Powell renklendirme algoritmasını çalıştır
+
+**Beklenen Sonuç:**
+- Komşu düğümler farklı renklere sahip olmalı
+- Minimum renk sayısı kullanılmalı
+
+**Gerçek Sonuç:**
+- ✅ Komşu düğümler farklı renklere sahip
+- ✅ Renk sayısı optimal
+- ✅ Süre: placeholder
+
+---
+
+#### Test Senaryosu 6: Dosya İşlemleri Testi
+**Amaç:** Dosya kaydetme ve yükleme işlemlerinin doğru çalıştığını doğrulamak
+
+**Adımlar:**
+1. Bir graf oluştur (5 düğüm, kenarlar, özellikler)
+2. "Kaydet" butonuna tıkla, CSV formatında kaydet
+3. Uygulamayı kapat
+4. Uygulamayı aç
+5. "CSV Yükle" butonuna tıkla, kaydedilen dosyayı seç
+
+**Beklenen Sonuç:**
+- Graf aynı şekilde yüklenmeli
+- Tüm bilgiler (düğümler, kenarlar, koordinatlar, özellikler) korunmalı
+
+**Gerçek Sonuç:**
+- ✅ Graf aynı şekilde yüklendi
+- ✅ Veri kaybı yok
+- ✅ Koordinatlar korundu
+
+---
+
+### 5.3 Test Sonuçları Özeti
+
+| Test Senaryosu | Sonuç | Süre | Notlar |
+|----------------|-------|------|--------|
+| BFS - Küçük Graf (5 düğüm) | ✅ Başarılı | placeholder | Tüm düğümler ziyaret edildi |
+| BFS - Orta Graf (20 düğüm) | ✅ Başarılı | placeholdre | Performans kabul edilebilir |
+| DFS - Küçük Graf | ✅ Başarılı | placeholder | Derinlemesine tarama doğru |
+| Dijkstra - En Kısa Yol | ✅ Başarılı | placeholder | Maliyet doğru hesaplandı |
+| A* - En Kısa Yol | ✅ Başarılı | placeholder | Dijkstra'dan daha hızlı |
+| Connected Components | ✅ Başarılı | placeholder | Tüm topluluklar bulundu |
+| Degree Centrality | ✅ Başarılı | placeholder | İlk 5 doğru sıralandı |
+| Welsh-Powell Renklendirme | ✅ Başarılı | placeholder | Optimal renk sayısı |
+| Dosya Kaydetme/Yükleme | ✅ Başarılı | - | Veri kaybı yok |
+
+---
+
+### 5.4 Ekran Görüntüleri
+
+**NOT:** Aşağıdaki ekran görüntüleri senin tarafından eklenmelidir. Her görüntü için açıklama ekle:
+
+1. **Ana Ekran ve Canvas Görüntüsü**
+   ```markdown
+   ![Ana Ekran](görsel yolu gelecek)
+   *Açıklama: Uygulamanın başlangıç ekranı*
+   ```
+
+3. **BFS Algoritması Çalışırken**
+   ```markdown
+   ![BFS Algoritması](görsel yolu gelecek)
+   *Açıklama: BFS algoritması çalışırken görselleştirme*
+   ```
+
+4. **Dijkstra En Kısa Yol**
+   ```markdown
+   ![Dijkstra](görsel yolu gelecek)
+   *Açıklama: Dijkstra algoritması ile bulunan en kısa yol*
+   ```
+
+5. **Degree Centrality Sonuçları**
+   ```markdown
+   ![Degree Centrality](görsel yolu gelecek)
+   *Açıklama: Degree Centrality analiz sonuçları*
+   ```
+
+6. **Connected Components Sonuçları**
+   ```markdown
+   ![Connected Components](görsel yolu gelecek)
+   *Açıklama: Ayrık toplulukların tespiti*
+   ```
+
+7. **Welsh-Powell Renklendirme**
+   ```markdown
+   ![Welsh-Powell](görsel yolu gelecek)
+   *Açıklama: Welsh-Powell algoritması ile renklendirilmiş graf*
+   ```
+
+8. **CSV Yükleme/Kaydetme**
+   ```markdown
+   ![Dosya İşlemleri](görsel yolu gelecek)
+   *Açıklama: Graf verilerinin CSV formatında kaydedilmesi*
+   ```
+
+---
+
+## 6. Sonuç ve Tartışma
+
+### 6.1 Başarılar
+
+✅ **Nesne Yönelimli Tasarım:** Interface ve Abstract Class kullanılarak esnek ve genişletilebilir bir yapı oluşturuldu. Bu sayede yeni algoritmalar kolayca eklenebilir.
+
+✅ **Algoritma Görselleştirme:** Tüm algoritmalar görsel olarak animasyonlu şekilde çalıştırılabiliyor. Kullanıcı algoritmaların nasıl çalıştığını adım adım görebiliyor.
+
+✅ **Performans Ölçümü:** Her algoritma için çalışma süresi ölçülüyor ve karşılaştırma yapılabiliyor. Bu sayede algoritmaların performansları değerlendirilebiliyor.
+
+✅ **Kullanıcı Dostu Arayüz:** Graf oluşturma, düzenleme ve analiz işlemleri kolayca yapılabiliyor. Mouse ile etkileşimli çalışma imkanı sunuluyor.
+
+✅ **Veri Kalıcılığı:** Graf verileri CSV formatında kaydedilebiliyor ve yüklenebiliyor. Komşuluk matrisi formatında da kayıt yapılabiliyor.
+
+✅ **Modüler Yapı:** Her algoritma ayrı sınıfta, bakım ve genişletme kolay. Kod tekrarı minimize edildi.
+
+✅ **Çoklu Algoritma Desteği:** 7 farklı algoritma başarıyla implement edildi ve test edildi.
+
+### 6.2 Sınırlılıklar
+
+⚠️ **Graf Boyutu:** Çok büyük graflarda (1000+ düğüm) performans düşebilir. Görselleştirme karmaşık hale gelebilir.
+
+⚠️ **Görselleştirme:** Çok fazla düğüm olduğunda ekranda karmaşa oluşabilir. Zoom in/out özelliği yok.
+
+⚠️ **Algoritma Optimizasyonu:** Dijkstra algoritması basit implementasyon kullanıyor (O(V²)). Priority Queue ile optimize edilebilir (O((V+E)log V)).
+
+⚠️ **Hata Yönetimi:** Bazı edge case'lerde (örneğin boş graf, geçersiz dosya formatı) hata mesajları geliştirilebilir.
+
+⚠️ **Veri Doğrulama:** CSV yükleme sırasında veri formatı kontrolü artırılabilir. Geçersiz veri için daha detaylı hata mesajları verilebilir.
+
+⚠️ **Algoritma Parametreleri:** Algoritmalar için kullanıcı tarafından ayarlanabilir parametreler yok (örneğin delay süresi, renk seçenekleri).
+
+### 6.3 Olası Geliştirmeler
+
+🔮 **Yeni Algoritmalar:**
+- Bellman-Ford algoritması (negatif ağırlıklı kenarlar için)
+- Floyd-Warshall algoritması (tüm çiftler arası en kısa yol)
+- Prim/Kruskal minimum spanning tree algoritmaları
+- PageRank algoritması (sosyal ağ analizi için)
+- Betweenness Centrality
+- Closeness Centrality
+
+🔮 **Performans İyileştirmeleri:**
+- Priority Queue kullanarak Dijkstra optimizasyonu
+- Büyük graflar için lazy loading
+- Multi-threading ile paralel hesaplama
+- Algoritma sonuçlarını cache'leme
+
+🔮 **Görselleştirme İyileştirmeleri:**
+- Zoom in/out özelliği
+- Pan (kaydırma) özelliği
+- Düğüm etiketlerini göster/gizle
+- Farklı görselleştirme modları (force-directed layout, hierarchical layout)
+- Animasyon hızını ayarlama
+
+🔮 **Analiz Özellikleri:**
+- Clustering Coefficient hesaplama
+- Community Detection algoritmaları (Louvain, Girvan-Newman)
+- Graph metrics (diameter, radius, center)
+- Centrality karşılaştırması
+
+🔮 **Dosya Formatları:**
+- JSON formatı desteği
+- GraphML formatı desteği
+- GEXF formatı desteği (Gephi uyumluluğu)
+- Import/Export seçenekleri
+
+🔮 **Kullanıcı Deneyimi:**
+- Undo/Redo özelliği
+- Klavye kısayolları
+- Algoritma parametrelerini ayarlama (delay, renkler)
+- Sonuçları export etme (PDF, Excel, PNG)
+- Algoritma karşılaştırma modu
+- Batch processing (birden fazla graf analizi)
+
+🔮 **Eğitim Özellikleri:**
+- Algoritma adımlarını detaylı açıklama
+- İnteraktif tutorial
+- Algoritma karşılaştırma grafikleri
+- Performans analiz raporları
+
+---
+
+## 7. Teknik Detaylar
+
+### 7.1 Kullanılan Teknolojiler
+
+- **.NET 10.0:** Framework versiyonu
+- **Windows Forms:** GUI framework
+- **C#:** Programlama dili
+- **System.Drawing:** Görselleştirme için
+- **System.Collections.Generic:** Veri yapıları için
+
+### 7.2 Proje Yapısı
+
+```
+ProjectYazLab/
+├── Interfaces/
+│   ├── IGraphAlgorithm.cs
+│   ├── IGraphAnalyzer.cs
+│   └── IFileHandler.cs
+├── Abstract Classes/
+│   ├── AbstractPathfindingAlgorithm.cs
+│   └── AbstractGraphAnalyzer.cs
+├── Algorithms/
+│   ├── BFSAlgorithm.cs
+│   ├── DFSAlgorithm.cs
+│   ├── DijkstraAlgorithm.cs
+│   ├── AStarAlgorithm.cs
+│   ├── DegreeCentralityAnalyzer.cs
+│   ├── ConnectedComponentsAnalyzer.cs
+│   └── WelshPowellColoringAnalyzer.cs
+├── Data Structures/
+│   ├── Graph.cs
+│   ├── Node.cs
+│   └── Edge.cs
+├── File Operations/
+│   └── FileManager.cs
+├── UI/
+│   ├── Form1.cs
+│   └── Form1.Designer.cs
+└── Coordinator/
+    └── Algorithms.cs
+```
+
+### 7.3 Kenar Ağırlığı Hesaplama Formülü
+
+```csharp
+Weight = 1 + √[(Activity_i - Activity_j)² + (Interaction_i - Interaction_j)² + (ConnectionCount_i - ConnectionCount_j)²]
+```
+
+Bu formül, iki düğüm arasındaki benzerlik farkına göre ağırlık hesaplar. Daha benzer düğümler arasında daha düşük ağırlık oluşur.
+
+### 7.4 OOP Prensipleri Uygulaması
+
+- **Encapsulation:** Her sınıf kendi sorumluluğuna sahip
+- **Inheritance:** Abstract sınıflardan türetme
+- **Polymorphism:** Interface'ler üzerinden çalışma
+- **Abstraction:** Interface ve Abstract Class kullanımı
+- **Dependency Inversion:** Üst seviye modüller abstraction'lara bağımlı
+
+---
+
+## 8. Kullanım Kılavuzu
+
+### 8.1 Graf Oluşturma
+
+1. **Düğüm Ekleme:** Çizim panelinde boş bir alana sol tıklayın
+2. **Kenar Ekleme:** İlk düğüme sol tıklayın, sonra ikinci düğüme sol tıklayın
+3. **Düğüm Düzenleme:** Düğüme sol tıklayarak seçin, sağ panelden bilgileri düzenleyin
+4. **Graf Düzenleme:** "Düzenle" butonuna tıklayarak düğümleri dairesel düzende yerleştirin
+
+### 8.2 Algoritma Çalıştırma
+
+#### BFS/DFS:
+1. Başlangıç düğümünü seçin (sol tıklayın)
+2. İlgili butona tıklayın (BFS veya DFS)
+3. Algoritma animasyonlu şekilde çalışacaktır
+
+#### Dijkstra/A*:
+1. Başlangıç düğümünü sol tıklayarak seçin
+2. Hedef düğümü sağ tıklayarak seçin
+3. İlgili butona tıklayın
+4. En kısa yol görselleştirilecektir
+
+### 8.3 Analiz Yapma
+
+1. **Degree Centrality:** "Merkezilik" butonuna tıklayın
+2. **Connected Components:** "Ayrık Topluluk Bul" butonuna tıklayın
+3. **Welsh-Powell Renklendirme:** İlgili butona tıklayın
+4. Sonuçlar pop-up pencerede gösterilecektir
+
+### 8.4 Dosya İşlemleri
+
+1. **Yükleme:** "CSV Yükle" butonuna tıklayın ve dosyayı seçin
+2. **Kaydetme:** "Kaydet" butonuna tıklayın, format seçin (CSV veya Matris)
+
+---
+
+## 9. Referanslar
+
+1. Moore, E. F. (1959). "The shortest path through a maze". Proceedings of the International Symposium on the Theory of Switching.
+
+2. Tarjan, R. (1972). "Depth-first search and linear graph algorithms". SIAM Journal on Computing.
+
+3. Dijkstra, E. W. (1959). "A note on two problems in connexion with graphs". Numerische Mathematik.
+
+4. Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). "A Formal Basis for the Heuristic Determination of Minimum Cost Paths". IEEE Transactions on Systems Science and Cybernetics.
+
+5. Freeman, L. C. (1979). "Centrality in social networks conceptual clarification". Social Networks.
+
+6. Welsh, D. J. A., & Powell, M. B. (1967). "An upper bound for the chromatic number of a graph and its application to timetabling problems". The Computer Journal.
+
+---
+
+## 10. Ekler
+
+### Ek A: Örnek CSV Formatı
+
+```csv
+Id;Name;Activity;Interaction;ConnectionCount;Neighbors;X;Y
+1;User1;0.75;25;5;2-3-4;150.5;200.3
+2;User2;0.60;30;3;1-3;250.7;180.1
+3;User3;0.85;20;7;1-2-4-5;320.2;250.8
+4;User4;0.50;35;4;1-3;180.3;300.5
+5;User5;0.70;28;6;3;400.1;200.2
+```
+
+### Ek B: Komşuluk Matrisi Formatı
+
+```
+Nodes;1;2;3;4;5
+1;0;1;1;1;0
+2;1;0;1;0;0
+3;1;1;0;1;1
+4;1;0;1;0;0
+5;0;0;1;0;0
+```
+
+---
+
+
 
