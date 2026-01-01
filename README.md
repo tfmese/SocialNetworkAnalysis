@@ -1113,7 +1113,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### BFS Algoritması Sonuç Görseli
 
-![BFS Küçük Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/smallbfs_run.png?raw=true)
+![BFS Küçük Graf](https://raw.githubusercontent.com/tfmese/SocialNetworkAnalysis/main/images/smallbfs_run.png)
 
 **Açıklama**: BFS algoritması başlangıç düğümünden  başlayarak tüm komşuları sırayla ziyaret etti. Ziyaret edilen düğümler açık yeşil renkle gösterildi.
 
