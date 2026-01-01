@@ -1222,7 +1222,7 @@ Bu bölümde, küçük ölçekli (10-20 düğüm) ve orta ölçekli (50-100 dü�
 
 #### Welsh-Powell Coloring Sonuç Görseli
 
-![Welsh-Powell Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumwelspowell_run.png?raw=true)
+![Welsh-Powell Orta Graf](https://github.com/tfmese/SocialNetworkAnalysis/blob/master/images/mediumwelshpowell_run.png?raw=true)
 
 
 ---
