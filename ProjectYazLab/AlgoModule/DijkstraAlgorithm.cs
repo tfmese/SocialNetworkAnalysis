@@ -33,6 +33,7 @@ namespace ProjectYazLab.AlgoModule
             }
 
             distances[startNode] = 0;
+            int visitedCount = 0;
 
             while (unvisited.Count > 0)
             {
@@ -40,6 +41,7 @@ namespace ProjectYazLab.AlgoModule
                 unvisited.Sort((x, y) => distances[x].CompareTo(distances[y]));
                 var currentNode = unvisited[0];
                 unvisited.Remove(currentNode);
+                visitedCount++;
 
                 if (currentNode == endNode || distances[currentNode] == double.MaxValue)
                 {
@@ -118,7 +120,8 @@ namespace ProjectYazLab.AlgoModule
 
             // maliyet
             double totalCost = distances[endNode];
-            MessageBox.Show($"En Kısa Yol Bulundu!\nToplam Maliyet: {totalCost:0.00}");
+            int pathLength = path.Count;
+            MessageBox.Show($"En Kısa Yol Bulundu!\nToplam Maliyet: {totalCost:0.00}\nZiyaret Edilen Düğüm Sayısı: {visitedCount}\nYol Uzunluğu (Düğüm): {pathLength}");
         }
     }
 }

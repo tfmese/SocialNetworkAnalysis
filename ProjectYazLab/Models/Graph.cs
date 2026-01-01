@@ -19,7 +19,15 @@ namespace ProjectYazLab.Models
             //self-loop engelle
             if (source == target) return;
 
-            Edges.Add(new Edge(source, target));
+            // Duplicate edge kontrolü - aynı kenar zaten varsa ekleme
+            bool edgeExists = Edges.Exists(e =>
+                (e.Source == source && e.Target == target) ||
+                (e.Source == target && e.Target == source));
+
+            if (!edgeExists)
+            {
+                Edges.Add(new Edge(source, target));
+            }
         }
     }
 }

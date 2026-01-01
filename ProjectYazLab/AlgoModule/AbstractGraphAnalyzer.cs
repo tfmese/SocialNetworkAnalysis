@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using ProjectYazLab.Interfaces;
 using ProjectYazLab.Models;
 
@@ -10,7 +11,7 @@ namespace ProjectYazLab.AlgoModule
     public abstract class AbstractGraphAnalyzer : IGraphAnalyzer
     {
         // Her analiz algoritması bunu kendi şekilde yazacak
-        public abstract void Analyze(Graph graph, object resultContainer);
+        public abstract void Analyze(Graph graph, object resultContainer, Label timeLabel = null);
 
         // Komşu düğümleri bulma - analiz algoritmaları da kullanıyor
         protected List<Node> GetNeighbors(Graph graph, Node node)
@@ -31,7 +32,6 @@ namespace ProjectYazLab.AlgoModule
             return neighbors;
         }
 
-        // Grafı sıfırlama
         protected void ResetGraph(Graph graph)
         {
             foreach (var node in graph.Nodes)

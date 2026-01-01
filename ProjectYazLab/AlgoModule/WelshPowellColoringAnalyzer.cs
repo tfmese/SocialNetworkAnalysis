@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using ProjectYazLab.Models;
 
 namespace ProjectYazLab.AlgoModule
@@ -35,16 +37,19 @@ namespace ProjectYazLab.AlgoModule
             Color.Salmon
         };
 
-        public override void Analyze(Graph graph, object resultContainer)
+        public override void Analyze(Graph graph, object resultContainer, Label timeLabel = null)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             ResetGraph(graph);
 
-            // Önce ayrık toplulukları bul
+            //  ayrık toplulukları bul
             ConnectedComponentsAnalyzer componentsAnalyzer = new ConnectedComponentsAnalyzer();
             List<List<Node>> components = new List<List<Node>>();
-            componentsAnalyzer.Analyze(graph, components);
+            componentsAnalyzer.Analyze(graph, components, null); // Welsh-Powell içinde süre ölçümü yapılmaz, sadece toplulukları bulur
 
-            // Her topluluk için renklendirme yap
+            // her topluluk için renklendirme yap
             Dictionary<Node, int> nodeToColor = new Dictionary<Node, int>();
             List<ColoringResult> coloringResults = new List<ColoringResult>();
 
@@ -53,7 +58,7 @@ namespace ProjectYazLab.AlgoModule
                 ColoringResult result = ColorComponent(graph, component);
                 coloringResults.Add(result);
 
-                // Düğümleri renklendir
+                // düğümleri renklendir
                 foreach (var node in component)
                 {
                     if (result.NodeColors.ContainsKey(node))
@@ -64,11 +69,17 @@ namespace ProjectYazLab.AlgoModule
                 }
             }
 
-            // Sonuçları resultContainer'a yaz
+            // sonuçları resultContainer'a yaz
             if (resultContainer is List<ColoringResult> resultList)
             {
                 resultList.Clear();
                 resultList.AddRange(coloringResults);
+            }
+
+            stopwatch.Stop();
+            if (timeLabel != null)
+            {
+                timeLabel.Text = $"Welsh-Powell Süresi: {stopwatch.Elapsed.TotalMilliseconds:F3} ms ({stopwatch.ElapsedTicks} Ticks)";
             }
         }
 
@@ -85,13 +96,13 @@ namespace ProjectYazLab.AlgoModule
             if (component.Count == 0)
                 return result;
 
-            // 1. Düğümleri derecelerine göre azalan sırada sırala
+            //  Düğümleri derecelerine göre azalan sırada sırala
             List<Node> sortedNodes = component.OrderByDescending(node => GetDegree(graph, node)).ToList();
 
-            // 2. Her düğüm için renklendirme yap
+            //  Her düğüm için renklendirme 
             foreach (var node in sortedNodes)
             {
-                // Komşularında kullanılan renkleri bul
+                // Komşularında kullanılan renkleri bulur
                 HashSet<int> usedColors = new HashSet<int>();
                 List<Node> neighbors = GetNeighbors(graph, node);
 
@@ -103,17 +114,17 @@ namespace ProjectYazLab.AlgoModule
                     }
                 }
 
-                // Kullanılmayan en küçük rengi bul
+                // kullanılmayan en küçük rengi bul
                 int colorIndex = 0;
                 while (usedColors.Contains(colorIndex))
                 {
                     colorIndex++;
                 }
 
-                // Düğüme rengi ata
+                // düğüme rengi ata
                 result.NodeColors[node] = colorIndex;
 
-                // Kullanılan renk sayısını güncelle
+                // kullanılan renk sayısını güncelle
                 if (colorIndex >= result.ColorCount)
                 {
                     result.ColorCount = colorIndex + 1;
@@ -123,7 +134,7 @@ namespace ProjectYazLab.AlgoModule
             return result;
         }
 
-        // Bir düğümün derecesini hesapla (komşu sayısı)
+        //düğümün derecesini hesapla 
         private int GetDegree(Graph graph, Node node)
         {
             return GetNeighbors(graph, node).Count;

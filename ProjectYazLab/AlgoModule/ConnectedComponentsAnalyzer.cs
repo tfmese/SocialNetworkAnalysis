@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 using ProjectYazLab.Models;
 
 namespace ProjectYazLab.AlgoModule
 {
     // Bağlı bileşenleri bulan sınıf
-    // AbstractGraphAnalyzer'dan türetiyorum
+    // AbstractGraphAnalyzer'dan türetiyoruzz
     public class ConnectedComponentsAnalyzer : AbstractGraphAnalyzer
     {
-        public override void Analyze(Graph graph, object resultContainer)
+        public override void Analyze(Graph graph, object resultContainer, Label timeLabel = null)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             ResetGraph(graph);
 
             List<List<Node>> components = new List<List<Node>>();
@@ -18,7 +23,7 @@ namespace ProjectYazLab.AlgoModule
             {
                 if (!node.Visited)
                 {
-                    // Yeni bir bileşen buldum
+                    
                     List<Node> newComponent = new List<Node>();
                     Queue<Node> queue = new Queue<Node>();
 
@@ -26,8 +31,7 @@ namespace ProjectYazLab.AlgoModule
                     queue.Enqueue(node);
                     newComponent.Add(node);
 
-                    // BFS ile bu bileşendeki tüm düğümleri buluyorum
-                    while (queue.Count > 0)
+                     while (queue.Count > 0)
                     {
                         Node current = queue.Dequeue();
                         List<Node> neighbors = GetNeighbors(graph, current);
@@ -47,11 +51,17 @@ namespace ProjectYazLab.AlgoModule
                 }
             }
 
-            // Sonuçları resultContainer'a yazıyorum
+            // Sonuçları resultContainer'a yazıyoruz
             if (resultContainer is List<List<Node>> resultList)
             {
                 resultList.Clear();
                 resultList.AddRange(components);
+            }
+
+            stopwatch.Stop();
+            if (timeLabel != null)
+            {
+                timeLabel.Text = $"Connected Components Süresi: {stopwatch.Elapsed.TotalMilliseconds:F3} ms ({stopwatch.ElapsedTicks} Ticks)";
             }
         }
     }

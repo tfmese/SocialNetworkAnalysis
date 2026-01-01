@@ -51,6 +51,7 @@ namespace ProjectYazLab.AlgoModule
             }
 
             stopwatch.Stop();
+            int visitedCount = visitOrder.Count;
             timeLabel.Text = ($"DFS Süresi: {stopwatch.Elapsed.TotalMilliseconds} ms ({stopwatch.ElapsedTicks} Ticks)");
             
             foreach (var node in visitOrder)
@@ -60,7 +61,7 @@ namespace ProjectYazLab.AlgoModule
                 await Task.Delay(500);
             }
 
-            MessageBox.Show("DFS Taraması Tamamlandı!");
+            MessageBox.Show($"DFS Taraması Tamamlandı!\nZiyaret Edilen Düğüm Sayısı: {visitedCount}\nYol Uzunluğu: N/A (Tarama algoritması)");
         }
     }
 }

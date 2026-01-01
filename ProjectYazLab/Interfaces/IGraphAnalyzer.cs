@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using ProjectYazLab.Models;
 
 namespace ProjectYazLab.Interfaces
@@ -6,7 +7,7 @@ namespace ProjectYazLab.Interfaces
     public interface IGraphAnalyzer
     {
         // Graf analizi yapan metod
-        void Analyze(Graph graph, object resultContainer);
+        void Analyze(Graph graph, object resultContainer, Label timeLabel = null);
     }
 }
 

@@ -10,7 +10,7 @@ using ProjectYazLab.Models;
 namespace ProjectYazLab.AlgoModule
 {
     // Abstract class yaptım çünkü ortak metodları buraya koydum
-    // Böylece her algoritmada aynı kodu tekrar yazmaya gerek kalmadı
+    // her algoritmada aynı kodu tekrar yazmaya gerek kalmadı
     public abstract class AbstractPathfindingAlgorithm : IGraphAlgorithm
     {
         // Bu metodu her algoritma kendi şekilde yazacak
@@ -36,17 +36,17 @@ namespace ProjectYazLab.AlgoModule
             return neighbors;
         }
 
-        // Grafı sıfırlama metodu - her algoritma başlamadan önce kullanıyor
+        // Grafı sıfırlama metodu, her algoritma başlamadan önce kullanıyor
         protected void ResetGraph(Graph graph)
         {
             foreach (var node in graph.Nodes)
             {
                 node.Visited = false;
-                node.CurrentColor = Color.Blue; // Varsayılan mavi renk
+                node.CurrentColor = Color.Blue;
             }
         }
 
-        // İki düğüm arasındaki kenarı bulma
+        // İki düğüm arasındakiedge i bulma
         protected Edge FindEdge(Graph graph, Node source, Node target)
         {
             return graph.Edges.FirstOrDefault(e =>
@@ -54,11 +54,19 @@ namespace ProjectYazLab.AlgoModule
                 (e.Source == target && e.Target == source));
         }
 
-        // Heuristic hesaplama (A* algoritması için kullanılıyor)
-        // İki nokta arası mesafe hesaplıyor
+        // Heuristic hesaplama A* algoritması için 
+        // NOT: Edge weight'ler Activity/Interaction/ConnectionCount farklarına göre hesaplandığı için
+        // Öklid mesafesi (koordinat bazlı) admissible değil. Bu yüzden 0 kullanıyoruz (optimal garanti)
+        // A* algoritması optimal sonuç vermesi için heuristic'in admissible olması gerekir
         protected double CalculateHeuristic(Node a, Node b)
         {
-            return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            // Heuristic = 0: A* = Dijkstra (optimal garanti)
+            // Edge weight'ler koordinat mesafesinden bağımsız hesaplandığı için
+            // koordinat bazlı heuristic kullanmak optimal olmayan sonuçlara yol açabilir
+            return 0;
+            
+            // Alternatif (optimal olmayabilir ama daha hızlı):
+            // return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
         }
     }
 }

@@ -21,7 +21,9 @@ namespace ProjectYazLab.AlgoModule
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
+            int visitedCount = 0;
             startNode.Visited = true;
+            visitedCount++;
             queueMeasure.Enqueue(startNode);
 
             while (queueMeasure.Count > 0)
@@ -34,6 +36,7 @@ namespace ProjectYazLab.AlgoModule
                     if (!neighbor.Visited)
                     {
                         neighbor.Visited = true;
+                        visitedCount++;
                         queueMeasure.Enqueue(neighbor);
                     }
                 }
@@ -76,7 +79,7 @@ namespace ProjectYazLab.AlgoModule
                 }
             }
 
-            MessageBox.Show("BFS Taraması Tamamlandı!");
+            MessageBox.Show($"BFS Taraması Tamamlandı!\nZiyaret Edilen Düğüm Sayısı: {visitedCount}\nYol Uzunluğu: N/A (Tarama algoritması)");
         }
     }
 }

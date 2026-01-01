@@ -513,10 +513,10 @@ namespace ProjectYazLab
             label_Duration.Text = "Hesaplanıyor...";
             ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
-            // Butonu pasif yap (çift tıklamayı önlemek için)
+            // Butonu pasif yapar (çift tıklamayı önlemek için)
             btn_AStar.Enabled = false;
 
-            // socialGraph: Senin ana graf değişkenin
+            // socialGraph ana graf değişkeni
             // startNode, endNode: Seçili düğümler
             await algo.RunAStar(socialGraph, startNode, endNode, pnlGraph, label_Duration);
 
@@ -543,7 +543,6 @@ namespace ProjectYazLab
                 }
                 else
                 {
-                    // İster madde 31: Komşuluk matrisi formatında kaydet
                     fileHandler.SaveAdjacencyMatrix(socialGraph, saveFileDialog.FileName);
                     MessageBox.Show("Matris başarıyla kaydedildi!");
                 }
@@ -558,28 +557,29 @@ namespace ProjectYazLab
                 return;
             }
 
-            // 1. Yeni Bir Pencere (Pop-up Form) Oluşturuyoruz
+            //  (Pop-up Form) Oluştur
             Form popupForm = new Form();
             popupForm.Text = "En Etkili 5 Kullanıcı (Degree Centrality)";
             popupForm.Size = new Size(500, 300);
-            popupForm.StartPosition = FormStartPosition.CenterParent; // Ana ekranın ortasında aç
+            popupForm.StartPosition = FormStartPosition.CenterParent; // ana ekranın ortasında aç
 
-            // 2. İçine Bir Tablo (DataGridView) Oluşturuyoruz
+            // İçine  (DataGridView) Oluştur
             DataGridView dgv = new DataGridView();
-            dgv.Dock = DockStyle.Fill; // Pencerenin tamamını kaplasın
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Sütunları yay
-            dgv.ReadOnly = true;       // Kullanıcı değiştiremesin
+            dgv.Dock = DockStyle.Fill; // pencerenin tamamını kaplasın
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // sütunları yay
+            dgv.ReadOnly = true;       // kullanıcı değiştiremesin
             dgv.AllowUserToAddRows = false; // Boş satır eklemesin
             dgv.RowHeadersVisible = false;  // Soldaki gri başlığı gizle
 
-            // 3. Tabloyu Pencereye Ekle
+            //  Tabloyu Pencereye Ekle
             popupForm.Controls.Add(dgv);
 
-            // 4. Algoritmayı çalıştır ve Tabloyu Doldur
+            // Algoritmayı çalıştır ve Tabloyu Doldur
+            label_Duration.Text = "Hesaplanıyor...";
             ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
-            algo.CalculateDegreeCentrality(socialGraph, dgv);
+            algo.CalculateDegreeCentrality(socialGraph, dgv, label_Duration);
 
-            // 5. Pencereyi Göster (ShowDialog: Kapatmadan arkaya geçilemez)
+            // Pencereyi Göster
             popupForm.ShowDialog();
         }
         private void btn_Components_Click(object sender, EventArgs e)
@@ -590,26 +590,27 @@ namespace ProjectYazLab
                 return;
             }
 
+            label_Duration.Text = "Hesaplanıyor...";
             ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
             // Algoritmayı çalıştır ve listeyi al
-            List<List<Node>> components = algo.GetConnectedComponents(socialGraph);
+            List<List<Node>> components = algo.GetConnectedComponents(socialGraph, label_Duration);
 
-            // --- SONUCU GÖSTERME (POP-UP) ---
+            // (POP-UP) 
             Form resultForm = new Form();
             resultForm.Text = $"Analiz Sonucu: {components.Count} Adet Ayrık Topluluk Bulundu";
             resultForm.Size = new Size(400, 400);
             resultForm.StartPosition = FormStartPosition.CenterParent;
 
-            // Sonuçları yazacağımız büyük metin kutusu
+            // sonuçları yazacağımız büyük metin kutusu
             RichTextBox rtb = new RichTextBox();
             rtb.Dock = DockStyle.Fill;
-            rtb.Font = new Font("Consolas", 10); // Düzgün hizalama için
+            rtb.Font = new Font("Consolas", 10); // düzgün hizalama için
             rtb.ReadOnly = true;
 
             resultForm.Controls.Add(rtb);
 
-            // Yazıları oluştur
+            // yazıları oluştur
             rtb.AppendText($"TOPLAM AYRIK TOPLULUK SAYISI: {components.Count}\n");
             rtb.AppendText("--------------------------------------------------\n\n");
 
@@ -618,7 +619,7 @@ namespace ProjectYazLab
                 rtb.AppendText($"TOPLULUK #{i + 1} (Kişi Sayısı: {components[i].Count})\n");
                 rtb.AppendText("- Üyeler: ");
 
-                // O topluluktaki kişilerin isimlerini yazdır
+                //  topluluktaki kişilerin isimlerini yazdır
                 List<string> names = new List<string>();
                 foreach (var node in components[i])
                 {
@@ -643,13 +644,13 @@ namespace ProjectYazLab
             label_Duration.Text = "Hesaplanıyor...";
             ProjectYazLab.Services.Algorithms algo = new ProjectYazLab.Services.Algorithms();
 
-            // Welsh-Powell renklendirme algoritmasını çalıştır
+            // Welsh-Powell  algo çalıştır
             List<ColoringResult> coloringResults = algo.RunWelshPowellColoring(socialGraph, label_Duration);
 
             // Grafi yeniden çiz
             pnlGraph.Invalidate();
 
-            // --- SONUCU GÖSTERME (POP-UP) ---
+            //  (POP-UP) 
             Form resultForm = new Form();
             resultForm.Text = $"Welsh-Powell Renklendirme Sonuçları - {coloringResults.Count} Topluluk";
             resultForm.Size = new Size(700, 500);
@@ -663,7 +664,6 @@ namespace ProjectYazLab
             dgv.AllowUserToAddRows = false;
             dgv.RowHeadersVisible = false;
 
-            // Sütunları oluştur
             dgv.Columns.Add("ToplulukNo", "Topluluk No");
             dgv.Columns.Add("DugumID", "Düğüm ID");
             dgv.Columns.Add("DugumAdi", "Düğüm Adı");
@@ -671,7 +671,6 @@ namespace ProjectYazLab
             dgv.Columns.Add("RenkAdi", "Renk Adı");
             dgv.Columns.Add("KullanilanRenkSayisi", "Toplam Renk Sayısı");
 
-            // Renk adları için palet
             string[] colorNames = new string[]
             {
                 "Kırmızı", "Yeşil", "Mavi", "Sarı", "Turuncu", "Mor", "Cyan", "Magenta",
@@ -679,10 +678,8 @@ namespace ProjectYazLab
                 "Turkuaz", "Menekşe", "Haki", "Somon"
             };
 
-            // Özet bilgi için string oluştur
             string summary = $"TOPLAM TOPLULUK SAYISI: {coloringResults.Count}\n\n";
             
-            // Her topluluk için verileri ekle
             for (int i = 0; i < coloringResults.Count; i++)
             {
                 var result = coloringResults[i];
@@ -725,14 +722,13 @@ namespace ProjectYazLab
                     isFirstRow = false;
                 }
 
-                // Topluluklar arası boş satır ekle
+                // Topluluklar arası boş satır 
                 if (i < coloringResults.Count - 1)
                 {
                     dgv.Rows.Add("", "", "", "", "", "");
                 }
             }
 
-            // Özet bilgiyi göster
             MessageBox.Show(summary, "Renklendirme Özeti", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             resultForm.Controls.Add(dgv);
@@ -743,7 +739,7 @@ namespace ProjectYazLab
         {
             foreach (var node in socialGraph.Nodes)
             {
-                // Eğer düğüm seçili değilse, rengini varsayılan maviye döndür
+                // eğer düğüm seçili değilse, rengini varsayılan maviye döndürür
                 if (node != selectedNode && node != startNode && node != endNode)
                 {
                     node.CurrentColor = Color.Blue;
